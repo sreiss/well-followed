@@ -105,7 +105,12 @@ gulp.task('cleanLib', function () {
     return del(libDestPaths);
 });
 
-gulp.task('bower', ['cleanLib'], function () {
+gulp.task('index', function() {
+    return gulp.src('client/src/index.html')
+        .pipe(gulp.dest('client/build'));
+});
+
+gulp.task('bower', ['cleanLib', 'index'], function () {
     var srcPaths = [];
 
     var jsPath = bowerConfig.js.dest;
