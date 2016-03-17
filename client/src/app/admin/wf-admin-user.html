@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <wf-loader ng-if="user === null"></wf-loader>
+        <div class="panel-heading" ng-if="user !== null && (!!user.firstName || !!user.lastName)">
+            <div class="panel-title">
+                {{user.firstName}} {{user.lastName}}
+            </div>
+        </div>
+        <form name="userForm" class="form-horizontal">
+            <div class="panel-body" ng-if="user !== null">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group has-feedback"
+                             ng-class="{'has-error': user.username.$invalid}">
+                            <label class="control-label col-md-5" for="firstName">Nom d'utilisateur</label>
+
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" ng-model="user.username" name="username" id="username"
+                                       required ng-disabled="!isNew" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group has-feedback"
+                             ng-class="{'has-error': user.firstName.$invalid}">
+                            <label class="control-label col-md-3" for="firstName">Prénom</label>
+
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="user.firstName" name="firstName" id="firstName"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="lastName">Nom</label>
+
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" ng-model="user.lastName" name="lastName" id="lastName"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer" ng-if="user !== null">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6 text-center">
+                        <!--<div class="btn-group btn-group-justified">-->
+                            <a class="btn btn-default" ui-sref="{{previousState}}" ng-if="previousState != ''">
+                                Retour
+                            </a>
+                            <a class="btn btn-primary" ng-click="createUser()" ng-if="!!isNew"
+                               ng-disabled="institutionForm.$invalid">
+                                Créer
+                            </a>
+                            <a class="btn btn-primary" ng-click="updateUser()" ng-if="!isNew"
+                               ng-disabled="institutionForm.$invalid">
+                                Sauvegarder
+                            </a>
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

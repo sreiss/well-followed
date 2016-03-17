@@ -1,0 +1,29 @@
+{
+  "name": "Institution",
+  "plural": "Institutions",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "tag": {
+      "type": "string",
+      "required": true
+    },
+    "typeId": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "institutionType": {
+      "type": "hasOne",
+      "model": "InstitutionType",
+      "foreignKey": "typeId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h4 class="modal-title text-center" ng-if="data.type == $parent.wfCrudTypes.create">Réserver un créneau</h4>
+    <h4 class="modal-title text-center" ng-if="data.type == $parent.wfCrudTypes.read">Évènement</h4>
+</div>
+<div ng-if="event !== null && event.cancelled">
+    <div class="bg-info text-info text-center">
+        <div class="container-fluid">
+            Évènement annulé.
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div ng-if="event !== null">
+        <form name="eventForm">
+            <wf-planning-event-form event="event" form="eventForm" read-only="data.type == $parent.wfCrudTypes.read || event.cancelled"></wf-planning-event-form>
+        </form>
+    </div>
+    <div>
+        <wf-loader ng-if="event === null"></wf-loader>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">
+        Fermer
+    </button>
+    <button class="btn btn-danger" ng-click="deleteEvent()"
+            ng-if="data.type == $parent.wfCrudTypes.read && event !== null && !event.cancelled">
+        Annuler
+    </button>
+    <button class="btn btn-primary" ng-click="createEvent()"
+            ng-if="data.type == $parent.wfCrudTypes.create && event !== null"
+            ng-disabled="eventForm.$invalid">
+        Réserver
+    </button>
+</div>

@@ -1,0 +1,43 @@
+{
+  "name": "WellFollowed",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node .",
+    "pretest": "jshint .",
+    "posttest": "nsp check"
+  },
+  "dependencies": {
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "helmet": "^0.14.0",
+    "loopback": "^2.22.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^2.1.0",
+    "loopback-datasource-juggler": "^2.39.0",
+    "serve-favicon": "^2.0.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.6",
+    "nsp": "^2.1.0",
+    "del": "^2.0.2",
+    "event-stream": "^3.3.1",
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^3.0.1",
+    "gulp-less": "^3.0.3",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-print": "^2.0.1",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-shell": "^0.4.3",
+    "gulp-uglify": "^1.4.1",
+    "main-bower-files": "^2.9.0"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "description": "WellFollowed"
+}

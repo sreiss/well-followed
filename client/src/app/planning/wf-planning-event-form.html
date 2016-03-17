@@ -1,0 +1,66 @@
+<div class="form-horizontal">
+        <div class="form-group has-feedback"
+             ng-class="{'has-error': eventForm.startDate.$invalid || eventForm.startTime.$invalid}">
+            <label class="control-label col-md-3">Date de début</label>
+            <div class="col-md-5">
+                <input type="date" class="form-control"
+                       name="startDate" ng-model="event.start"
+                       ng-disabled="readOnly"
+                       wf-format-date
+                       required>
+            </div>
+            <div class="col-md-4">
+                <input type="time" class="form-control"
+                       name="startTime" ng-model="event.start"
+                       wf-format-date
+                       ng-disabled="readOnly"
+                       required>
+            </div>
+            <div class="red form-error-message" ng-messages="eventForm.startDate.$error">
+                <span ng-message="required">Ce champ est requis</span>
+            </div>
+            <div class="red form-error-message" ng-messages="eventForm.startDate.$error"
+                    ng-if="eventForm.startDate.$valid">
+                <span ng-message="required">Ce champ est requis</span>
+            </div>
+        </div>
+
+        <div class="form-group has-feedback" ng-class="{'has-error': eventForm.end.$invalid}">
+            <label class="control-label col-md-3">Date de fin</label>
+            <div class="col-md-5">
+                <input type="date" class="form-control"
+                       name="endDate" ng-model="event.end"
+                       ng-disabled="readOnly"
+                       wf-format-date
+                       required>
+                </div>
+            <div class="col-md-4">
+                <input type="time" class="form-control"
+                       name="endTime" ng-model="event.end"
+                       wf-format-date
+                       ng-disabled="readOnly"
+                       required>
+            </div>
+            <div class="red form-error-message" ng-messages="eventForm.end.$error">
+                <span ng-message="required">Ce champ est requis</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Titre</label>
+            <div class="col-md-9">
+            <input type="text" class="form-control"
+                   name="title" ng-model="event.title"
+                   disabled required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Description <small>(Facultatif)</small></label>
+            <div class="col-md-9">
+            <textarea class="form-control" ng-model="event.description"
+                      ng-disabled="readOnly">
+
+            </textarea>
+            </div>
+        </div>
+</div>

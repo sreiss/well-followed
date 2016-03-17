@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "realmRequired": false,
+      "realmDelimiter": ":"
+    }
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "WfUser": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Event": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Experiment": {
+    "dataSource": "db",
+    "public": true
+  },
+  "InstitutionType": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Institution": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Sensor": {
+    "dataSource": "db",
+    "public": true
+  }
+}

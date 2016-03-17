@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <div ng-if="hasWsSession">
+        <div class="text-center">
+            <h1>Experience</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6" ng-repeat="sensor in sensors">
+                <wf-sensor-temperature sensor="sensor" style="display: block"></wf-sensor-temperature>
+            </div>
+        </div>
+    </div>
+</div>

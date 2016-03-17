@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">Utilisateurs</div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 5%">#</th>
+                <th style="width: 43%">Nom</th>
+                <th style="width: 42%">Prénom</th>
+                <th style="width: 10%"></th>
+            </tr>
+            </thead>
+            <tbody ng-if="users !== null">
+            <tr ng-repeat="u in users">
+                <td><a ui-sref="admin.user({username: '{{u.username}}'})">{{$index + 1}}</a></td>
+                <td><a ui-sref="admin.user({username: '{{u.username}}'})">{{u.lastName}}</a></td>
+                <td><a ui-sref="admin.user({username: '{{u.username}}'})">{{u.firstName}}</a></td>
+                <td>
+                    <button class="btn btn-link btn-link-danger" ng-click="deleteUser(u.username)">
+                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <wf-loader ng-if="users === null"></wf-loader>
+        </div>
+        <p class="text-center top-space" ng-if="users !== null && users.length == 0">
+            Aucun utilisateur n'a été crééé.
+        </p>
+
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-offset-5 col-md-2">
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-primary" ui-sref="admin.user">
+                            Créer un utilisateur
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

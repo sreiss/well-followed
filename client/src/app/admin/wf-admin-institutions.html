@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">Établissements</div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 5%">#</th>
+                <th style="width: 45%">Nom</th>
+                <th style="width: 40%">Type</th>
+                <th style="width: 10%"></th>
+            </tr>
+            </thead>
+            <tbody ng-if="institutions !== null">
+            <tr ng-repeat="i in institutions">
+                <td><a ui-sref="admin.institution({id: {{i.id}}})">{{$index + 1}}</a></td>
+                <td><a ui-sref="admin.institution({id: {{i.id}}})">{{i.tag}}</a></td>
+                <td><a ui-sref="admin.institutionType({id: {{i.type.id}}})">{{i.type.tag}}</a></td>
+                <td>
+                    <button class="btn btn-link btn-link-danger" ng-click="deleteInstitution(i.id)">
+                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <wf-loader ng-if="institutions === null"></wf-loader>
+        </div>
+        <p class="text-center top-space" ng-if="institutions !== null && institutions.length == 0">
+            Aucun établissement créé.
+        </p>
+
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-offset-5 col-md-2 text-center">
+                    <a class="btn btn-primary" ui-sref="admin.institution">
+                        Créer un établissement
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

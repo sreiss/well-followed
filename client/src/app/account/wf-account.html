@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                Mon compte
+            </div>
+        </div>
+        <form name="accountForm" class="form-horizontal">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="username">
+                                Login
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" ng-model="user.username" name="username" id="username" disabled="disabled"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="firstName">
+                                Prénom
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" ng-model="user.firstName" name="firstName" id="firstName"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="lastName">
+                                Nom
+                            </label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" ng-model="user.lastName" name="lastName" id="lastName"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer" ng-if="institutionType !== null">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6 text-center">
+                        <!--<div class="btn-group btn-group-justified">-->
+                        <a class="btn btn-default" ui-sref="{{previousState}}" ng-if="previousState != ''">
+                            Retour
+                        </a>
+                        <a class="btn btn-primary" ng-click="updateUser()" ng-disabled="accountForm.$invalid">
+                            Sauvegarder
+                        </a>
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

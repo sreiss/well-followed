@@ -1,0 +1,8 @@
+{
+  "db": {
+    "host": "localhost",
+    "database": "wellfollowed",
+    "name": "db",
+    "connector": "mongodb"
+  }
+}

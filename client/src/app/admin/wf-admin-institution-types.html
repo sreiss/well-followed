@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">Types d'établissement</div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 5%">#</th>
+                <th style="width: 85%">Nom</th>
+                <th style="width: 10%"></th>
+            </tr>
+            </thead>
+            <tbody ng-if="institutionTypes !== null">
+            <tr ng-repeat="it in institutionTypes">
+                <td><a ui-sref="admin.institutionType({id: {{it.id}}})">{{$index + 1}}</a></td>
+                <td><a ui-sref="admin.institutionType({id: {{it.id}}})">{{it.tag}}</a></td>
+                <td>
+                    <button class="btn btn-link btn-link-danger" ng-click="deleteInstitutionType(it.id)">
+                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <wf-loader ng-if="institutionTypes === null"></wf-loader>
+        </div>
+        <p class="text-center top-space" ng-if="institutionTypes !== null && institutionTypes.length == 0">
+            Aucun type d'établissement créé.
+        </p>
+
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-offset-5 col-md-2 text-center">
+                    <a class="btn btn-primary" ui-sref="admin.institutionType">
+                        Créer un type d'éts.
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+@import './variables.less';
+
+body {
+  background-color: @bg;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: @primary;
+}
+
+.navbar-default {
+  background-color: @navbar-bg;
+  border-color: @navbar-border;
+}
+
+.navbar-default .navbar-brand {
+  color: @light;
+  background: @brand-bg;
+  border-right: 2px solid @primary;
+  -webkit-transition: color 0.2s, background-color 0.4s;
+  transition: color 0.2s, background-color 0.4s;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: @light;
+  background: @primary;
+}
+
+.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-text {
+  color: @light;
+}
+
+
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+  color: darken(@light, 10%);
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+  background-color: @navbar-border;
+  color: @light;
+}
+
+.navbar-nav>li>a {
+  padding-bottom: 13px;
+  border-bottom: 2px solid transparent;
+  -webkit-transition: border 0.2s, color 0.2s;
+  transition: border 0.2s, color 0.2s;
+}
+
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+  border-color: @navbar-border;
+  background-color: @navbar-border;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: @navbar-border;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: @primary;
+}
+
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover {
+  color: @light;
+  background-color: @primary;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: @light;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: @light;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: darken(@light, 10%);
+  }
+}
+
+.panel-heading {
+  border-radius: 0;
+}
+
+.panel-default {
+  border-color: @navbar-bg;
+}
+
+.panel-default>.panel-heading {
+  color: @light;
+  background-color: @navbar-bg;
+}
+
+.panel {
+  min-height: 132px;
+  border-radius: 0;
+}
+
+.btn-link.btn-link-danger {
+  color: #a94442;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+  vertical-align: middle;
+}

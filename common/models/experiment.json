@@ -1,0 +1,43 @@
+{
+  "name": "Experiment",
+  "plural": "Experiments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "initiatorId": {
+      "type": "string",
+      "required": true
+    },
+    "eventId": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "event": {
+      "type": "hasOne",
+      "model": "Event",
+      "foreignKey": "eventId"
+    },
+    "allowedUsers": {
+      "type": "hasMany",
+      "model": "WfUser",
+      "foreignKey": "experimentId"
+    },
+    "initiator": {
+      "type": "hasOne",
+      "model": "WfUser",
+      "foreignKey": "experimentId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
