@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfPlanningEventModal', function($wfEvent) {
+angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event, WfUser) {
     return {
         restrict: 'E',
         templateUrl: 'planning/wf-planning-event-modal.html',
@@ -14,22 +14,27 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function($wfEve
             if (scope.data.type === scope.$parent.wfCrudTypes.create) {
                 scope.event = scope.data.event;
             } else {
-                $wfEvent.getEvent(scope.data.event.id)
-                    .then(function (result) {
-                        scope.event = result.data;
+                Event.get(scope.data.event.id)
+                    .then(function (event) {
+                        scope.event = event;
                     });
             }
 
             scope.createEvent = function() {
-                $wfEvent.createEvent(scope.event).then(function(result) {
-                    scope.close(result.data);
-                });
+                scope.event.userId = WfUser.getCurrentId();
+                Event.create(scope.event)
+                    .$promise
+                    .then(function(event) {
+                        scope.close(event);
+                    });
             };
 
             scope.deleteEvent = function() {
-                $wfEvent.deleteEvent(scope.event.id).then(function() {
-                    scope.close(scope.event);
-                });
+                Event.delete(scope.event.id)
+                    .$promise
+                    .then(function() {
+                        scope.close(event);
+                    });
             };
         }
     };

@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfPlanningCalendar', function($wfEvent, $wfModal, wfCrudTypes, wfResponseFormats, uiCalendarConfig) {
+angular.module('wellFollowed').directive('wfPlanningCalendar', function(Event, $wfModal, wfCrudTypes, wfResponseFormats, uiCalendarConfig) {
     return {
         restrict: 'E',
         templateUrl: 'planning/wf-planning-calendar.html',
@@ -20,9 +20,10 @@ angular.module('wellFollowed').directive('wfPlanningCalendar', function($wfEvent
                     format: wfResponseFormats.formatFull
                 };
 
-                $wfEvent.getEvents(filter)
-                    .success(function (result) {
-                        result.map(function(event) {
+                Event.find({filter: filter})
+                    .$promise
+                    .then(function (events) {
+                        events.map(function(event) {
                             if (event.cancelled) {
                                 $scope.cancelledEvents.events.push(event);
                             } else {
