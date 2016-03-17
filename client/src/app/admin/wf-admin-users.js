@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfAdminUsers', function ($wfUser, $wfModal) {
+angular.module('wellFollowed').directive('wfAdminUsers', function (WfUser, $wfModal) {
     return {
         restrict: 'E',
         templateUrl: 'admin/wf-admin-users.html',
@@ -8,21 +8,22 @@ angular.module('wellFollowed').directive('wfAdminUsers', function ($wfUser, $wfM
             scope.users = null;
 
             var refresh = function () {
-                $wfUser.getUsers()
-                    .then(function (response) {
-                        scope.users = response.data;
+                WfUser.find()
+                    .$promise
+                    .then(function (users) {
+                        scope.users = users;
                     });
             };
             refresh();
 
-            scope.deleteUser = function (username) {
+            scope.deleteUser = function (id) {
                 $wfModal.open({
                     scope: scope,
                     directiveName: 'wf-delete-modal'
                 })
                     .then(function () {
                         scope.users = null;
-                        return $wfUser.deleteUser(username);
+                        return WfUser.deleteById({id: id});
                     })
                     .then(function (response) {
                         wfApp.addSuccess("Utilisateur supprimé.");

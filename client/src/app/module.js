@@ -88,8 +88,8 @@ angular.module('wellFollowed', [
             template: '<wf-admin-users></wf-admin-users>'
         })
         .state('admin.user', {
-            url: '/utilisateur/:username',
-            template: function(params) { return '<wf-admin-user username="' + params.username + '"></wf-admin-user>'; }
+            url: '/utilisateur/:userId',
+            template: function(params) { return '<wf-admin-user user-id="' + params.userId + '"></wf-admin-user>'; }
         })
         .state('admin.institutionTypes', {
             url: '/types-d-etablissements',

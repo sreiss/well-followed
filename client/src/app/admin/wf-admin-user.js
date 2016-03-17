@@ -1,9 +1,9 @@
-angular.module('wellFollowed').directive('wfAdminUser', function($wfUser, $state) {
+angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state) {
     return {
         restrict: 'E',
         templateUrl: 'admin/wf-admin-user.html',
         scope: {
-            username: '@'
+            userId: '@'
         },
         require: '^wfApp',
         link: function(scope, element, attributes, wfApp) {
@@ -11,10 +11,11 @@ angular.module('wellFollowed').directive('wfAdminUser', function($wfUser, $state
             scope.isNew = false;
             scope.user = null;
 
-            if (!!scope.username) {
-                $wfUser.getUser(scope.username)
-                    .then(function (response) {
-                        scope.user = response.data;
+            if (!!scope.userId) {
+                WfUser.get({id: scope.userId})
+                    .$promise
+                    .then(function (user) {
+                        scope.user = user;
                         scope.isNew = false;
                     });
             } else {
@@ -23,7 +24,8 @@ angular.module('wellFollowed').directive('wfAdminUser', function($wfUser, $state
             }
 
             scope.createUser = function() {
-                $wfUser.createUser(scope.user)
+                WfUser.create(scope.user)
+                    .$promise
                     .then(function() {
                         wfApp.addSuccess("Utilisateur \"" + scope.user.username + "\" créé.");
                         $state.go('admin.users');
@@ -31,7 +33,8 @@ angular.module('wellFollowed').directive('wfAdminUser', function($wfUser, $state
             };
 
             scope.updateUser = function() {
-                $wfUser.updateUser(scope.user)
+                WfUser.updateUser(scope.user)
+                    .$promise
                     .then(function() {
                         wfApp.addSuccess("Utilisateur mis à jour.");
                         $state.go('admin.users');

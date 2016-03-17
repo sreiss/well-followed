@@ -14,7 +14,8 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
             if (scope.data.type === scope.$parent.wfCrudTypes.create) {
                 scope.event = scope.data.event;
             } else {
-                Event.get(scope.data.event.id)
+                Event.get({id: scope.data.event.id})
+                    .$promise
                     .then(function (event) {
                         scope.event = event;
                     });
@@ -30,7 +31,7 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
             };
 
             scope.deleteEvent = function() {
-                Event.delete(scope.event.id)
+                Event.cancel({id: scope.event.id})
                     .$promise
                     .then(function() {
                         scope.close(event);

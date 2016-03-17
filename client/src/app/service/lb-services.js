@@ -2293,6 +2293,40 @@ module.factory(
           method: "POST"
         },
 
+        /**
+         * @ngdoc method
+         * @name lbServices.Event#cancel
+         * @methodOf lbServices.Event
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{string=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `` – `{boolean=}` - 
+         */
+        "cancel": {
+          url: urlBase + "/Events/cancel",
+          method: "DELETE"
+        },
+
         // INTERNAL. Use Experiment.event() instead.
         "::get::Experiment::event": {
           url: urlBase + "/Experiments/:id/event",
