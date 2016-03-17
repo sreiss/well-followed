@@ -1,4 +1,4 @@
-# My Application
+# WellFollowed
 
 Ce projet utilise [LoopBack](http://loopback.io).
 
