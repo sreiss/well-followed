@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfAdminInstitutionTypes', function ($wfInstitutionType, $wfModal) {
+angular.module('wellFollowed').directive('wfAdminInstitutionTypes', function (InstitutionType, $wfModal) {
     return {
         restrict: 'E',
         templateUrl: 'admin/wf-admin-institution-types.html',
@@ -8,9 +8,10 @@ angular.module('wellFollowed').directive('wfAdminInstitutionTypes', function ($w
             scope.institutionTypes = null;
 
             var refresh = function () {
-                $wfInstitutionType.getInstitutionTypes()
-                    .then(function (response) {
-                        scope.institutionTypes = response.data;
+                InstitutionType.find()
+                    .$promise
+                    .then(function (institutionTypes) {
+                        scope.institutionTypes = institutionTypes;
                     });
             };
             refresh();
@@ -22,7 +23,7 @@ angular.module('wellFollowed').directive('wfAdminInstitutionTypes', function ($w
                 })
                     .then(function () {
                         scope.institutionTypes = null;
-                        return $wfInstitutionType.deleteInstitutionType(id);
+                        return InstitutionType.deleteById({id: id});
                     })
                     .then(function (response) {
                         wfApp.addSuccess("Type d'établissement supprimé.");

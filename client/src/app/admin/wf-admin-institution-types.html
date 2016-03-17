@@ -13,8 +13,8 @@
             </thead>
             <tbody ng-if="institutionTypes !== null">
             <tr ng-repeat="it in institutionTypes">
-                <td><a ui-sref="admin.institutionType({id: {{it.id}}})">{{$index + 1}}</a></td>
-                <td><a ui-sref="admin.institutionType({id: {{it.id}}})">{{it.tag}}</a></td>
+                <td><a ui-sref="admin.institutionType({id: it.id})">{{$index + 1}}</a></td>
+                <td><a ui-sref="admin.institutionType({id: it.id})">{{it.tag}}</a></td>
                 <td>
                     <button class="btn btn-link btn-link-danger" ng-click="deleteInstitutionType(it.id)">
                         <span class="glyphicon glyphicon-trash"></span> Supprimer

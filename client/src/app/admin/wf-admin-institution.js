@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfAdminInstitution', function($wfInstitutionType, $wfInstitution, $state) {
+angular.module('wellFollowed').directive('wfAdminInstitution', function(InstitutionType, Institution, $state) {
     return {
         restrict: 'E',
         templateUrl: 'admin/wf-admin-institution.html',
@@ -11,23 +11,27 @@ angular.module('wellFollowed').directive('wfAdminInstitution', function($wfInsti
             scope.institution = null;
             scope.institutionTypes = [];
 
-            $wfInstitutionType.getInstitutionTypes()
-                .then(function(response) {
-                    scope.institutionTypes = response.data;
+            InstitutionType.find()
+                .$promise
+                .then(function(institutionTypes) {
+                    scope.institutionTypes = institutionTypes;
                 });
 
 
             if (!!scope.institutionId) {
-                $wfInstitution.getInstitution(scope.institutionId)
-                    .then(function (response) {
-                        scope.institution = response.data;
+                Institution.get(scope.institutionId)
+                    .$promise
+                    .then(function (institution) {
+                        scope.institution = institution;
                     });
             } else {
                 scope.institution = {};
             }
 
             scope.createInstitution = function() {
-                $wfInstitution.createInstitution(scope.institution)
+                scope.institution.typeId = scope.institution.type.id;
+                Institution.create(scope.institution)
+                    .$promise
                     .then(function() {
                         wfApp.addSuccess("Établissement \"" + scope.institution.tag + "\" créé.");
                         $state.go('admin.institutions');
@@ -35,7 +39,8 @@ angular.module('wellFollowed').directive('wfAdminInstitution', function($wfInsti
             };
 
             scope.updateInstitution = function() {
-                $wfInstitution.updateInstitution(scope.institution)
+                Institution.update(scope.institution)
+                    .$promise
                     .then(function() {
                         wfApp.addSuccess("Établissement mis à jour.");
                         $state.go('admin.institutions');

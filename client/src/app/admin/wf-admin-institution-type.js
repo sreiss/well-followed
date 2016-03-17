@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfAdminInstitutionType', function($wfInstitutionType, $state) {
+angular.module('wellFollowed').directive('wfAdminInstitutionType', function(InstitutionType, $state) {
     return {
         restrict: 'E',
         templateUrl: 'admin/wf-admin-institution-type.html',
@@ -11,16 +11,18 @@ angular.module('wellFollowed').directive('wfAdminInstitutionType', function($wfI
             scope.institutionType = null;
 
             if (!!scope.institutionTypeId) {
-                $wfInstitutionType.getInstitutionType(scope.institutionTypeId)
-                    .then(function (response) {
-                        scope.institutionType = response.data;
+                InstitutionType.get({id: scope.institutionTypeId})
+                    .$promise
+                    .then(function (institutionType) {
+                        scope.institutionType = institutionType;
                     });
             } else {
                 scope.institutionType = {};
             }
 
             scope.createInstitutionType = function() {
-                $wfInstitutionType.createInstitutionType(scope.institutionType)
+                InstitutionType.create(scope.institutionType)
+                    .$promise
                     .then(function() {
                         wfApp.addSuccess("Type d'établissement \"" + scope.institutionType.tag + "\" créé.");
                         $state.go('admin.institutionTypes');
@@ -28,7 +30,8 @@ angular.module('wellFollowed').directive('wfAdminInstitutionType', function($wfI
             };
 
             scope.updateInstitutionType = function() {
-                $wfInstitutionType.updateInstitutionType(scope.institutionType)
+                InstitutionType.update(scope.institutionType)
+                    .$promise
                     .then(function() {
                         wfApp.addSuccess("Type d'établissement mis à jour.");
                         $state.go('admin.institutionTypes');
