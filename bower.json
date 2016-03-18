@@ -32,7 +32,8 @@
   },
   "resolutions": {
     "angular": "~1.4.7",
-    "fullcalendar": "~2.4.0"
+    "fullcalendar": "~2.4.0",
+    "d3": "~3.4.1"
   },
   "overrides": {
     "angular-ui-bootstrap": {
