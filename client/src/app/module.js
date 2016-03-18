@@ -17,22 +17,22 @@ angular.module('wellFollowed', [
     'ls.ChangeStream'
 ]).config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider) {
 
-    var formatDate = function(data) {
-        if (!!data) {
-            for (var key in data) {
-                if (data[key] instanceof Date)
-                    data[key] = moment(data[key]);
+    //var formatDate = function(data) {
+    //    if (!!data) {
+    //        for (var key in data) {
+    //            if (data[key] instanceof Date)
+    //                data[key] = moment(data[key]);
+    //
+    //            if (!!data[key].format)
+    //                data[key] = data[key].format('YYYY-MM-DD[T]HH:mm:ssZZ');
+    //            else if (typeof data[key] === 'object')
+    //                formatDate(data[key]);
+    //        }
+    //    }
+    //    return data;
+    //};
 
-                if (!!data[key].format)
-                    data[key] = data[key].format('YYYY-MM-DD[T]HH:mm:ssZZ');
-                else if (typeof data[key] === 'object')
-                    formatDate(data[key]);
-            }
-        }
-        return data;
-    };
-
-    $httpProvider.defaults.transformRequest.unshift(formatDate);
+    //$httpProvider.defaults.transformRequest.unshift(formatDate);
 
     $httpProvider.interceptors.push('$wfAuthInterceptor');
 

@@ -30,12 +30,10 @@ angular.module('wellFollowed').directive('wfAdminInstitutionType', function(Inst
             };
 
             scope.updateInstitutionType = function() {
-                InstitutionType.update(scope.institutionType)
-                    .$promise
-                    .then(function() {
-                        wfApp.addSuccess("Type d'établissement mis à jour.");
-                        $state.go('admin.institutionTypes');
-                    });
+                scope.institutionType.$save(function() {
+                    wfApp.addSuccess("Type d'établissement mis à jour.");
+                    $state.go('admin.institutionTypes');
+                });
             };
 
             scope.previousState = wfApp.getPreviousState().name || 'admin.institutionTypes';

@@ -19,7 +19,7 @@ angular.module('wellFollowed').directive('wfAdminInstitution', function(Institut
 
 
             if (!!scope.institutionId) {
-                Institution.get(scope.institutionId)
+                Institution.get({id: scope.institutionId})
                     .$promise
                     .then(function (institution) {
                         scope.institution = institution;
@@ -39,12 +39,10 @@ angular.module('wellFollowed').directive('wfAdminInstitution', function(Institut
             };
 
             scope.updateInstitution = function() {
-                Institution.update(scope.institution)
-                    .$promise
-                    .then(function() {
-                        wfApp.addSuccess("Établissement mis à jour.");
-                        $state.go('admin.institutions');
-                    });
+                scope.institution.$save(function() {
+                    wfApp.addSuccess("Établissement mis à jour.");
+                    $state.go('admin.institutions');
+                });
             };
 
             scope.previousState = wfApp.getPreviousState().name || 'admin.institutions';

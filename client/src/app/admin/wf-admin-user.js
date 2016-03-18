@@ -33,12 +33,10 @@ angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state)
             };
 
             scope.updateUser = function() {
-                WfUser.updateUser(scope.user)
-                    .$promise
-                    .then(function() {
-                        wfApp.addSuccess("Utilisateur mis à jour.");
-                        $state.go('admin.users');
-                    });
+                scope.user.$save(function() {
+                    wfApp.addSuccess("Utilisateur mis à jour.");
+                    $state.go('admin.users');
+                });
             };
 
             scope.previousState = wfApp.getPreviousState().name || 'admin.users';
