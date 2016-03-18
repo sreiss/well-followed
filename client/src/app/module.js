@@ -11,7 +11,10 @@ angular.module('wellFollowed', [
     'ui.bootstrap.tooltip',
     'ui.bootstrap.position',
     'angular-loading-bar',
-    'lbServices'
+    'lbServices',
+    'nvd3ChartDirectives',
+    'ls.LiveSet',
+    'ls.ChangeStream'
 ]).config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider) {
 
     var formatDate = function(data) {

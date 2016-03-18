@@ -60,5 +60,9 @@
   "Sensor": {
     "dataSource": "db",
     "public": true
+  },
+  "SensorValue": {
+    "dataSource": "db",
+    "public": true
   }
 }

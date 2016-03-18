@@ -5948,6 +5948,50 @@ module.factory(
     return R;
   }]);
 
+/**
+ * @ngdoc object
+ * @name lbServices.SensorValue
+ * @header lbServices.SensorValue
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `SensorValue` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "SensorValue",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/SensorValues/:id",
+      { 'id': '@id' },
+      {
+      }
+    );
+
+
+
+
+    /**
+    * @ngdoc property
+    * @name lbServices.SensorValue#modelName
+    * @propertyOf lbServices.SensorValue
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `SensorValue`.
+    */
+    R.modelName = "SensorValue";
+
+
+    return R;
+  }]);
+
 
 module
   .factory('LoopBackAuth', function() {
