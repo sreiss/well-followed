@@ -5,7 +5,7 @@ angular.module('wellFollowed').directive('wfPlanningEventForm', function() {
         scope: {
             eventForm: '=form',
             event: '=',
-            readOnly: '=?'
+            readOnly: '@?'
         },
         require: '^form',
         link: function(scope, element, attributes, form) {

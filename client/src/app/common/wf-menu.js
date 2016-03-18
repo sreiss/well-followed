@@ -13,9 +13,6 @@ angular.module('wellFollowed').directive('wfMenu', function($wfMenu, $wfAuth, Wf
 
             scope.$on('refreshMenu', function() {
                 _menuItems(scope);
-                //var currentUser = $wfAuth.getCurrentUser();
-                if (!!currentUser)
-                    scope.user = currentUser;
             });
 
         }

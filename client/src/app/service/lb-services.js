@@ -793,6 +793,12 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use WfUser.institution() instead.
+        "prototype$__get__institution": {
+          url: urlBase + "/Users/:id/institution",
+          method: "GET"
+        },
+
         /**
          * @ngdoc method
          * @name lbServices.WfUser#prototype$__get__accessTokens
@@ -1837,6 +1843,42 @@ module.factory(
     R.modelName = "WfUser";
 
 
+        /**
+         * @ngdoc method
+         * @name lbServices.WfUser#institution
+         * @methodOf lbServices.WfUser
+         *
+         * @description
+         *
+         * Fetches belongsTo relation institution.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - User id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Institution` object.)
+         * </em>
+         */
+        R.institution = function() {
+          var TargetResource = $injector.get("Institution");
+          var action = TargetResource["::get::WfUser::institution"];
+          return action.apply(R, arguments);
+        };
+
     return R;
   }]);
 
@@ -1868,6 +1910,12 @@ module.factory(
         // INTERNAL. Use Event.user() instead.
         "prototype$__get__user": {
           url: urlBase + "/Events/:id/user",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Event.institution() instead.
+        "prototype$__get__institution": {
+          url: urlBase + "/Events/:id/institution",
           method: "GET"
         },
 
@@ -2318,9 +2366,10 @@ module.factory(
          *   populated with the actual data once the response is returned
          *   from the server.
          *
-         * Data properties:
-         *
-         *  - `` – `{boolean=}` - 
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Event` object.)
+         * </em>
          */
         "cancel": {
           url: urlBase + "/Events/cancel",
@@ -2533,6 +2582,42 @@ module.factory(
         R.user = function() {
           var TargetResource = $injector.get("WfUser");
           var action = TargetResource["::get::Event::user"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Event#institution
+         * @methodOf lbServices.Event
+         *
+         * @description
+         *
+         * Fetches belongsTo relation institution.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Institution` object.)
+         * </em>
+         */
+        R.institution = function() {
+          var TargetResource = $injector.get("Institution");
+          var action = TargetResource["::get::Event::institution"];
           return action.apply(R, arguments);
         };
 
@@ -4369,35 +4454,10 @@ module.factory(
           method: "POST"
         },
 
-        // INTERNAL. Use Institution.institutionType() instead.
-        "::get::Institution::institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
+        // INTERNAL. Use Institution.type() instead.
+        "::get::Institution::type": {
+          url: urlBase + "/Institutions/:id/type",
           method: "GET"
-        },
-
-        // INTERNAL. Use Institution.institutionType.create() instead.
-        "::create::Institution::institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Institution.institutionType.createMany() instead.
-        "::createMany::Institution::institutionType": {
-          isArray: true,
-          url: urlBase + "/Institutions/:id/institutionType",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Institution.institutionType.update() instead.
-        "::update::Institution::institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Institution.institutionType.destroy() instead.
-        "::destroy::Institution::institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
-          method: "DELETE"
         },
       }
     );
@@ -4570,28 +4630,10 @@ module.factory(
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use Institution.institutionType() instead.
-        "prototype$__get__institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
+        // INTERNAL. Use Institution.type() instead.
+        "prototype$__get__type": {
+          url: urlBase + "/Institutions/:id/type",
           method: "GET"
-        },
-
-        // INTERNAL. Use Institution.institutionType.create() instead.
-        "prototype$__create__institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Institution.institutionType.update() instead.
-        "prototype$__update__institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Institution.institutionType.destroy() instead.
-        "prototype$__destroy__institutionType": {
-          url: urlBase + "/Institutions/:id/institutionType",
-          method: "DELETE"
         },
 
         /**
@@ -5015,6 +5057,18 @@ module.factory(
           url: urlBase + "/Institutions/change-stream",
           method: "POST"
         },
+
+        // INTERNAL. Use WfUser.institution() instead.
+        "::get::WfUser::institution": {
+          url: urlBase + "/Users/:id/institution",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Event.institution() instead.
+        "::get::Event::institution": {
+          url: urlBase + "/Events/:id/institution",
+          method: "GET"
+        },
       }
     );
 
@@ -5157,29 +5211,15 @@ module.factory(
     */
     R.modelName = "Institution";
 
-    /**
-     * @ngdoc object
-     * @name lbServices.Institution.institutionType
-     * @header lbServices.Institution.institutionType
-     * @object
-     * @description
-     *
-     * The object `Institution.institutionType` groups methods
-     * manipulating `InstitutionType` instances related to `Institution`.
-     *
-     * Call {@link lbServices.Institution#institutionType Institution.institutionType()}
-     * to query all related instances.
-     */
-
 
         /**
          * @ngdoc method
-         * @name lbServices.Institution#institutionType
+         * @name lbServices.Institution#type
          * @methodOf lbServices.Institution
          *
          * @description
          *
-         * Fetches hasOne relation institutionType.
+         * Fetches belongsTo relation type.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -5202,154 +5242,9 @@ module.factory(
          * This usually means the response is a `InstitutionType` object.)
          * </em>
          */
-        R.institutionType = function() {
+        R.type = function() {
           var TargetResource = $injector.get("InstitutionType");
-          var action = TargetResource["::get::Institution::institutionType"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Institution.institutionType#create
-         * @methodOf lbServices.Institution.institutionType
-         *
-         * @description
-         *
-         * Creates a new instance in institutionType of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `InstitutionType` object.)
-         * </em>
-         */
-        R.institutionType.create = function() {
-          var TargetResource = $injector.get("InstitutionType");
-          var action = TargetResource["::create::Institution::institutionType"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Institution.institutionType#createMany
-         * @methodOf lbServices.Institution.institutionType
-         *
-         * @description
-         *
-         * Creates a new instance in institutionType of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `InstitutionType` object.)
-         * </em>
-         */
-        R.institutionType.createMany = function() {
-          var TargetResource = $injector.get("InstitutionType");
-          var action = TargetResource["::createMany::Institution::institutionType"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Institution.institutionType#destroy
-         * @methodOf lbServices.Institution.institutionType
-         *
-         * @description
-         *
-         * Deletes institutionType of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.institutionType.destroy = function() {
-          var TargetResource = $injector.get("InstitutionType");
-          var action = TargetResource["::destroy::Institution::institutionType"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Institution.institutionType#update
-         * @methodOf lbServices.Institution.institutionType
-         *
-         * @description
-         *
-         * Update institutionType of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `InstitutionType` object.)
-         * </em>
-         */
-        R.institutionType.update = function() {
-          var TargetResource = $injector.get("InstitutionType");
-          var action = TargetResource["::update::Institution::institutionType"];
+          var action = TargetResource["::get::Institution::type"];
           return action.apply(R, arguments);
         };
 

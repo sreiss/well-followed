@@ -7,7 +7,7 @@ module.exports = function(Event) {
                     event.cancelled = true;
                     event.save();
                 }
-                next(null, true);
+                next(null, event);
             })
             .catch(function(err) {
                 next(err);
@@ -18,7 +18,7 @@ module.exports = function(Event) {
         'cancel',
         {
             accepts: {arg: 'id', type: 'string'},
-            returns: {type: 'boolean'},
+            returns: {type: 'Event', root: true},
             http: {verb: 'delete'}
         }
     );

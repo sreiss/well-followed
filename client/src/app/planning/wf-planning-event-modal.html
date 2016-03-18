@@ -13,7 +13,7 @@
 <div class="modal-body">
     <div ng-if="event !== null">
         <form name="eventForm">
-            <wf-planning-event-form event="event" form="eventForm" read-only="data.type == $parent.wfCrudTypes.read || event.cancelled"></wf-planning-event-form>
+            <wf-planning-event-form event="event" form="eventForm" read-only="{{readOnly || event.cancelled}}"></wf-planning-event-form>
         </form>
     </div>
     <div>

@@ -2,6 +2,7 @@
   "name": "WfUser",
   "plural": "Users",
   "base": "User",
+  "strict": true,
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -12,10 +13,20 @@
     },
     "lastName": {
       "type": "string"
+    },
+    "institutionId": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "institution": {
+      "type": "belongsTo",
+      "model": "Institution",
+      "foreignKey": "institutionId"
+    }
+  },
   "acls": [
     {
       "accessType": "*",

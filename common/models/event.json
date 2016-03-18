@@ -26,6 +26,10 @@
       "type": "string",
       "required": true
     },
+    "institutionId": {
+      "type": "string",
+      "required": true
+    },
     "cancelled": {
       "type": "boolean",
       "required": true,
@@ -38,6 +42,11 @@
       "type": "belongsTo",
       "model": "WfUser",
       "foreignKey": "userId"
+    },
+    "institution": {
+      "type": "belongsTo",
+      "model": "Institution",
+      "foreignKey": "institutionId"
     }
   },
   "acls": [],

@@ -18,8 +18,8 @@
   },
   "validations": [],
   "relations": {
-    "institutionType": {
-      "type": "hasOne",
+    "type": {
+      "type": "belongsTo",
       "model": "InstitutionType",
       "foreignKey": "typeId"
     }
