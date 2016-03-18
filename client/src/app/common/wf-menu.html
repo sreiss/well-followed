@@ -30,7 +30,7 @@
                     </ul>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right" ng-if="authentication.isAuth">
+            <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated">
                 <li><a ui-sref="account"><span class="glyphicon glyphicon-user"></span> {{user.firstName + ' ' + user.lastName}}</a></li>
                 <li>
                     <a href ng-click="logOut()">Se déconnecter</a>

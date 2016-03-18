@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfMenu', function($wfMenu, $wfAuth) {
+angular.module('wellFollowed').directive('wfMenu', function($wfMenu, $wfAuth, WfUser, $state, LoopBackAuth) {
 
     var _menuItems = function(scope) {
         scope.menuItems = $wfMenu.getMenu('main');
@@ -17,10 +17,11 @@ angular.module('wellFollowed').directive('wfMenu', function($wfMenu, $wfAuth) {
 
             scope.$on('refreshMenu', function() {
                 _menuItems(scope);
-                var currentUser = $wfAuth.getCurrentUser();
+                //var currentUser = $wfAuth.getCurrentUser();
                 if (!!currentUser)
                     scope.user = currentUser;
             });
+
         }
     };
 });

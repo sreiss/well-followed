@@ -1,16 +1,18 @@
-angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes) {
+angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes, $state, WfUser, LoopBackAuth) {
    return {
        restrict: 'E',
        templateUrl: 'common/wf-app.html',
        controller: function($scope, $location) {
 
+           var self = this;
+
            $scope.alerts = [];
            $scope.showErrors = true;
-           $scope.authentication = $wfAuth.authentication;
+           $scope.isAuthenticated = WfUser.isAuthenticated();
            $scope.previousState = {};
 
            this.getAuthentication = function() {
-               return $scope.authentication;
+               return $scope.isAuthenticated;
            };
 
            this.showErrors = function(show) {
@@ -29,7 +31,7 @@ angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes
            };
 
            this.refreshMenu = function() {
-                $scope.$broadcast('refreshMenu');
+               $scope.$broadcast('refreshMenu');
            };
 
            $scope.$on('$stateChangeSuccess', function(event, to, toParams, previous, previousParams) {
@@ -38,8 +40,10 @@ angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes
            });
 
            $scope.logOut = function() {
-               $wfAuth.logout();
-               $location.path('/connexion');
+               LoopBackAuth.clearUser();
+               LoopBackAuth.clearStorage();
+               $scope.$broadcast('refreshMenu');
+               $state.go('login');
            }
 
        }
