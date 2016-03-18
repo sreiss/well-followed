@@ -11,10 +11,6 @@ angular.module('wellFollowed').directive('wfMenu', function($wfMenu, $wfAuth, Wf
 
             _menuItems(scope);
 
-            scope.$on('$stateChangeSuccess', function(angularEvent, current, previous) {
-                _menuItems(scope);
-            });
-
             scope.$on('refreshMenu', function() {
                 _menuItems(scope);
                 //var currentUser = $wfAuth.getCurrentUser();
