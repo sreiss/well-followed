@@ -1,6 +1,6 @@
 angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
     var _menus = {
-        'main': [
+        main: [
             { name: 'Expérience', state: 'experiment', iconClass: "glyphicon glyphicon-tasks" },
             { name: 'Calendrier', state: 'calendar', iconClass: "glyphicon glyphicon-calendar" },
             { name: 'Administration', iconClass: "glyphicon glyphicon-cog", items:
@@ -11,7 +11,7 @@ angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
                 ]
             }
         ],
-        'noauth': [
+        noAuth: [
             { name: 'S\'inscrire', state: 'subscription'},
             { name: 'Se connecter', state: 'login'}
         ]
@@ -28,20 +28,9 @@ angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
                             menu.push(_menus[id][i]);
                     }
                 });
-        } else if (id === 'noauth') {
-            menu = _menus['noauth'];
+        } else {
+            menu = _menus['noAuth'];
         }
-        //if (id != 'noauth') {
-        //    for (var i = 0; i < _menus[id].length; i++) {
-        //        var right = _menus[id][i].right;
-        //        if ((!!right && $wfAuth.authentication.scopes.indexOf(right) > 0) || !right) {
-        //            menu.push(_menus[id][i]);
-        //        }
-        //    }
-        //
-        //} else {
-        //    menu = _menus[id];
-        //}
         return menu;
     };
 

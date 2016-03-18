@@ -31,6 +31,7 @@ angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes
            };
 
            this.refreshMenu = function() {
+               $scope.isAuthenticated = WfUser.isAuthenticated();
                $scope.$broadcast('refreshMenu');
            };
 
@@ -42,7 +43,8 @@ angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes
            $scope.logOut = function() {
                LoopBackAuth.clearUser();
                LoopBackAuth.clearStorage();
-               $scope.$broadcast('refreshMenu');
+               $scope.isAuthenticated = WfUser.isAuthenticated();
+               self.refreshMenu();
                $state.go('login');
            }
 

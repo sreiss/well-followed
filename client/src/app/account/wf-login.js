@@ -12,6 +12,7 @@ angular.module('wellFollowed').directive('wfLogin', function(WfUser, $state) {
                     username: scope.username,
                     password: scope.password
                 }, function () {
+                    wfApp.refreshMenu();
                     $state.go('home');
                 });
             }
