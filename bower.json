@@ -54,7 +54,8 @@
     "fullcalendar": {
       "main": [
         "dist/fullcalendar.js",
-        "dist/fullcalendar.css"
+        "dist/fullcalendar.css",
+        "dist/lang-all.js"
       ]
     },
     "bootstrap": {
