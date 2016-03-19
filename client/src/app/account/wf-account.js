@@ -16,7 +16,7 @@ angular.module('wellFollowed').directive('wfAccount', function(WfUser, Instituti
                    scope.user = user;
                });
 
-           Institution.find()
+           Institution.find({ filter: { include: 'type' } })
                .$promise
                .then(function (institutions) {
                    scope.institutions = institutions;

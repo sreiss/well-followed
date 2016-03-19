@@ -12,7 +12,7 @@ angular.module('wellFollowed').directive('wfAccountCreate', function(WfUser, Ins
 			scope.institutions = null;
 			
 			var refresh = function () {
-				Institution.find()
+				Institution.find({filter: { include: 'type' } })
                     .$promise
                     .then(function (institutions) {
 					scope.institutions = institutions;

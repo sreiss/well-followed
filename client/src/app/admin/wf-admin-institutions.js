@@ -8,11 +8,11 @@ angular.module('wellFollowed').directive('wfAdminInstitutions', function(Institu
             scope.institutions = null;
 
             var refresh = function() {
-                Institution.find()
+                Institution.find({ filter: { include: 'type' } })
                     .$promise
                     .then(function (institutions) {
                         scope.institutions = institutions;
-                    });
+                });
             };
             refresh();
 
