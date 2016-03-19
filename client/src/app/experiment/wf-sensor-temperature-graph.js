@@ -11,41 +11,28 @@ angular.module('wellFollowed').directive('wfSensorTemperatureGraph', function(Se
            var src = new EventSource('/api/SensorValues/watchValues/sensor1');
            var changes = createChangeStream(src);
 
-           var heapTotal = {
-               key: 'Heap Total',
-               src: 'heapTotal',
-               values: []
-           };
 
-           var heapUsed = {
-               key: 'Heap Used',
-               src: 'heapUsed',
-               values: []
-           };
-
-           var rss = {
-               key: 'RSS',
-               src: 'rss',
-               values: []
+           var values = {
+               key: 'Température',
+               values: [[0,0]]
            };
 
            var MAX = 16;
-           var data = $scope.data = [heapTotal, heapUsed, rss];
+           var data = $scope.data = [values];
 
            changes.on('data', function(update) {
-               data.forEach(function(points) {
-                   if($scope.paused) return;
-                   points.values.push([
-                       update.time,
-                       update.usage[points.src]
+               console.log(update);
+               data.forEach(function(series) {
+                   series.values.push([
+                       update.value
                    ]);
 
-                   while(points.values.length > MAX && points.values.length > 1) {
-                       points.values.shift();
-                   }
-
-                   points.values = angular.copy(points.values);
+                   series.values = angular.copy(series.values);
                });
+
+               //while(data.length > MAX && data.length > 1) {
+               //    data.shift();
+               //}
 
                $scope.$apply();
            });

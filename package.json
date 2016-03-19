@@ -8,6 +8,7 @@
     "posttest": "nsp check"
   },
   "dependencies": {
+    "amqplib": "^0.4.1",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "helmet": "^0.14.0",
