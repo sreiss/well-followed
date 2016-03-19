@@ -18,6 +18,7 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
                 Event.get({id: scope.data.event.id, filter: {include: ['user', {institution: 'type'}]}})
                     .$promise
                     .then(function (event) {
+                        debugger;
                         scope.readOnly = true;
                         scope.event = event;
                     });

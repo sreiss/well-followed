@@ -1,25 +1,53 @@
 <div class="form-horizontal">
-    <div class="form-group" ng-if="readOnly">
-        <label class="control-label col-md-3">Lieu</label>
-        <div class="col-md-9">
-            <p class="form-control-static">{{event.institution.type.tag + ' ' + event.institution.tag}}</p>
+    <div ng-if="readOnly">
+        <div class="form-group">
+            <label class="control-label col-md-4">Lieu</label>
+            <div class="col-md-8">
+                <p class="form-control-static">{{event.institution.type.tag + ' ' + event.institution.tag}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Organisateur</label>
+            <div class="col-md-8">
+                <p class="form-control-static">{{event.user | wfFullContactFilter}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Date de début</label>
+            <div class="col-md-8">
+                <p class="form-control-static">{{event.start | date:'dd/MM/yyyy à hh:ss'}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Date de fin</label>
+            <div class="col-md-8">
+                <p class="form-control-static">{{event.end | date:'dd/MM/yyyy à hh:ss'}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-4">Titre</label>
+            <div class="col-md-8">
+                <p class="form-control-static">{{event.title}}</p>
+            </div>
+        </div>
+        <div class="form-group" ng-if="!!event.description">
+            <label class="control-label col-md-4">Description <small>(Facultatif)</small></label>
+            <div class="col-md-8">
+                <p class="form-control-static">{{event.description}}</p>
+            </div>
         </div>
     </div>
-
-    <div class="form-group" ng-if="readOnly">
-        <label class="control-label col-md-3">Organisateur</label>
-        <div class="col-md-9">
-            <p class="form-control-static">{{event.user | wfFullContactFilter}}</p>
-        </div>
-    </div>
-
+    <div ng-if="!readOnly">
         <div class="form-group has-feedback"
              ng-class="{'has-error': eventForm.startDate.$invalid || eventForm.startTime.$invalid}">
             <label class="control-label col-md-3">Date de début</label>
             <div class="col-md-5">
                 <input type="date" class="form-control"
                        name="startDate" ng-model="event.start"
-                       ng-disabled="readOnly"
                        wf-format-date
                        required>
             </div>
@@ -27,7 +55,6 @@
                 <input type="time" class="form-control"
                        name="startTime" ng-model="event.start"
                        wf-format-date
-                       ng-disabled="readOnly"
                        required>
             </div>
             <div class="red form-error-message" ng-messages="eventForm.startDate.$error">
@@ -44,7 +71,6 @@
             <div class="col-md-5">
                 <input type="date" class="form-control"
                        name="endDate" ng-model="event.end"
-                       ng-disabled="readOnly"
                        wf-format-date
                        required>
                 </div>
@@ -52,7 +78,6 @@
                 <input type="time" class="form-control"
                        name="endTime" ng-model="event.end"
                        wf-format-date
-                       ng-disabled="readOnly"
                        required>
             </div>
             <div class="red form-error-message" ng-messages="eventForm.end.$error">
@@ -77,4 +102,5 @@
             </textarea>
             </div>
         </div>
+    </div>
 </div>

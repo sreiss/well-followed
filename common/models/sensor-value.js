@@ -3,7 +3,7 @@ var PassThrough = require('stream').PassThrough;
 module.exports = function(SensorValue) {
 
     SensorValue.stackValue = function() {
-        
+
     };
 
     SensorValue.watchValues = function(sensorId, next) {
