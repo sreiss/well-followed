@@ -1,32 +1,38 @@
 var PassThrough = require('stream').PassThrough,
-    ampqOpen = require('amqplib').connect('amqp://localhost');
+    amqpConnection = require('amqplib').connect('amqp://localhost'),
+    SensorValueEmitter = require('../../server/event/sensor-value-emitter');
 
 module.exports = function(SensorValue) {
 
-    SensorValue.watchValues = function(sensorId, next) {
+    var sensorValueEmitter = new SensorValueEmitter();
+
+    amqpConnection.then(function(connection) {
+        return connection.createChannel().then(function(ch) {
+            var exchange = 'well_followed_sensor';
+
+            var dispatchValue = function dispatchValue(msg) {
+                sensorValueEmitter.value(JSON.parse(msg.content.toString()));
+            };
+
+            var ok = ch.assertExchange(exchange, 'direct', {durable: true});
+
+            ok = ok.then(function() {
+                return ch.assertQueue('well_followed_sensor', {exclusive: false});
+            });
+
+            ok = ok.then(function(qok) {
+                return ch.consume(qok.queue, dispatchValue, {noAck: true});
+            });
+        });
+    });
+
+    SensorValue.watchValues = function(sensorName, next) {
         var changes = new PassThrough({objectMode: true});
 
-        ampqOpen.then(function(conn) {
-            var queueName = 'well_followed_sensor';
-            var ok = conn.createChannel();
-            ok = ok.then(function(ch) {
-                ch.assertQueue(queueName);
-                ch.consume(queueName, function(msg) {
-                    if (msg !== null) {
-                        var sensorValue = JSON.parse(msg.content.toString());
-                        changes.write(sensorValue);
-                        ch.ack(msg);
-                    }
-                });
-            });
-            return ok;
-        }).then(null, console.warn);
-        //setInterval(function() {
-        //    changes.write({
-        //        usage: process.memoryUsage(),
-        //        time: Date.now()
-        //    });
-        //}, 250);
+        sensorValueEmitter.on('value', function(value) {
+            if (value.sensorName === sensorName)
+                changes.write(value);
+        });
 
         next(null, changes);
     };
@@ -34,9 +40,9 @@ module.exports = function(SensorValue) {
     SensorValue.remoteMethod(
         'watchValues',
         {
-            accepts: {arg: 'sensorId', type:'string', http: {source: 'path'}},
+            accepts: {arg: 'sensorName', type:'string', http: {source: 'path'}},
             returns: {arg: 'changes', type: 'ReadableStream', json: true},
-            http: {verb: 'get', path: '/watchValues/:sensorId'}
+            http: {verb: 'get', path: '/watchValues/:sensorName'}
         }
     );
 

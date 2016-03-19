@@ -3,11 +3,11 @@
         <b>{{sensor.tag}}</b> - Relevé de températures
     </div>
     <div class="panel-body">
-        <h5><small>Température courante :</small> {{currentTemp}}</h5>
+        <h5><small>Température courante :</small> {{temperature}}</h5>
         <hr />
         <h5><small>Courbe de température</small></h5>
         <div>
-            <wf-sensor-temperature-graph data="data" style="display: block"></wf-sensor-temperature-graph>
+            <svg></svg>
         </div>
     </div>
 </div>
