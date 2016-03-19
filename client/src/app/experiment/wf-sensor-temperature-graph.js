@@ -1,36 +1,62 @@
-angular.module('wellFollowed').directive('wfSensorTemperatureGraph', function(SensorValue) {
+angular.module('wellFollowed').directive('wfSensorTemperatureGraph', function(SensorValue, createChangeStream) {
    return {
        restrict: 'E',
        templateUrl: 'experiment/wf-sensor-temperature-graph.html',
        require: '^wfExperiment',
-       link: function(scope, element, attributes, wfExperiment) {
+       controller: function($scope) {
 
-           var src = new EventSource('/api/SensorValue/stream');
+
+           $scope.paused = false;
+
+           var src = new EventSource('/api/SensorValues/watchValues/sensor1');
            var changes = createChangeStream(src);
 
-           var date = {
-               key: 'Temps t',
-               src: 'date',
+           var heapTotal = {
+               key: 'Heap Total',
+               src: 'heapTotal',
                values: []
            };
 
-           var value = {
-               key: 'Valeur',
-               src: 'value',
+           var heapUsed = {
+               key: 'Heap Used',
+               src: 'heapUsed',
                values: []
            };
 
-           var data = scope.data = [date, value];
+           var rss = {
+               key: 'RSS',
+               src: 'rss',
+               values: []
+           };
+
+           var MAX = 16;
+           var data = $scope.data = [heapTotal, heapUsed, rss];
 
            changes.on('data', function(update) {
+               data.forEach(function(points) {
+                   if($scope.paused) return;
+                   points.values.push([
+                       update.time,
+                       update.usage[points.src]
+                   ]);
 
+                   while(points.values.length > MAX && points.values.length > 1) {
+                       points.values.shift();
+                   }
+
+                   points.values = angular.copy(points.values);
+               });
+
+               $scope.$apply();
            });
 
-           scope.xAxisTickFormatFunction = function(){
-               return function(d){
-                   return d3.time.format('%H:%M')(moment.unix(d).toDate());
-               }
-           };
+           changes.on('error', function(err) {
+               debugger;
+           });
+       },
+       link: function(scope, element, attributes, wfExperiment) {
+
+
 
        }
    };

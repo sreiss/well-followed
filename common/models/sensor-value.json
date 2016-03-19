@@ -4,17 +4,10 @@
   "base": "Model",
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": true,
+    "http": {"path": "/SensorValues"}
   },
   "properties": {
-    "value": {
-      "type": "string",
-      "required": true
-    },
-    "date": {
-      "type": "date",
-      "required": true
-    }
   },
   "validations": [],
   "relations": {},
