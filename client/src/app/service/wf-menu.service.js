@@ -3,7 +3,7 @@ angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
         main: [
             { name: 'Expérience', state: 'experiment', iconClass: "glyphicon glyphicon-tasks" },
             { name: 'Calendrier', state: 'calendar', iconClass: "glyphicon glyphicon-calendar" },
-            { name: 'Administration', iconClass: "glyphicon glyphicon-cog", items:
+            { name: 'Administration', iconClass: "glyphicon glyphicon-cog", state: 'admin.institutions', items:
                 [
                     { name: "Établissements", state: 'admin.institutions', role: 'admin' },
                     { name: "Types d'établissement", state: 'admin.institutionTypes', role: 'admin'},

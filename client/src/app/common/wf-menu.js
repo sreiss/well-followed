@@ -15,6 +15,10 @@ angular.module('wellFollowed').directive('wfMenu', function($wfMenu, $wfAuth, Wf
                 _menuItems(scope);
             });
 
+            scope.isActive = function(item) {
+                return item.state.split('.')[0] === $state.current.name.split('.')[0];
+            };
+
         }
     };
 });

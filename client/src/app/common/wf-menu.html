@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
-                <li ng-repeat="item in menuItems" ng-class="{'dropdown': !!item.items}">
+                <li ng-repeat="item in menuItems" ng-class="{'dropdown': !!item.items, 'active': isActive(item)}">
                     <a ui-sref="{{item.state}}" ng-if="!item.items">
                         <span class="{{item.iconClass}}" ng-if="!!item.iconClass"></span>
                         {{ item.name }}
@@ -31,7 +31,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-if="isAuthenticated">
-                <li><a ui-sref="account"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
+                <li ng-class="{'active': isActive({state: 'account'})}"><a ui-sref="account"><span class="glyphicon glyphicon-user"></span> Mon compte</a></li>
                 <li>
                     <a href ng-click="logOut()">Se déconnecter</a>
                 </li>
