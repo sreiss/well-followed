@@ -1,63 +1,108 @@
 <div class="container-fluid">
+    <wf-alerts alerts="alerts"></wf-alerts>
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
                 Mon compte
             </div>
         </div>
-        <form name="accountForm">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Mes informations
+                        <form name="accountForm">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Mes informations
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-offset-2 col-md-8">
+                                        <div class="form-group">
+                                            <label for="username">Login</label>
+                                            <input class="form-control" type="text" ng-model="user.username" name="username" id="username" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">E-mail</label>
+                                            <input class="form-control" type="email" ng-model="user.email" name="email" id="email" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="firstName">Prénom</label>
+                                            <input class="form-control" type="text" ng-model="user.firstName" name="firstName" id="firstName" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Nom</label>
+                                            <input class="form-control" type="text" ng-model="user.lastName" name="lastName" id="lastName" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="institution">Établissement</label>
+                                            <select class="form-control" ng-model="user.institution"
+                                                    name="type" id="institution"
+                                                    ng-options="i as i.type.tag + ' ' + i.tag for i in institutions track by i.id"
+                                                    required></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer" ng-if="institutionType !== null">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-6 text-center">
+                                            <a class="btn btn-primary" ng-click="updateUser()" ng-disabled="accountForm.$invalid">
+                                                Sauvegarder
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="panel-body">
-                        <div class="col-md-offset-2 col-md-8">
-                            <div class="form-group">
-                                <label for="username">Login</label>
-                                <input class="form-control" type="text" ng-model="user.username" name="username" id="username" disabled="disabled"/>
+                    <div class="col-md-6">
+                        <form name="passwordForm">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Mot de passe
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-offset-2 col-md-8">
+                                        <div class="form-group" ng-class="{'has-error': passwordForm.oldPassword.$invalid && !passwordForm.oldPassword.$pristine}">
+                                            <label for="oldPassword">Ancien mot de passe</label>
+                                            <input class="form-control" type="password" minlength="6" name="oldPassword" id="oldPassword" required />
+
+                                            <div class="red form-error-message" ng-messages="passwordForm.oldPassword.$error"
+                                                 ng-show="!passwordForm.oldPassword.$pristine">
+                                                <span ng-message="minlength">Le mot de passe faisait au moins 6 caractères</span>
+                                                <span ng-message="required">Ce champ est requis</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newPassword">Nouveau mot de passe</label>
+                                            <input class="form-control" type="password" minlength="6" name="newPassword" id="newPassword" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmPassword">Confirmation du mot de passe</label>
+                                            <input class="form-control" type="password" minlength="6" ng-model="user.password" name="confirmPassword" id="confirmPassword" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-6 text-center">
+                                            <a class="btn btn-primary" ng-click="updatePassword()" ng-disabled="passwordForm.$invalid">
+                                                Modifier le mot de passe
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input class="form-control" type="email" ng-model="user.email" name="email" id="email" disabled="disabled" />
-                            </div>
-                            <div class="form-group">
-                                <label for="firstName">Prénom</label>
-                                <input class="form-control" type="text" ng-model="user.firstName" name="firstName" id="firstName"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Nom</label>
-                                <input class="form-control" type="text" ng-model="user.lastName" name="lastName" id="lastName"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="institution">Établissement</label>
-                                <select class="form-control" ng-model="user.institution"
-                                        name="type" id="institution"
-                                        ng-options="i as i.type.tag + ' ' + i.tag for i in institutions track by i.id"
-                                        required></select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="panel-footer" ng-if="institutionType !== null">
+            <div class="panel-footer">
                 <div class="row">
                     <div class="col-md-offset-3 col-md-6 text-center">
-                        <!--<div class="btn-group btn-group-justified">-->
                         <a class="btn btn-default" ui-sref="{{previousState}}" ng-if="previousState != ''">
                             Retour
                         </a>
-                        <a class="btn btn-primary" ng-click="updateUser()" ng-disabled="accountForm.$invalid">
-                            Sauvegarder
-                        </a>
-                        <!--</div>-->
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 </div>
