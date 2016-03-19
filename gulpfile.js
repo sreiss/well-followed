@@ -11,7 +11,9 @@ var gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate'),
     templateCache = require('gulp-angular-templatecache'),
     shell = require('gulp-shell'),
-    es = require('event-stream');
+	es = require('event-stream'),
+	spawn = require('child_process').spawn,
+    node;
 
 var resources = {
     "js": {
@@ -85,6 +87,16 @@ var getHtmlFilter = function () {
 var getFontFilter = function () {
     return filter('**.{eot,svg,ttf,woff,woff2}', {restore: true});
 };
+
+gulp.task('server', function () {
+	if (node) node.kill()
+	node = spawn('node', ['server/server.js'], { stdio: 'inherit' })
+	node.on('close', function (code) {
+		if (code === 8) {
+			gulp.log('Error detected, waiting for changes...');
+		}
+	});
+})
 
 gulp.task('clean', function () {
     var destPaths = [];
@@ -218,5 +230,5 @@ gulp.task('default', ['resources'], function () {
 
             gulp.watch(srcPath, ['resources']);
         }
-    }
+	}
 });
