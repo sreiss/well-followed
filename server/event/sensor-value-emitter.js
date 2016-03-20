@@ -2,7 +2,7 @@ var EventEmitter = require('events'),
     util = require('util');
 
 function SensorValueEmitter() {
-    EventEmitter.call(this);
+    return EventEmitter.call(this);
 }
 util.inherits(SensorValueEmitter, EventEmitter);
 

@@ -5,10 +5,11 @@
   "idInjection": true,
   "options": {
     "validateUpsert": true,
-    "http": {"path": "/SensorValues"}
+    "http": {
+      "path": "/SensorValues"
+    }
   },
-  "properties": {
-  },
+  "properties": {},
   "validations": [],
   "relations": {},
   "acls": [],

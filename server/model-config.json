@@ -64,5 +64,9 @@
   "SensorValue": {
     "dataSource": "db",
     "public": true
+  },
+  "VideoStream": {
+    "dataSource": "db",
+    "public": true
   }
 }

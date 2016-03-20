@@ -75,6 +75,7 @@ angular.module('wellFollowed').directive('wfSensorTemperature', function(createC
                     .attr("class", "line");
 
                 changes.on('data', function(sensorValue) {
+                    scope.temperature = sensorValue.value;
 
                     // update the domains
                     now = new Date(sensorValue.date);
