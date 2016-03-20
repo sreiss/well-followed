@@ -7,7 +7,7 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
             cancel: '&',
             data: '=?'
         },
-        link: function(scope, element, attributes) {
+        link: function (scope, element, attributes) {
 
             scope.readOnly = false;
             scope.event = null;
@@ -18,7 +18,6 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
                 Event.get({id: scope.data.event.id, filter: {include: ['user', {institution: 'type'}]}})
                     .$promise
                     .then(function (event) {
-                        debugger;
                         scope.readOnly = true;
                         scope.event = event;
                     });
@@ -26,15 +25,29 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
 
             scope.createEvent = function() {
                 scope.event.userId = WfUser.getCurrentId();
-                WfUser.get({id: scope.event.userId, filter: {include: {institution: 'type'}}})
-                    .$promise
-                    .then(function(user) {
-                        scope.event.institutionId = user.institution.id;
-                        return Event.create(scope.event).$promise;
-                    })
-                    .then(function(event) {
-                        scope.close(event);
-                    });
+                Event.find({
+                    filter: {
+                        where: {
+                            start: scope.event.start
+                        },
+                        limit: 1
+                    }
+                }, function (events) {
+                    if (events.length < 1) {
+                        WfUser.get({ id: scope.event.userId, filter: { include: { institution: 'type' } } })
+                            .$promise
+                            .then(function (user) {
+                                    scope.event.institutionId = user.institution.id;
+                                    return Event.create(scope.event).$promise;
+                                })
+                            .then(function (event) {
+                                    scope.close(event);
+                                });
+                    } else {
+                        console.log("FAUX");
+                    }
+                });
+
             };
 
             scope.deleteEvent = function() {

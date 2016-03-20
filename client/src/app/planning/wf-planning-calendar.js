@@ -43,18 +43,19 @@ angular.module('wellFollowed').directive('wfPlanningCalendar', function(Event, $
 
             $scope.uiConfig = {
                 calendar: {
+                    timezone: "local",
                     header: {
                         left: 'prev,next today',
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
                     lang: 'fr',
-                    dayClick: function(date, jsEvent, view) {
+                    dayClick: function (date, jsEvent, view) {
                         $wfModal.open(angular.extend(commonModalOptions, {
                                 data: {
                                     event: {
                                         start: date,
-                                        end: date.add(2, 'hour'),
+                                        end: moment(date).add(2, 'hour'),
                                         title: 'Réservation'
                                     },
                                     jsEvent: jsEvent,
@@ -66,14 +67,11 @@ angular.module('wellFollowed').directive('wfPlanningCalendar', function(Event, $
                                 $scope.events.events.push(event);
                             });
                     },
-                    eventClick: function(event, jsEvent, view) {
+                    eventClick: function (event, jsEvent, view) {
                         $wfModal.open(angular.extend(commonModalOptions, {
                                 data: {
                                     event: {
-                                        id: event.id,
-                                        start: event.start,
-                                        end: event.start.add(2, 'hour'),
-                                        title: event.title
+                                        id: event.id
                                     },
                                     jsEvent: jsEvent,
                                     view: view,

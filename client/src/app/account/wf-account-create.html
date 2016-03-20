@@ -67,7 +67,7 @@
             <label class="control-label sr-only">Etablissement</label>
             <select class="form-control" 
                     ng-model="institution" placeholder="Etablissement" name="institution" 
-                    ng-options="i as i.tag for i in institutions track by i.id"
+                    ng-options="i as i.type.tag + ' ' + i.tag for i in institutions track by i.id"
                     required/>
             <div class="red form-error-message" ng-messages="userForm.institution.$error" ng-show="!userForm.institution.$pristine">
                 <span ng-message="required">Ce champ est requis</span>

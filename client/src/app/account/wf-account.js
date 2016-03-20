@@ -4,6 +4,8 @@ angular.module('wellFollowed').directive('wfAccount', function(WfUser, Instituti
        templateUrl: 'account/wf-account.html',
        require: '^wfApp',
        link: function(scope, element, attributes, wfApp) {
+			
+			wfApp.showErrors(false);
 
            scope.user = null;
            scope.institutions = null;
@@ -14,7 +16,7 @@ angular.module('wellFollowed').directive('wfAccount', function(WfUser, Instituti
                    scope.user = user;
                });
 
-           Institution.find()
+           Institution.find({ filter: { include: 'type' } })
                .$promise
                .then(function (institutions) {
                    scope.institutions = institutions;
@@ -34,7 +36,19 @@ angular.module('wellFollowed').directive('wfAccount', function(WfUser, Instituti
                        wfApp.addSuccess("Modifications enregistrées.");
                    });
 
-           };
+			};
+			
+			scope.updatePassword = function () {
+				var updatedAttributes = {
+					password: scope.user.password
+				};
+
+				WfUser.prototype$updateAttributes({ id: scope.user.id }, updatedAttributes)
+					.$promise
+					.then(function () {
+						wfApp.addSuccess("Mot de passe modifié.");
+					});
+			}
 
            scope.previousState = wfApp.getPreviousState().name || 'sensor';
 
