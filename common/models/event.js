@@ -1,7 +1,7 @@
 module.exports = function(Event) {
 
     Event.cancel = function(id, next) {
-        Event.findOne({id: id})
+        Event.findById(id)
             .then(function(event) {
                 if (event) {
                     event.cancelled = true;
