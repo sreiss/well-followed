@@ -19,7 +19,7 @@ angular.module('wellFollowed').directive('wfAdminInstitution', function(Institut
 
 
             if (!!scope.institutionId) {
-                Institution.get({id: scope.institutionId})
+                Institution.get({ id: scope.institutionId, filter: { include: 'type' } } )
                     .$promise
                     .then(function (institution) {
                         scope.institution = institution;
