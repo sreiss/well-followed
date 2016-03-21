@@ -63,7 +63,7 @@
                                     <div class="col-md-offset-2 col-md-8">
                                         <div class="form-group" ng-class="{'has-error': passwordForm.oldPassword.$invalid && !passwordForm.oldPassword.$pristine}">
                                             <label for="oldPassword">Ancien mot de passe</label>
-                                            <input class="form-control" type="password" minlength="6" name="oldPassword" id="oldPassword" required />
+                                            <input class="form-control" type="password" minlength="6" ng-model="oldPassword" name="oldPassword" id="oldPassword" required />
 
                                             <div class="red form-error-message" ng-messages="passwordForm.oldPassword.$error"
                                                  ng-show="!passwordForm.oldPassword.$pristine">
@@ -71,13 +71,26 @@
                                                 <span ng-message="required">Ce champ est requis</span>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error': passwordForm.newPassword.$invalid && !passwordForm.newPassword.$pristine}">
                                             <label for="newPassword">Nouveau mot de passe</label>
-                                            <input class="form-control" type="password" minlength="6" name="newPassword" id="newPassword" required />
+                                            <input class="form-control" type="password" minlength="6" ng-model="user.password" name="newPassword" id="newPassword" required />
+
+                                            <div class="red form-error-message" ng-messages="passwordForm.newPassword.$error"
+                                                 ng-show="!passwordForm.newPassword.$pristine">
+                                                <span ng-message="minlength">Le mot de passe doit faire au moins 6 caractères</span>
+                                                <span ng-message="required">Ce champ est requis</span>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error': passwordForm.confirmPassword.$invalid && !passwordForm.confirmPassword.$pristine}">
                                             <label for="confirmPassword">Confirmation du mot de passe</label>
-                                            <input class="form-control" type="password" minlength="6" ng-model="user.password" name="confirmPassword" id="confirmPassword" required />
+                                            <input class="form-control" type="password" minlength="6" ng-model="confirmPassword" name="confirmPassword" id="confirmPassword" required wf-matches-password="user.password" />
+
+                                            <div class="red form-error-message" ng-messages="passwordForm.confirmPassword.$error"
+                                                 ng-show="!passwordForm.confirmPassword.$pristine">
+                                                <span ng-message="minlength">Le mot de passe doit faire au moins 6 caractères</span>
+                                                <span ng-message="required">Ce champ est requis</span>
+                                                <span ng-message="passwordMismatch">Les mots de passe ne correspondent pas</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
