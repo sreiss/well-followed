@@ -41,6 +41,17 @@
                 <span ng-message="required">Ce champ est requis</span>
             </div>
         </div>
+        <div class="form-group" ng-class="{'has-error': userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine}">
+            <label class="control-label sr-only">Confirmation du mot de passe</label>
+            <input class="form-control" placeholder="Confirmation du mot de passe" type="password" minlength="6" ng-model="confirmPassword" name="confirmPassword" id="confirmPassword" required wf-matches-password="user.password" />
+
+            <div class="red form-error-message" ng-messages="userForm.confirmPassword.$error"
+                 ng-show="!userForm.confirmPassword.$pristine">
+                <span ng-message="minlength">Le mot de passe doit faire au moins 6 caractères</span>
+                <span ng-message="required">Ce champ est requis</span>
+                <span ng-message="passwordMismatch">Les mots de passe ne correspondent pas</span>
+            </div>
+        </div>
         <div class="form-group"
              ng-class="{'has-error': userForm.firstName.$invalid && !userForm.firstName.$pristine}">
             <label class="control-label sr-only">Prénom</label>
