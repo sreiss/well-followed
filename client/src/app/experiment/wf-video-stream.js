@@ -12,6 +12,10 @@ angular.module('wellFollowed').directive('wfVideoStream', function(createChangeS
             changes.on('data', function(stream) {
                 img.attr('src', 'data:image/jpeg;base64,' + stream.changes);
             });
+
+            scope.$on('$destroy', function() {
+                changes.destroy();
+            });
         }
     }
 });
