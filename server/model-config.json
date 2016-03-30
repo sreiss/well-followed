@@ -14,7 +14,7 @@
     ]
   },
   "User": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false,
     "options": {
       "realmRequired": false,
@@ -22,47 +22,47 @@
     }
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "WfUser": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "Event": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "Experiment": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "InstitutionType": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "Institution": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "Sensor": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "SensorValue": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": true
   },
   "VideoStream": {

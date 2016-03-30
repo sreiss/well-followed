@@ -1,8 +1,12 @@
 {
   "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongo": {
     "host": "localhost",
     "database": "wellfollowed",
-    "name": "db",
+    "name": "mongo",
     "connector": "mongodb"
   }
 }
