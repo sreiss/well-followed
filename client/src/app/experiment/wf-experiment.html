@@ -2,14 +2,13 @@
     <div>
         <div class="text-center">
             <h1>Experience</h1>
+            <p>Les capteurs seront affichés dynamiquement dès qu'ils seront connectés.</p>
+        </div>
+        <div ng-repeat="sensor in sensors" class="row">
+            <wf-sensor-temperature sensor="sensor" style="display: block"></wf-sensor-temperature>
         </div>
         <div class="row">
-            <div ng-repeat="sensor in sensors">
-                <wf-sensor-temperature sensor="sensor" style="display: block"></wf-sensor-temperature>
-            </div>
-            <div >
-                <wf-video-stream style="display: block"></wf-video-stream>
-            </div>
+            <wf-video-stream style="display: block"></wf-video-stream>
         </div>
     </div>
 </div>
