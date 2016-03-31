@@ -38,7 +38,7 @@ var resources = {
         "fileName": "app.min.js"
     },
     "appImg": {
-        "src": ["client/src/img/**.{png,jpg,gif}"],
+        "src": ["client/src/img/**/*.{png,jpg,gif}"],
         "dest": "client/build/img"
     }
 };
