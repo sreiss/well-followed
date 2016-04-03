@@ -1,15 +1,26 @@
 {
   "name": "SensorValue",
   "plural": "SensorValues",
-  "base": "Model",
+  "base": "PersistedModel",
   "idInjection": true,
+  "strict": true,
   "options": {
-    "validateUpsert": true,
-    "http": {
-      "path": "/SensorValues"
+    "validateUpsert": true
+  },
+  "properties": {
+    "sensorName": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
     }
   },
-  "properties": {},
   "validations": [],
   "relations": {},
   "acls": [],

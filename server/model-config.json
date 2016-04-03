@@ -62,7 +62,7 @@
     "public": true
   },
   "SensorValue": {
-    "dataSource": "mongo",
+    "dataSource": "db",
     "public": true
   },
   "VideoStream": {

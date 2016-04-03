@@ -4,6 +4,16 @@
             <h1>Experience</h1>
             <p>Les capteurs seront affichés dynamiquement dès qu'ils seront connectés.</p>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Capteurs
+            </div>
+            <div>
+                <div ng-repeat="sensor in sensors" class="col-md-3 sensor-indicator" ng-class="{'label-success': sensor.isPlugged, 'label-danger': !sensor.isPlugged}">
+                    <i class="fa" ng-class="{'fa-plug': sensor.isPlugged, 'fa-close': !sensor.isPlugged}"></i> {{sensor.tag}}
+                </div>
+            </div>
+        </div>
         <div ng-repeat="sensor in sensors" class="row">
             <wf-sensor-temperature sensor="sensor" style="display: block"></wf-sensor-temperature>
         </div>

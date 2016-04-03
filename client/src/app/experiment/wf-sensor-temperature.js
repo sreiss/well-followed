@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfSensorTemperature', function($wfStream) {
+angular.module('wellFollowed').directive('wfSensorTemperature', function($wfStream, SensorValue) {
     return {
         restrict: 'E',
         templateUrl: 'experiment/wf-sensor-temperature.html',
@@ -11,99 +11,119 @@ angular.module('wellFollowed').directive('wfSensorTemperature', function($wfStre
             $scope.temperature = 0;
         },
         link: function(scope, element, attributes, wfExperiment) {
-            var changes = $wfStream.openStream('/api/SensorValues/watchValues/' + scope.sensor.name);
 
-            var n = 50,
-                duration = 750,
-                now = new Date(Date.now() - duration),
-                count = 0,
-                data = d3.range(n).map(function() { return 0; });
+            SensorValue.find({filter: {where: {sensorName: scope.sensor.name}}})
+                .$promise
+                .then(function(previousData) {
 
-            var margin = {top: 6, right: 0, bottom: 40, left: 0},
-                width = element.width() - margin.right,
-                height = 200 - margin.top - margin.bottom;
+                    var changes = $wfStream.openStream('/api/SensorValues/watchValues/' + scope.sensor.name);
 
-            var x = d3.time.scale()
-                .domain([now - (n - 2) * duration, now - duration])
-                .range([0, width]);
+                    var n = 50,
+                        duration = 750,
+                        now = new Date(Date.now() - duration),
+                        data = d3.range(n).map(function () {
+                            return 0;
+                        });
 
-            var y = d3.scale.linear()
-                .range([height, 0]);
+                    var margin = {top: 6, right: 0, bottom: 40, left: 0},
+                        width = element.width() - margin.right,
+                        height = 200 - margin.top - margin.bottom;
 
-            var line = d3.svg.line()
-                .interpolate("basis")
-                .x(function(d, i) { return x(now - (n - 1 - i) * duration); })
-                .y(function(d, i) { return y(d); });
+                    var x = d3.time.scale()
+                        .domain([now - (n - 2) * duration, now - duration])
+                        .range([0, width]);
 
-            var svg = d3.select(element[0]).select("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .style("margin-left", -margin.left + "px")
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                    var y = d3.scale.linear()
+                        .range([height, 0]);
 
-            svg.append("defs").append("clipPath")
-                .attr("id", "clip")
-                .append("rect")
-                .attr("width", width)
-                .attr("height", height);
+                    var line = d3.svg.line()
+                        .interpolate("basis")
+                        .x(function (d, i) {
+                            return x(now - (n - 1 - i) * duration);
+                        })
+                        .y(function (d, i) {
+                            return y(d);
+                        });
 
-            var xAxis = svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(x.axis = d3.svg.axis().scale(x).orient("bottom"));
+                    var svg = d3.select(element[0]).select("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .style("margin-left", -margin.left + "px")
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient('left');
+                    svg.append("defs").append("clipPath")
+                        .attr("id", "clip")
+                        .append("rect")
+                        .attr("width", width)
+                        .attr("height", height);
 
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-                .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-                .text("Température (C°)");
+                    var xAxis = svg.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(x.axis = d3.svg.axis().scale(x).orient("bottom"));
 
-            var path = svg.append("g")
-                .attr("clip-path", "url(#clip)")
-                .append("path")
-                .datum(data)
-                .attr("class", "line");
+                    var yAxis = d3.svg.axis()
+                        .scale(y)
+                        .orient('left');
 
-            changes.on('data', function(sensorValue) {
-                scope.temperature = sensorValue.value;
+                    svg.append("g")
+                        .attr("class", "y axis")
+                        .call(yAxis)
+                        .append("text")
+                        .attr("transform", "rotate(-90)")
+                        .attr("y", 6)
+                        .attr("dy", ".71em")
+                        .style("text-anchor", "end")
+                        .text("Température (C°)");
 
-                // update the domains
-                now = new Date(sensorValue.date);
-                x.domain([now - (n - 2) * duration, now - duration]);
-                if (sensorValue.value > 40)
-                    y.domain([0, sensorValue.value])
-                else
-                    y.domain([0, 40]);
+                    var path = svg.append("g")
+                        .attr("clip-path", "url(#clip)")
+                        .append("path")
+                        .datum(data)
+                        .attr("class", "line");
 
-                // push the accumulated count onto the back, and reset the count
-                data.push(sensorValue.value);
-                count = 0;
+                    var pushSensorValue = function(sensorValue) {
+                        // update the domains
+                        now = new Date(sensorValue.date);
+                        x.domain([now - (n - 2) * duration, now - duration]);
+                        if (sensorValue.value > 40)
+                            y.domain([0, sensorValue.value])
+                        else
+                            y.domain([0, 40]);
 
-                // redraw the line
-                svg.select(".line")
-                    .attr("d", line)
-                    .attr("transform", null);
+                        // push the accumulated count onto the back, and reset the count
+                        data.push(sensorValue.value);
 
-                // slide the x-axis left
-                xAxis.call(x.axis);
+                        // redraw the line
+                        svg.select(".line")
+                            .attr("d", line)
+                            .attr("transform", null);
 
-                // slide the line left
-                path.transition()
-                    .attr("transform", "translate(" + x(now - (n - 1) * duration) + ")");
+                        // slide the x-axis left
+                        xAxis.call(x.axis);
 
-                // pop the old data point off the front
-                data.shift();
+                        // slide the line left
+                        path.transition()
+                            .attr("transform", "translate(" + x(now - (n - 1) * duration) + ")");
 
-            });
+                        // pop the old data point off the front
+                        data.shift();
+                    };
+
+                    if (previousData.length > 0) {
+                        previousData.map(function(d) {
+                            pushSensorValue(d);
+                        });
+                    }
+
+                    changes.on('data', function (sensorValue) {
+                        scope.temperature = sensorValue.value;
+
+                        pushSensorValue(sensorValue);
+                    });
+
+                });
 
             //var margin = {top: 20, right: 20, bottom: 30, left: 50},
             //    width = 400 - margin.left - margin.right,

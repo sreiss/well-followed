@@ -3,6 +3,7 @@
   "plural": "VideoStreams",
   "base": "Model",
   "idInjection": true,
+  "strict": true,
   "options": {
     "validateUpsert": true
   },

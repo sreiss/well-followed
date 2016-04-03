@@ -3,6 +3,7 @@
   "plural": "Sensors",
   "base": "PersistedModel",
   "idInjection": true,
+  "strict": true,
   "options": {
     "validateUpsert": true
   },
@@ -17,6 +18,10 @@
     },
     "description": {
       "type": "string"
+    },
+    "isPlugged": {
+      "type": "boolean",
+      "required": true
     }
   },
   "validations": [],
