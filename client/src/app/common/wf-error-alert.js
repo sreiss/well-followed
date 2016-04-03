@@ -8,7 +8,14 @@ angular.module('wellFollowed').directive('wfErrorAlert', function() {
            alertCount: '='
        },
        link: function(scope, element, attributes) {
-
+           switch (scope.alert.message.message) {
+               case 'login failed':
+                   scope.alert.message = 'E-mail ou mot de passe incorrects.';
+                   break;
+               default:
+                   scope.alert.message = scope.alert.message.message;
+                   break;
+           }
        }
    };
 });

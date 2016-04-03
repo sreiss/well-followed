@@ -9,7 +9,7 @@ angular.module('wellFollowed').directive('wfLogin', function(WfUser, $state) {
 
             scope.login = function() {
                 WfUser.login({
-                    username: scope.username,
+                    email: scope.email,
                     password: scope.password
                 }, function () {
                     wfApp.refreshMenu();
