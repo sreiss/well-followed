@@ -2,15 +2,17 @@
   "name": "Sensor",
   "plural": "Sensors",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "strict": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
+    "id": {
       "type": "string",
-      "required": true
+      "id": true,
+      "required": true,
+      "generated": false
     },
     "tag": {
       "type": "string",
@@ -18,10 +20,6 @@
     },
     "description": {
       "type": "string"
-    },
-    "isPlugged": {
-      "type": "boolean",
-      "required": true
     }
   },
   "validations": [],

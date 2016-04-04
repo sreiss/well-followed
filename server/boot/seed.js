@@ -77,14 +77,17 @@ module.exports = function(app) {
             persistedEntities.institutions = persistedInstitutions;
             return persistedInstitutions;
         })
-        .then(function() {
-            var sensorPromises = [];
-            for (var i = 0; i < sensors.length; i++) {
-                sensorPromises.push(Sensor.findOrCreate({where: sensors[i]}, sensors[i]));
-            }
-            return Promise.all(sensorPromises);
-        })
-        .then(function() {
+        //.then(function() {
+        //    var sensorPromises = [];
+        //    for (var i = 0; i < sensors.length; i++) {
+        //        sensorPromises.push(Sensor.findOrCreate({where: {name: sensors[i].name}}, sensors[i]));
+        //    }
+        //    return Promise.all(sensorPromises);
+        //})
+        .then(function(persistedSensors) {
+            //persistedEntities.sensors = persistedSensors.map(function(result) {
+            //    return result[0];
+            //});
             var institution =  persistedEntities.institutions.filter(function(institution) {
                 return institution[0].tag === user.institutionTag;
             })[0];
@@ -113,10 +116,6 @@ module.exports = function(app) {
                 return true;
             }
             return false;
-        })
-        .then(function(persistedSensors) {
-            persistedEntities.sensors = persistedSensors;
-            return persistedSensors;
         })
         .then(function() {
             console.log('Seed ran.');

@@ -1,7 +1,7 @@
-angular.module('wellFollowed').directive('wfSensorTemperature', function($wfStream, SensorValue) {
+angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, SensorData) {
     return {
         restrict: 'E',
-        templateUrl: 'experiment/wf-sensor-temperature.html',
+        templateUrl: 'experiment/wf-sensor-numeric.html',
         scope: {
             sensor: '='
         },
@@ -12,11 +12,11 @@ angular.module('wellFollowed').directive('wfSensorTemperature', function($wfStre
         },
         link: function(scope, element, attributes, wfExperiment) {
 
-            SensorValue.find({filter: {where: {sensorName: scope.sensor.name}}})
+            SensorData.find({filter: {where: {sensorName: scope.sensor.name}}})
                 .$promise
                 .then(function(previousData) {
 
-                    var changes = $wfStream.openStream('/api/SensorValues/watchValues/' + scope.sensor.name);
+                    var changes = $wfStream.openStream('/api/SensorData/watchValues/' + scope.sensor.name);
 
                     var n = 50,
                         duration = 750,
@@ -87,10 +87,17 @@ angular.module('wellFollowed').directive('wfSensorTemperature', function($wfStre
                         // update the domains
                         now = new Date(sensorValue.date);
                         x.domain([now - (n - 2) * duration, now - duration]);
-                        if (sensorValue.value > 40)
-                            y.domain([0, sensorValue.value])
-                        else
-                            y.domain([0, 40]);
+                        switch(sensorValue.type) {
+                            case 'numeric':
+                                sensorValue.value = parseInt(sensorValue.value, 10);
+                                if (sensorValue.value > 40)
+                                    y.domain([0, sensorValue.value])
+                                else
+                                    y.domain([0, 40]);
+                                break;
+                            case 'signal':
+                                return;
+                        }
 
                         // push the accumulated count onto the back, and reset the count
                         data.push(sensorValue.value);
@@ -118,7 +125,15 @@ angular.module('wellFollowed').directive('wfSensorTemperature', function($wfStre
                     }
 
                     changes.on('data', function (sensorValue) {
-                        scope.temperature = sensorValue.value;
+                        if (sensorValue.type != 'signal') {
+                            scope.temperature = sensorValue.value;
+                        } else {
+                            if (sensorValue.value == 'start') {
+                                scope.temperature = "Acquisition des données...";
+                            } else {
+                                scope.temperature = 'Tramission terminée.';
+                            }
+                        }
 
                         pushSensorValue(sensorValue);
                     });

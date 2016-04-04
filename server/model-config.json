@@ -61,7 +61,7 @@
     "dataSource": "mongo",
     "public": true
   },
-  "SensorValue": {
+  "SensorData": {
     "dataSource": "db",
     "public": true
   },

@@ -1,6 +1,6 @@
 {
-  "name": "SensorValue",
-  "plural": "SensorValues",
+  "name": "SensorData",
+  "plural": "SensorData",
   "base": "PersistedModel",
   "idInjection": true,
   "strict": true,
@@ -8,7 +8,7 @@
     "validateUpsert": true
   },
   "properties": {
-    "sensorName": {
+    "sensorId": {
       "type": "string",
       "required": true
     },
@@ -18,6 +18,10 @@
     },
     "date": {
       "type": "date",
+      "required": true
+    },
+    "type": {
+      "type": "string",
       "required": true
     }
   },

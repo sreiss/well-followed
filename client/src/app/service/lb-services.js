@@ -5845,13 +5845,13 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name lbServices.SensorValue
- * @header lbServices.SensorValue
+ * @name lbServices.SensorData
+ * @header lbServices.SensorData
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `SensorValue` model.
+ * A $resource object for interacting with the `SensorData` model.
  *
  * ## Example
  *
@@ -5861,17 +5861,17 @@ module.factory(
  *
  */
 module.factory(
-  "SensorValue",
+  "SensorData",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/SensorValues/:id",
+      urlBase + "/SensorData/:id",
       { 'id': '@id' },
       {
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#create
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#create
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -5898,18 +5898,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "create": {
-          url: urlBase + "/SensorValues",
+          url: urlBase + "/SensorData",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#createMany
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#createMany
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -5936,19 +5936,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "createMany": {
           isArray: true,
-          url: urlBase + "/SensorValues",
+          url: urlBase + "/SensorData",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#upsert
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#upsert
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -5975,18 +5975,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "upsert": {
-          url: urlBase + "/SensorValues",
+          url: urlBase + "/SensorData",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#exists
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#exists
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6011,14 +6011,14 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/SensorValues/:id/exists",
+          url: urlBase + "/SensorData/:id/exists",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#findById
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#findById
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6042,18 +6042,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "findById": {
-          url: urlBase + "/SensorValues/:id",
+          url: urlBase + "/SensorData/:id",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#find
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#find
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6075,19 +6075,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "find": {
           isArray: true,
-          url: urlBase + "/SensorValues",
+          url: urlBase + "/SensorData",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#findOne
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#findOne
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6109,18 +6109,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "findOne": {
-          url: urlBase + "/SensorValues/findOne",
+          url: urlBase + "/SensorData/findOne",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#updateAll
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#updateAll
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6147,14 +6147,14 @@ module.factory(
          * The number of instances updated
          */
         "updateAll": {
-          url: urlBase + "/SensorValues/update",
+          url: urlBase + "/SensorData/update",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#deleteById
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#deleteById
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6176,18 +6176,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "deleteById": {
-          url: urlBase + "/SensorValues/:id",
+          url: urlBase + "/SensorData/:id",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#count
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#count
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6212,14 +6212,14 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/SensorValues/count",
+          url: urlBase + "/SensorData/count",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#prototype$updateAttributes
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#prototype$updateAttributes
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6245,18 +6245,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/SensorValues/:id",
+          url: urlBase + "/SensorData/:id",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#createChangeStream
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#createChangeStream
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6286,14 +6286,14 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "createChangeStream": {
-          url: urlBase + "/SensorValues/change-stream",
+          url: urlBase + "/SensorData/change-stream",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#watchValues
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#watchValues
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6320,7 +6320,7 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "watchValues": {
-          url: urlBase + "/SensorValues/watchValues/:sensorName",
+          url: urlBase + "/SensorData/watchValues/:sensorName",
           method: "GET"
         },
       }
@@ -6330,8 +6330,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#updateOrCreate
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#updateOrCreate
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6358,15 +6358,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         R["updateOrCreate"] = R["upsert"];
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#update
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#update
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6396,8 +6396,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#destroyById
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#destroyById
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6419,15 +6419,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         R["destroyById"] = R["deleteById"];
 
         /**
          * @ngdoc method
-         * @name lbServices.SensorValue#removeById
-         * @methodOf lbServices.SensorValue
+         * @name lbServices.SensorData#removeById
+         * @methodOf lbServices.SensorData
          *
          * @description
          *
@@ -6449,7 +6449,7 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `SensorValue` object.)
+         * This usually means the response is a `SensorData` object.)
          * </em>
          */
         R["removeById"] = R["deleteById"];
@@ -6457,13 +6457,13 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name lbServices.SensorValue#modelName
-    * @propertyOf lbServices.SensorValue
+    * @name lbServices.SensorData#modelName
+    * @propertyOf lbServices.SensorData
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `SensorValue`.
+    * i.e. `SensorData`.
     */
-    R.modelName = "SensorValue";
+    R.modelName = "SensorData";
 
 
     return R;
