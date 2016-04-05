@@ -2,8 +2,8 @@
   "name": "Sensor",
   "plural": "Sensors",
   "base": "PersistedModel",
-  "idInjection": false,
   "strict": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -11,8 +11,8 @@
     "id": {
       "type": "string",
       "id": true,
-      "required": true,
-      "generated": false
+      "generated": false,
+      "required": true
     },
     "tag": {
       "type": "string",
@@ -20,6 +20,10 @@
     },
     "description": {
       "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

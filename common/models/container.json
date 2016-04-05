@@ -1,8 +1,6 @@
 {
-  "name": "VideoStream",
-  "plural": "VideoStreams",
+  "name": "Container",
   "base": "Model",
-  "strict": true,
   "idInjection": true,
   "options": {
     "validateUpsert": true

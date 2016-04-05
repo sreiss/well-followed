@@ -18,9 +18,9 @@ def get_current_date():
     return now
 
 
-def create_message(type, value):
+def create_message(is_signal, value):
     now = get_current_date()
-    body = '{"sensorId":"sensor2", "type":"' + type + '", "value":"' + value + '", "date": "' + now + '"}'
+    body = '{"sensorId":"sensor2", "isSignal":' + str(is_signal).lower() + ', "value":"' + value + '", "date": "' + now + '"}'
     return body
 
 
@@ -34,12 +34,13 @@ def send_start():
     sensor_data = {
         'id': 'sensor2',
         'tag': 'Capteur 1',
-        'description': ''
+        'description': '',
+        'type': 'numeric'
     }
     result = requests.post('http://localhost:8086/api/Sensors', data=sensor_data)
 
     if result.status_code == 200:
-        message = create_message('signal', 'start')
+        message = create_message(True, 'start')
         send_message(message)
         time.sleep(1)
         print "Debut de l'echange."
@@ -53,11 +54,8 @@ def send_start():
         sys.exit(0)
 
 
-
-
-
 def send_stop():
-    message = create_message('signal', 'stop')
+    message = create_message(True, 'stop')
     send_message(message)
     print '[send_stop] ' + message
     print 'Fin de la transmission.'
@@ -66,7 +64,7 @@ def send_stop():
 def send_data():
     global t
     val = str(math.ceil(random.uniform(14, 20)))
-    message = create_message('numeric', val)
+    message = create_message(False, val)
     send_message(message)
     print '[send_data] ' + message
     t = threading.Timer(1, send_data)

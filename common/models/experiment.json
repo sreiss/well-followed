@@ -2,8 +2,8 @@
   "name": "Experiment",
   "plural": "Experiments",
   "base": "PersistedModel",
-  "idInjection": true,
   "strict": true,
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
