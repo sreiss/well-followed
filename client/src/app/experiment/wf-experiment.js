@@ -23,7 +23,17 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
                                 }
                             });
                         } else if (data.type = 'create') {
-                            scope.sensors.push(data.data);
+                            var existingSensor = scope.sensors.filter(function(sensor) {
+                                return sensor.id == data.data.id;
+                            })[0];
+                            if (!existingSensor) {
+                                scope.sensors.push(data.data);
+                            } else {
+                                existingSensor.id = data.data.id;
+                                existingSensor.tag = data.data.tag;
+                                existingSensor.description = data.data.description;
+                                existingSensor.isPlugged = true;
+                            }
                         }
                     });
                     //var sensorSet = new LiveSet(sensors, sensorChanges);

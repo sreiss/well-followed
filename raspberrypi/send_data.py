@@ -33,7 +33,7 @@ def send_message(message):
 def send_start():
     sensor_data = {
         'id': 'sensor2',
-        'tag': 'Capteur 1',
+        'tag': 'Capteur Test',
         'description': '',
         'type': 'numeric'
     }
@@ -43,13 +43,13 @@ def send_start():
         message = create_message(True, 'start')
         send_message(message)
         time.sleep(1)
-        print "Debut de l'echange."
+        print "Starting exchange."
         print '[send_start] ' + message
     else:
         if result.status_code == 500:
-            message = "Erreur: un capteur portant cet identifiant est deja branche."
+            message = "Error: a sensor with this name has already been plugged in."
         else:
-            message = "Erreur: impossible de demarrer l'echange."
+            message = "Error: unable to start the transmission."
         print '[send_start] ' + message
         sys.exit(0)
 
@@ -58,7 +58,7 @@ def send_stop():
     message = create_message(True, 'stop')
     send_message(message)
     print '[send_stop] ' + message
-    print 'Fin de la transmission.'
+    print 'End of transmission.'
 
 
 def send_data():
