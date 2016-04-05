@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-import datetime
-import pika, random, threading, math, signal, sys, time, requests
+import pika, random, threading, math, signal, sys, time, requests, datetime, ConfigParser
 
-credentials = pika.PlainCredentials('wellfollowed', 'wellfollowed')
-parameters = pika.ConnectionParameters('localhost',
-                                       5672,
+Config = ConfigParser.ConfigParser()
+Config.read('send_data.ini')
+
+credentials = pika.PlainCredentials(Config.get('RabbitMQ', 'user'), Config.get('RabbitMQ', 'password'))
+parameters = pika.ConnectionParameters(Config.get('RabbitMQ', 'host'),
+                                       int(Config.get('RabbitMQ', 'port')),
                                        '/',
                                        credentials)
 connection = pika.BlockingConnection(parameters)
@@ -20,7 +22,7 @@ def get_current_date():
 
 def create_message(is_signal, value):
     now = get_current_date()
-    body = '{"sensorId":"sensor2", "isSignal":' + str(is_signal).lower() + ', "value":"' + value + '", "date": "' + now + '"}'
+    body = '{"sensorId":"' + Config.get('Sensor', 'id') + '", "isSignal":' + str(is_signal).lower() + ', "value":"' + value + '", "date": "' + now + '"}'
     return body
 
 
@@ -32,12 +34,12 @@ def send_message(message):
 
 def send_start():
     sensor_data = {
-        'id': 'sensor2',
-        'tag': 'Capteur Test',
-        'description': '',
-        'type': 'numeric'
+        'id': Config.get('Sensor', 'id'),
+        'tag': Config.get('Sensor', 'tag'),
+        'description': Config.get('Sensor', 'description'),
+        'type': Config.get('Sensor', 'type')
     }
-    result = requests.post('http://localhost:8086/api/Sensors', data=sensor_data)
+    result = requests.post(Config.get('Api', 'url'), data=sensor_data)
 
     if result.status_code == 200:
         message = create_message(True, 'start')
