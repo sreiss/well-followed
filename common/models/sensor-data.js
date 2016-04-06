@@ -86,11 +86,11 @@ module.exports = function(SensorData) {
         });
     });
 
-    SensorData.watchValues = function(sensorName, next) {
+    SensorData.watchValues = function(sensorId, next) {
         var changes = new PassThrough({objectMode: true});
 
         SensorData.observe('after save', function(ctx, next) {
-            if (ctx.instance.sensorName === sensorName)
+            if (ctx.instance.sensorId === sensorId)
                 changes.write(ctx.instance);
             next();
         });
@@ -101,7 +101,7 @@ module.exports = function(SensorData) {
     SensorData.remoteMethod(
         'watchValues',
         {
-            accepts: {arg: 'sensorName', type:'string', http: {source: 'path'}},
+            accepts: {arg: 'sensorId', type:'string', http: {source: 'path'}},
             returns: {arg: 'changes', type: 'ReadableStream', json: true},
             http: {verb: 'get', path: '/watchValues/:sensorId'}
         }

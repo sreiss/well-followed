@@ -42,10 +42,14 @@ angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, 
                     });
 
                 var svg = d3.select(element[0]).select("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .style("margin-left", -margin.left + "px")
+                    //.attr("width", width + margin.left + margin.right)
+                    //.attr("height", height + margin.top + margin.bottom)
+                    //.style("margin-left", -margin.left + "px")
+                    .classed("svg-container", true)
+                    .attr("preserveAspectRatio", "xMinYMin meet")
+                    .attr("viewBox", "0 0 600 250")
                     .append("g")
+                    .classed("svg-content-responsive", true)
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 svg.append("defs").append("clipPath")
@@ -78,13 +82,6 @@ angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, 
                     .append("path")
                     .datum(data)
                     .attr("class", "line");
-
-                var onResize = function() {
-                    width = element.width - margin.right;
-                    svg.attr("width", width + margin.left + margin.right)
-                };
-
-                windowElement.on('resize', onResize);
 
                 var pushSensorData = function(sensorData) {
                     // update the domains
@@ -137,10 +134,6 @@ angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, 
                     }
 
                     pushSensorData(sensorData);
-                });
-
-                scope.$on('$destroy', function() {
-                    windowElement.off('resize', onResize);
                 });
 
             });

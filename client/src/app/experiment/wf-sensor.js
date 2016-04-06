@@ -7,12 +7,12 @@ angular.module('wellFollowed').directive('wfSensor', function(SensorData, $wfStr
         },
         controller: function($scope) {
             this.getPreviousValues = function() {
-                return SensorData.find({filter: {where: {sensorName: $scope.sensor.name}}})
+                return SensorData.find({filter: {where: {sensorName: $scope.sensor.id}}})
                     .$promise;
             };
 
             this.openStream = function() {
-                return $wfStream.openStream('/api/SensorData/watchValues/' + $scope.sensor.name)
+                return $wfStream.openStream('/api/SensorData/watchValues/' + $scope.sensor.id)
             };
         },
         link: function(scope, element, attributes) {
