@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfStream, LiveSet) {
+angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfStream, LiveSet, Experiment) {
     return {
         restrict: 'E',
         templateUrl: 'experiment/wf-experiment.html',
@@ -6,6 +6,14 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
 
         },
         link: function (scope, element, attributes) {
+            scope.startExperiment = function() {
+                Experiment.start()
+                    .$promise
+                    .then(function() {
+
+                    });
+            };
+
             Sensor.find()
                 .$promise
                 .then(function(sensors) {
@@ -35,6 +43,7 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
                                 existingSensor.isPlugged = true;
                             }
                         }
+                        scope.$apply();
                     });
                     //var sensorSet = new LiveSet(sensors, sensorChanges);
                     //scope.sensors = sensorSet.toLiveArray();

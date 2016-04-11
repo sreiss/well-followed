@@ -1,5 +1,8 @@
 {
   "name": "Experiment",
+  "description": [
+    "Represents an experiment"
+  ],
   "plural": "Experiments",
   "base": "PersistedModel",
   "strict": true,
@@ -10,15 +13,27 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": true
-    },
-    "initiatorId": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "A name given to the experiment that will be displayed while it's in progress."
+      ]
     },
     "eventId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The id of the event linked to this experiment.",
+        "In order for a user to start an experiment, he should first book an event.",
+        "An experiment should only be allowed start when an event booked for it starts."
+      ]
+    },
+    "isCurrent": {
+      "type": "boolean",
+      "required": true,
+      "description": [
+        "Indicates whether the experiment is current or not.",
+        "This property will be set to false automatically at the end of an experiment."
+      ]
     }
   },
   "validations": [],
@@ -32,13 +47,22 @@
       "type": "hasMany",
       "model": "WfUser",
       "foreignKey": "experimentId"
-    },
-    "initiator": {
-      "type": "hasOne",
-      "model": "WfUser",
-      "foreignKey": "experimentId"
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "start": {
+      "isStatic": true,
+      "accepts": [
+        {"arg": "name", "type": "string"}
+      ],
+      "returns": [],
+      "description": [
+        "Starts an experiment.",
+        "This will check if an event has been booked and has already started and if the current user did book the event.",
+        "If not, an exception will be thrown and an http error will be sent."
+      ],
+      "http": {"verb": "post"}
+    }
+  }
 }

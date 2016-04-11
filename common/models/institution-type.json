@@ -1,5 +1,8 @@
 {
   "name": "InstitutionType",
+  "description": [
+    "Type of an institution"
+  ],
   "plural": "InstitutionTypes",
   "base": "PersistedModel",
   "strict": true,
@@ -10,7 +13,11 @@
   "properties": {
     "tag": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The name of the type of the institution (e.g. \"Collège\", \"Lycée\")",
+        "The tag is often displayed with the name of the insitution (e.g. \"Université de Strasbourg\")."
+      ]
     }
   },
   "validations": [],

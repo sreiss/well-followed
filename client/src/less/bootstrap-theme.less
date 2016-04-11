@@ -15,7 +15,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar-brand img {
   margin-top: -5px;
-  max-height: 30px;
+  max-height: 20px;
+}
+
+.navbar-brand {
+  height: 40px;
 }
 
 .navbar-inverse .navbar-brand {
@@ -47,13 +51,6 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-inverse .navbar-nav>.open>a:hover {
   background-color: @navbar-border;
   color: @light;
-}
-
-.navbar-nav>li>a {
-  padding-bottom: 13px;
-  border-bottom: 2px solid transparent;
-  -webkit-transition: border 0.2s, color 0.2s;
-  transition: border 0.2s, color 0.2s;
 }
 
 .navbar-inverse .navbar-nav>li.active>a,
@@ -128,4 +125,19 @@ h1, h2, h3, h4, h5, h6 {
 .table>thead>tr>td,
 .table>thead>tr>th {
   vertical-align: middle;
+}
+
+.navbar {
+  min-height: 40px;
+}
+
+.nav>li>a {
+  padding: 10px 15px;
+  transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+}
+
+.navbar-toggle {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }

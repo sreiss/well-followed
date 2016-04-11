@@ -1,5 +1,9 @@
 {
   "name": "WfUser",
+  "description": [
+    "Represents a user of the application.",
+    "There are three roles for the users: \"admin\", \"teacher\" and \"student\"."
+  ],
   "plural": "Users",
   "base": "User",
   "strict": true,
@@ -16,7 +20,10 @@
     },
     "institutionId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "descrption": [
+        "The institution's id to which the user belongs."
+      ]
     }
   },
   "validations": [],
@@ -33,6 +40,12 @@
       "principalType": "ROLE",
       "principalId": "$owner",
       "permission": "ALLOW"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__institution"
     },
     {
       "accessType": "*",

@@ -1,5 +1,8 @@
 {
   "name": "SensorData",
+  "description": [
+    "Data sent by the sensors"
+  ],
   "plural": "SensorData",
   "base": "PersistedModel",
   "strict": true,
@@ -10,19 +13,33 @@
   "properties": {
     "sensorId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The id of the sensor to which this data is linked to (e.g. \"sensor1\").",
+        "In order for the data to be redistributed to the client properly, it is mandatory to register the sensor before sending the data."
+      ]
     },
     "value": {
-      "type": "string",
-      "required": true
+      "type": "any",
+      "required": true,
+      "description": [
+        "The value that was sent from the sensor (e.g. 10, \"cold\", {x: \"20\", y: \"42\"}, [80,98,102])."
+      ]
     },
     "date": {
       "type": "date",
-      "required": true
+      "required": true,
+      "description": [
+        "The exact date on which the data was sent, this is extremely important in order the keep coherence through the data."
+      ]
     },
     "isSignal": {
       "type": "boolean",
       "required": true,
+      "description": [
+        "Whether the data sent is a signal or not. There are two kinds of signals:",
+        "\"start\" to indicate the begining of an exchange between a sensor and the server and \"stop\" to indicate its end."
+      ],
       "default": false
     }
   },

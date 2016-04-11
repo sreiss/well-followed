@@ -1,5 +1,8 @@
 {
   "name": "Event",
+  "description": [
+    "Represents calendar events"
+  ],
   "plural": "Events",
   "base": "PersistedModel",
   "strict": true,
@@ -10,30 +13,51 @@
   "properties": {
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The title that will be displayed on the calendar to indicate the event."
+      ]
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "description": [
+        "An optional description of the event to sum it up."
+      ]
     },
     "start": {
       "type": "date",
-      "required": true
+      "required": true,
+      "description": [
+        "The start date of the event."
+      ]
     },
     "end": {
       "type": "date",
-      "required": true
+      "required": true,
+      "description": [
+        "The end date of the event."
+      ]
     },
     "userId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The id of the user that created the event."
+      ]
     },
     "institutionId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The id of the institution linked to the event (it's the user that created the event's institution id)."
+      ]
     },
     "cancelled": {
       "type": "boolean",
       "required": true,
+      "description": [
+        "Whether the event was cancelled or not. This attribute should be used over the suppression of the event."
+      ],
       "default": false
     }
   },

@@ -4,8 +4,11 @@ angular.module('wellFollowed').factory('$wfStream', function(createChangeStream)
 
   var _openStream = function(url) {
       if (!_openedStreams[url]) {
-        var src = new EventSource(url);
-        _openedStreams[url] = createChangeStream(src);
+          var src = new EventSource(url);
+          _openedStreams[url] = createChangeStream(src);
+          src.addEventListener('end', function() {
+              delete _openedStreams[url];
+          });
       }
       return _openedStreams[url];
   };

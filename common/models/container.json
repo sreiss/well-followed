@@ -1,5 +1,8 @@
 {
   "name": "Container",
+  "description": [
+    "Represents the file system storage of the application"
+  ],
   "base": "Model",
   "idInjection": true,
   "options": {

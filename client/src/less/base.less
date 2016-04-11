@@ -1,3 +1,5 @@
+@import "./variables";
+
 .form-error-message {
   color: #a94442;
   padding: 5px;
@@ -7,18 +9,15 @@
   margin-top: -20px;
 }
 
+.jumbotron-no-border-radius {
+  border-radius: 0;
+}
+
 .jumbotron {
   color: #fff;
   padding-top: 15px;
   padding-bottom: 15px;
-  background: #63b6db; /* Old browsers */
-  background: -moz-linear-gradient(top,  #63b6db 0%, #309dcf 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#63b6db), color-stop(100%,#309dcf)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #63b6db 0%,#309dcf 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #63b6db 0%,#309dcf 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #63b6db 0%,#309dcf 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #63b6db 0%,#309dcf 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=0 ); /* IE6-9 */
+  background: #3b536b;
 
 }
 
@@ -76,4 +75,40 @@ td a {
 
 wf-loader {
   display: block;
+}
+
+.logo-wide {
+  background-image: url('../img/logo-236x270.png');
+  background-size: 50%;
+  background-color: #394e64;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 100%;
+  height: 250px;
+  width: 250px;
+  margin: auto auto;
+  animation-duration: 10s;
+  animation-name: logo-animation;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  border: 3px solid transparent;
+}
+
+@keyframes logo-animation {
+  0% {
+    background-color: #394e64;
+    border-color: transparent;
+  }
+  50% {
+    background-color: #2f4154;
+    box-shadow: inset 0 0 20px @navbar-bg;
+  }
+  75% {
+    border-color: @secondary;
+  }
+  100% {
+    background-color: @navbar-bg;
+    border-color: #0081d3;
+    box-shadow: inset 0 0 20px @navbar-bg;
+  }
 }

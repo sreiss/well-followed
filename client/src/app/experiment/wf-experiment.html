@@ -1,14 +1,21 @@
 <div class="container-fluid">
     <div>
         <div class="text-center">
+            <button class="btn btn-default" ng-click="startExperiment()">
+                Commencer l'expérience
+            </button>
+        </div>
+        <div class="text-center">
             <h1>Experience</h1>
             <p>Les capteurs seront affichés dynamiquement dès qu'ils seront connectés.</p>
         </div>
-        <div ng-repeat="sensor in sensors" class="row">
-            <wf-sensor sensor="sensor" style="display: block" class="col-md-6"></wf-sensor>
+        <div  class="row">
+            <div ng-repeat="sensor in sensors">
+                <wf-sensor sensor="sensor" style="display: block" class="col-md-6"></wf-sensor>
+            </div>
         </div>
         <div class="row">
-            <wf-video-stream style="display: block"></wf-video-stream>
+            <wf-video-stream style="display: block" class="col-md-6"></wf-video-stream>
         </div>
     </div>
 </div>

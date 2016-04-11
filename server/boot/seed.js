@@ -7,7 +7,8 @@ module.exports = function(app) {
         Sensor = app.models.Sensor,
         Institution = app.models.Institution,
         roles = [
-            {name: 'user'},
+            {name: 'student'},
+            {name: 'teacher'},
             {name: 'admin'}
         ],
         user = {

@@ -1,5 +1,8 @@
 {
   "name": "Institution",
+  "description": [
+    "(e.g. \"Univeristé de Strasbourg\")"
+  ],
   "plural": "Institutions",
   "base": "PersistedModel",
   "idInjection": true,
@@ -9,11 +12,24 @@
   "properties": {
     "tag": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The name that will be displayed when referring to this institution."
+      ]
     },
     "typeId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The id of the type of the instution (e.g. \"Collège\", \"Lycée\"...)."
+      ]
+    },
+    "domain": {
+      "type": "string",
+      "required": true,
+      "description": [
+        "The domain of the e-mail addresses attached to this institution (e.g. \"unistra.fr\", \"ac-nancy-metz.fr\"...)."
+      ]
     }
   },
   "validations": [],

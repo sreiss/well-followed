@@ -663,6 +663,10 @@ module.factory(
  *
  * A $resource object for interacting with the `WfUser` model.
  *
+ * **Details**
+ *
+ * Represents a user of the application.,There are three roles for the users: "admin", "teacher" and "student".
+ *
  * ## Example
  *
  * See
@@ -1892,6 +1896,10 @@ module.factory(
  *
  * A $resource object for interacting with the `Event` model.
  *
+ * **Details**
+ *
+ * Represents calendar events
+ *
  * ## Example
  *
  * See
@@ -2634,6 +2642,10 @@ module.factory(
  *
  * A $resource object for interacting with the `Experiment` model.
  *
+ * **Details**
+ *
+ * Represents an experiment
+ *
  * ## Example
  *
  * See
@@ -3168,6 +3180,41 @@ module.factory(
          */
         "createChangeStream": {
           url: urlBase + "/Experiments/change-stream",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Experiment#start
+         * @methodOf lbServices.Experiment
+         *
+         * @description
+         *
+         * Starts an experiment.,This will check if an event has been booked and has already started and if the current user did book the event.,If not, an exception will be thrown and an http error will be sent.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method does not accept any data. Supply an empty object.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "start": {
+          url: urlBase + "/Experiments/start",
           method: "POST"
         },
       }
@@ -4017,6 +4064,10 @@ module.factory(
  *
  * A $resource object for interacting with the `InstitutionType` model.
  *
+ * **Details**
+ *
+ * Type of an institution
+ *
  * ## Example
  *
  * See
@@ -4614,6 +4665,10 @@ module.factory(
  * @description
  *
  * A $resource object for interacting with the `Institution` model.
+ *
+ * **Details**
+ *
+ * (e.g. "Univeristé de Strasbourg")
  *
  * ## Example
  *
@@ -5261,6 +5316,10 @@ module.factory(
  *
  * A $resource object for interacting with the `Sensor` model.
  *
+ * **Details**
+ *
+ * Represents a sensor currently plugged to the server
+ *
  * ## Example
  *
  * See
@@ -5853,6 +5912,10 @@ module.factory(
  *
  * A $resource object for interacting with the `SensorData` model.
  *
+ * **Details**
+ *
+ * Data sent by the sensors
+ *
  * ## Example
  *
  * See
@@ -6303,7 +6366,7 @@ module.factory(
          *
          * @param {Object=} parameters Request parameters.
          *
-         *  - `sensorName` – `{string=}` - 
+         *  - `sensorId` – `{string=}` - 
          *
          * @param {function(Object,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -6593,6 +6656,10 @@ module.factory(
  * @description
  *
  * A $resource object for interacting with the `Container` model.
+ *
+ * **Details**
+ *
+ * Represents the file system storage of the application
  *
  * ## Example
  *

@@ -1,16 +1,21 @@
 module.exports = function(Event) {
 
-    Event.cancel = function(id, next) {
+    /**
+     * Allows to cancel an event (without deleting it).
+     * @param id The id of the event to delete.
+     * @param callback The Loopback callback.
+     */
+    Event.cancel = function(id, callback) {
         Event.findById(id)
             .then(function(event) {
                 if (event) {
                     event.cancelled = true;
                     event.save();
                 }
-                next(null, event);
+                callback(null, event);
             })
             .catch(function(err) {
-                next(err);
+                callback(err);
             });
     };
 

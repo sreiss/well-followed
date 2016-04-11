@@ -5,9 +5,9 @@ angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
             { name: 'Calendrier', state: 'calendar', iconClass: "glyphicon glyphicon-calendar" },
             { name: 'Administration', iconClass: "glyphicon glyphicon-cog", state: 'admin.institutions', items:
                 [
-                    { name: "Établissements", state: 'admin.institutions', role: 'admin' },
-                    { name: "Types d'établissement", state: 'admin.institutionTypes', role: 'admin'},
-                    { name: "Utilisateurs", state: 'admin.users', role: 'admin' }
+                    { name: "Établissements", state: 'admin.institutions', roles: 'admin' },
+                    { name: "Types d'établissement", state: 'admin.institutionTypes', roles: 'admin'},
+                    { name: "Utilisateurs", state: 'admin.users', roles: 'admin' }
                 ]
             }
         ],
@@ -21,12 +21,26 @@ angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
         var menu = [];
         var isAuthenticated = WfUser.isAuthenticated();
         if (!!isAuthenticated) {
+            var checkMenuRoles = function(menuToCheck, roles) {
+                if (!!menuToCheck.items && menuToCheck.items.length > 0) {
+                    checkMenuRoles(menuToCheck, roles);
+                }
+                for (var i = 0; i < menuToCheck.length; i++) {
+                    if (!!menuToCheck[i].roles) {
+                        for (var j = 0; j < menuToCheck[i].roles.length; j++) {
+                            if (roles.indexOf(menuToCheck[i].roles[j]) > -1) {
+                                menu.push(menuToCheck[i]);
+                                break;
+                            }
+                        }
+                    } else {
+                        menu.push(menuToCheck[i]);
+                    }
+                }
+            };
             $wfAuth.getCurrentRoles()
                 .then(function(roles) {
-                    for (var i = 0; i < _menus[id].length; i++) {
-                        if (!_menus[id][i].role || roles.indexOf(_menus[id][i].role) > -1)
-                            menu.push(_menus[id][i]);
-                    }
+                    checkMenuRoles(_menus[id], roles);
                 });
         } else {
             menu = _menus['noAuth'];

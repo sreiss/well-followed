@@ -1,5 +1,8 @@
 {
   "name": "Sensor",
+  "description": [
+    "Represents a sensor currently plugged to the server"
+  ],
   "plural": "Sensors",
   "base": "PersistedModel",
   "strict": true,
@@ -12,18 +15,32 @@
       "type": "string",
       "id": true,
       "generated": false,
-      "required": true
+      "required": true,
+      "description": [
+        "A unique identifier that represents the sensor for the length of it's connection.",
+        "As soon as a sensor is \"unplugged\" from the API by a \"stop\" signal, the id will be available again."
+      ]
     },
     "tag": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The name that will be displayed in the user interface to describe this sensor (e.g. \"Temperature sensor\")."
+      ]
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "description": [
+        "An optional attribute to describe what the sensor does."
+      ]
     },
     "type": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": [
+        "The type of data that is sent by the sensor (e.g. \"numeric\", \"position\").",
+        "In order for the client side of the application to display the data sent, it is mandatory to have an AngularJS directive that handles it."
+      ]
     }
   },
   "validations": [],

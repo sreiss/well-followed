@@ -12,7 +12,6 @@ angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, 
             wfSensor.getPreviousValues().then(function(previousData) {
 
                 var windowElement = angular.element($window);
-                var changes = wfSensor.openStream();
 
                 var n = 50,
                     duration = 750,
@@ -122,7 +121,7 @@ angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, 
                     });
                 }
 
-                changes.on('data', function (sensorData) {
+                wfSensor.onChangeReceived(function (sensorData) {
                     if (!sensorData.isSignal) {
                         scope.temperature = sensorData.value;
                     } else {
