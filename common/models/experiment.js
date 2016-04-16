@@ -27,12 +27,16 @@ module.exports = function(Experiment) {
                 }
             })
             .then(function(persistedEvent) {
-                event = persistedEvent;
-                return Experiment.findOne({where: {eventId: persistedEvent.id}})
+                if (!!persistedEvent) {
+                    event = persistedEvent;
+                    return Experiment.findOne({where: {eventId: persistedEvent.id}})
+                } else {
+                    throw new Error('No experiment was scheduled.');
+                }
             })
             .then(function(experiment) {
                 if (experiment && experiment.isCurrent) {
-                    callback(new Error('The experiment was already started.'));
+                    throw new Error('The experiment was already started.');
                 } else if (!experiment) {
                     return Experiment.create({name: name || 'test', eventId: event.id, isCurrent: true});
                 } else {
