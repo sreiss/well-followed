@@ -1,30 +1,30 @@
-<div class="container-fluid">
-    <div>
-        <div class="text-center">
-            <wf-loader ng-if="experiment === null"></wf-loader>
-        </div>
-        <div class="text-center">
-            <div ng-messages="experimentError">
-                <p ng-message="unauthorized">
-                    Votre établissement n'est pas autorisé à suivre l'expérience courrante.
-                </p>
-                <p ng-message="notFound">
-                    Aucune expérience n'est en cours pour le moment.
-                    <div>
-                        <wf-loader-button is-loading="isStartingExperiment" click-callback="startExperiment()"
-                            options="{'btnClass': 'primary'}">
-                            Commencer l'expérience
-                        </wf-loader-button>
-                    </div>
-                </p>
+<div class="text-center">
+    <div ng-messages="experimentError">
+        <p ng-message="unauthorized">
+            Votre établissement n'est pas autorisé à suivre l'expérience courrante.
+        </p>
+        <div ng-message="notFound">
+            <p>Aucune expérience n'est en cours pour le moment.</p>
+            <div>
+                <wf-loader-button is-loading="isStartingExperiment" click-callback="startExperiment()"
+                                  options="{'btnClass': 'primary'}">
+                    Commencer l'expérience
+                </wf-loader-button>
             </div>
         </div>
-        <div ng-if="experiment !== null && experiment !== false">
-            <div class="text-center">
-                <h1>Experience</h1>
-                <p>Les capteurs seront affichés dynamiquement dès qu'ils seront connectés.</p>
-            </div>
-            <div  class="row">
+    </div>
+</div>
+<div class="text-center">
+    <wf-loader ng-if="experiment === null"></wf-loader>
+</div>
+<div ng-if="experiment !== null && experiment !== false">
+    <div class="container">
+        <h4>Experience</h4>
+    </div>
+    <div class="grey-section grey-border-bottom">
+        <div class="container-fluid">
+            <p class="text-center">Les capteurs seront affichés dynamiquement dès qu'ils seront connectés.</p>
+            <div class="row">
                 <div ng-repeat="sensor in sensors">
                     <wf-sensor sensor="sensor" style="display: block" class="col-md-6"></wf-sensor>
                 </div>
@@ -34,4 +34,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

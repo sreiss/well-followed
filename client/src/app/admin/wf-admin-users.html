@@ -1,9 +1,9 @@
-<div class="container-fluid">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title">Utilisateurs</div>
-        </div>
-        <table class="table table-striped">
+<div class="container">
+    <h4>Utilisateurs</h4>
+</div>
+<div class="grey-section grey-border-bottom">
+    <div class="container">
+        <table class="table">
             <thead>
             <tr>
                 <th style="width: 6%">#</th>
@@ -13,7 +13,7 @@
                 <th style="width: 10%"></th>
             </tr>
             </thead>
-            <tbody ng-if="users !== null">
+            <tbody ng-if="users !== null" class="light-bg">
             <tr ng-repeat="u in users">
                 <td><a ui-sref="admin.user({userId: u.id})">{{$index + 1}}</a></td>
                 <td><a ui-sref="admin.user({userId: u.id})">{{u.username}}</a></td>
@@ -34,15 +34,13 @@
             Aucun utilisateur n'a été crééé.
         </p>
 
-        <div class="panel-footer">
-            <div class="row">
-                <div class="col-md-offset-5 col-md-2">
-                    <!--<div class="btn-group btn-group-justified">-->
-                        <!--<a class="btn btn-primary" ui-sref="admin.user">-->
-                            <!--Créer un utilisateur-->
-                        <!--</a>-->
-                    <!--</div>-->
-                </div>
+        <div class="row">
+            <div class="col-md-offset-5 col-md-2">
+                <!--<div class="btn-group btn-group-justified">-->
+                <!--<a class="btn btn-primary" ui-sref="admin.user">-->
+                <!--Créer un utilisateur-->
+                <!--</a>-->
+                <!--</div>-->
             </div>
         </div>
     </div>

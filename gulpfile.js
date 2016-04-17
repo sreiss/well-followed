@@ -147,7 +147,7 @@ gulp.task('bower', ['cleanLib', 'index'], function () {
     return gulp.src(bowerFiles())
         .pipe(jsFilter)
         .pipe(print())
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(concat(bowerConfig.js.fileName))
         .pipe(gulp.dest(jsPath))
         .pipe(jsFilter.restore)

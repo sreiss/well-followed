@@ -1,9 +1,9 @@
-<div class="container-fluid">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title">Établissements</div>
-        </div>
-        <table class="table table-striped">
+<div class="container">
+    <h4>Établissements</h4>
+</div>
+<div class="grey-section grey-border-bottom">
+    <div class="container">
+        <table class="table">
             <thead>
             <tr>
                 <th style="width: 5%">#</th>
@@ -12,7 +12,7 @@
                 <th style="width: 10%"></th>
             </tr>
             </thead>
-            <tbody ng-if="institutions !== null">
+            <tbody ng-if="institutions !== null" class="light-bg">
             <tr ng-repeat="i in institutions">
                 <td><a ui-sref="admin.institution({id: i.id})">{{$index + 1}}</a></td>
                 <td><a ui-sref="admin.institution({id: i.id})">{{i.tag}}</a></td>
@@ -31,14 +31,11 @@
         <p class="text-center top-space" ng-if="institutions !== null && institutions.length == 0">
             Aucun établissement créé.
         </p>
-
-        <div class="panel-footer">
-            <div class="row">
-                <div class="col-md-offset-5 col-md-2 text-center">
-                    <a class="btn btn-primary" ui-sref="admin.institution">
-                        Créer un établissement
-                    </a>
-                </div>
+        <div class="row">
+            <div class="col-md-offset-5 col-md-2 text-center">
+                <a class="btn btn-primary" ui-sref="admin.institution">
+                    Créer un établissement
+                </a>
             </div>
         </div>
     </div>

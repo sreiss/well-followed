@@ -1,11 +1,9 @@
-<div class="container-fluid">
-    <div class="panel panel-default">
+<div class="container" style="min-height: 39px;">
+    <h4>{{institutionType.tag}}</h4>
+</div>
+<div class="grey-section grey-border-bottom">
+    <div class="container">
         <wf-loader ng-if="institutionType === null"></wf-loader>
-        <div class="panel-heading" ng-if="institutionType !== null && !!institutionType.tag">
-            <div class="panel-title">
-                {{institutionType.tag}}
-            </div>
-        </div>
         <form name="institutionTypeForm" class="form-horizontal">
             <div class="panel-body" ng-if="institutionType !== null">
 
@@ -23,19 +21,21 @@
                 </div>
 
             </div>
-            <div class="panel-footer" ng-if="institutionType !== null">
+            <div ng-if="institutionType !== null">
                 <div class="row">
                     <div class="col-md-offset-3 col-md-6 text-center">
                         <!--<div class="btn-group btn-group-justified">-->
-                            <a class="btn btn-default" ui-sref="{{previousState}}" ng-if="previousState != ''">
-                                Retour
-                            </a>
-                            <a class="btn btn-primary" ng-click="createInstitutionType()" ng-if="!institutionTypeId" ng-disabled="institutionTypeForm.$invalid">
-                                Créer
-                            </a>
-                            <a class="btn btn-primary" ng-click="updateInstitutionType()" ng-if="!!institutionTypeId" ng-disabled="institutionTypeForm.$invalid">
-                                Sauvegarder
-                            </a>
+                        <a class="btn btn-default" ui-sref="{{previousState}}" ng-if="previousState != ''">
+                            Retour
+                        </a>
+                        <a class="btn btn-primary" ng-click="createInstitutionType()" ng-if="!institutionTypeId"
+                           ng-disabled="institutionTypeForm.$invalid">
+                            Créer
+                        </a>
+                        <a class="btn btn-primary" ng-click="updateInstitutionType()" ng-if="!!institutionTypeId"
+                           ng-disabled="institutionTypeForm.$invalid">
+                            Sauvegarder
+                        </a>
                         <!--</div>-->
                     </div>
                 </div>
