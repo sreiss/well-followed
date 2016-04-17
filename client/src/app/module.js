@@ -1,6 +1,7 @@
 angular.module('wellFollowed', [
     'ui.router',
     'ngMessages',
+    'ngAnimate',
     'wfTemplates',
     'wfLibTemplates',
     'ui.calendar',

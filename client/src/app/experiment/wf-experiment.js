@@ -1,18 +1,73 @@
-angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfStream, LiveSet, Experiment) {
+angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfStream, LiveSet, Experiment, WfUser, Event) {
     return {
         restrict: 'E',
         templateUrl: 'experiment/wf-experiment.html',
         controller: function ($scope) {
 
         },
-        link: function (scope, element, attributes) {
+        require: '^wfApp',
+        link: function (scope, element, attributes, wfApp) {
+            wfApp.showErrors(false);
+
             scope.startExperiment = function() {
+                scope.isStartingExperiment = true;
                 Experiment.start()
                     .$promise
                     .then(function() {
 
+                    })
+                    .finally(function() {
+                        scope.isStartingExperiment = false;
                     });
             };
+
+            var experimentFilter = {
+                where: {
+                    isCurrent: true
+                },
+                include: 'event'
+            };
+
+            var experiment;
+
+            scope.experiment = null;
+
+            scope.experimentError = {
+                unauthorized: false,
+                notFound: false,
+                unknown: false
+            };
+
+            Experiment.findOne({filter: experimentFilter})
+                .$promise
+                .then(function(currentExperiment) {
+                    experiment = currentExperiment;
+                    // We get the user institution to check it against the experiment's one
+                    var wfUserFilter = {
+                        fields: 'institution',
+                        include: 'institution'
+                    };
+
+                    return WfUser.findById({id: WfUser.getCurrentId(), filter: wfUserFilter}).$promise;
+                })
+                .then(function(user) {
+                    if (user.institution.id == experiment.event.institutionId) {
+                        scope.experiment = experiment;
+                    } else {
+                        scope.experiment = false;
+                        scope.experimentError.unauthorized = true;
+                    }
+                })
+                .catch(function(err) {
+                    if (err.status == 404) {
+                        scope.experimentError.notFound = true;
+
+                    } else {
+                        scope.experimentError.unknown = true;
+                    }
+                    scope.experiment = false;
+                });
+
 
             Sensor.find()
                 .$promise

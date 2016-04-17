@@ -39,7 +39,7 @@
   "validations": [],
   "relations": {
     "event": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Event",
       "foreignKey": "eventId"
     },

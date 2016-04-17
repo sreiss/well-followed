@@ -29,10 +29,11 @@
     "angular-resource": "^1.5.1",
     "angularjs-nvd3-directives": "^0.0.7",
     "angular-live-set": "*",
-    "font-awesome": "^4.5.0"
+    "font-awesome": "^4.5.0",
+    "angular-animate": "^1.5.3"
   },
   "resolutions": {
-    "angular": "~1.4.7",
+    "angular": ">= 1.0.2",
     "fullcalendar": "~2.4.0",
     "d3": "~3.4.1"
   },

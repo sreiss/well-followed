@@ -1,21 +1,37 @@
 <div class="container-fluid">
     <div>
         <div class="text-center">
-            <button class="btn btn-default" ng-click="startExperiment()">
-                Commencer l'expérience
-            </button>
+            <wf-loader ng-if="experiment === null"></wf-loader>
         </div>
         <div class="text-center">
-            <h1>Experience</h1>
-            <p>Les capteurs seront affichés dynamiquement dès qu'ils seront connectés.</p>
-        </div>
-        <div  class="row">
-            <div ng-repeat="sensor in sensors">
-                <wf-sensor sensor="sensor" style="display: block" class="col-md-6"></wf-sensor>
+            <div ng-messages="experimentError">
+                <p ng-message="unauthorized">
+                    Votre établissement n'est pas autorisé à suivre l'expérience courrante.
+                </p>
+                <p ng-message="notFound">
+                    Aucune expérience n'est en cours pour le moment.
+                    <div>
+                        <wf-loader-button is-loading="isStartingExperiment" click-callback="startExperiment()"
+                            options="{'btnClass': 'primary'}">
+                            Commencer l'expérience
+                        </wf-loader-button>
+                    </div>
+                </p>
             </div>
         </div>
-        <div class="row">
-            <wf-video-stream style="display: block" class="col-md-6"></wf-video-stream>
+        <div ng-if="experiment !== null && experiment !== false">
+            <div class="text-center">
+                <h1>Experience</h1>
+                <p>Les capteurs seront affichés dynamiquement dès qu'ils seront connectés.</p>
+            </div>
+            <div  class="row">
+                <div ng-repeat="sensor in sensors">
+                    <wf-sensor sensor="sensor" style="display: block" class="col-md-6"></wf-sensor>
+                </div>
+            </div>
+            <div class="row">
+                <wf-video-stream style="display: block" class="col-md-6"></wf-video-stream>
+            </div>
         </div>
     </div>
 </div>

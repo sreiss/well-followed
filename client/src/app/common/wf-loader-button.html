@@ -1,0 +1,5 @@
+<button class="btn" ng-class="{'btn-default': options.btnClass == 'default', 'btn-success': options.btnClass == 'success', 'btn-primary': options.btnClass == 'primary'}"
+    ng-click="clickCallback()">
+    <i class="fa fa-circle-o-notch fa-spin" ng-show="isLoading"></i>
+    <span ng-transclude></span>
+</button>
