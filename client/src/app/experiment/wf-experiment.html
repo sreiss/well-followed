@@ -1,3 +1,45 @@
+<div class="container-fluid bg-warning" style="margin-top: -20px; margin-bottom: 20px; border-bottom: 1px solid #e7e7e7"
+     ng-if="isInitiator">
+    <h5 class="text-warning">
+        <span class="glyphicon glyphicon-wrench"></span> Vous êtes l'organisateur/trice de cette expérience.
+    </h5>
+    <form name="experimentForm">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-3">
+                <div class="form-horizontal">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': experimentForm.experimentName.$invalid}">
+                        <label class="col-md-5 control-label" for="experimentName">Nom de l'expérience</label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control"
+                                   name="experimentName"
+                                   ng-model="experiment.name"
+                                   id="experimentName"
+                                   required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="experiment.isPublic"/> Rendre
+                        l'expérience publique
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center padding-bottom">
+                <button class="btn btn-primary" ng-if="experimentForm.$dirty"
+                        ng-disabled="experimentForm.$invalid"
+                ng-click="updateExperiment(experimentForm)">
+                    Sauvegarder
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="text-center">
     <div class="container">
         <div ng-messages="experimentError">
@@ -37,7 +79,7 @@
 </div>
 <div ng-if="experiment !== null && experiment !== false">
     <div class="container">
-        <h4>Experience</h4>
+        <h4>Experience : {{experiment.name}}</h4>
     </div>
     <div class="grey-section grey-border-bottom">
         <div class="container-fluid">

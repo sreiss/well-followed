@@ -2,11 +2,10 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
     return {
         restrict: 'E',
         templateUrl: 'experiment/wf-experiment.html',
-        controller: function ($scope) {
+        require: ['^wfApp'],
+        link: function (scope, element, attributes, controllers) {
+            var wfApp = controllers[0];
 
-        },
-        require: '^wfApp',
-        link: function (scope, element, attributes, wfApp) {
             wfApp.showErrors(false);
 
             var experimentFilter = {
@@ -26,6 +25,14 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
                 unknown: false
             };
 
+            scope.isInitiator = true;
+
+            scope.updateExperiment = function(form) {
+                scope.experiment.$save(function() {
+                    form.$setPristine(true);
+                });
+            };
+
             Experiment.findOne({filter: experimentFilter})
                 .$promise
                 .then(function (currentExperiment) {
@@ -39,8 +46,11 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
                     return WfUser.findById({id: WfUser.getCurrentId(), filter: wfUserFilter}).$promise;
                 })
                 .then(function (user) {
-                    if (experiment.isPublic || user.institution.id == experiment.event.institutionId) {
+                    if (experiment.isPublic || user.institution.id == experiment.event.institutionId || WfUser.getCurrentId() == experiment.event.userId) {
                         scope.experiment = experiment;
+                        if (WfUser.getCurrentId() == experiment.event.userId) {
+                            scope.isInitiator = true;
+                        }
                     } else {
                         scope.experiment = false;
                         scope.experimentError.unauthorized = true;
