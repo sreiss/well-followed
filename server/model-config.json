@@ -35,7 +35,7 @@
   },
   "Role": {
     "dataSource": "mongo",
-    "public": false
+    "public": true
   },
   "WfUser": {
     "dataSource": "mongo",
@@ -71,6 +71,10 @@
   },
   "Container": {
     "dataSource": "storage",
+    "public": true
+  },
+  "EventType": {
+    "dataSource": "mongo",
     "public": true
   }
 }

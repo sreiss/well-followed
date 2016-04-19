@@ -1,49 +1,26 @@
 {
-  "name": "InstitutionType",
-  "description": [
-    "Type of an institution"
-  ],
-  "plural": "InstitutionTypes",
+  "name": "EventType",
+  "plural": "EventTypes",
   "base": "PersistedModel",
-  "strict": true,
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "generated": false,
+      "required": true
+    },
     "tag": {
       "type": "string",
-      "required": true,
-      "description": [
-        "The name of the type of the institution (e.g. \"Collège\", \"Lycée\")",
-        "The tag is often displayed with the name of the insitution (e.g. \"Université de Strasbourg\")."
-      ]
+      "required": true
     }
   },
   "validations": [],
   "relations": {},
   "acls": [
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY",
-      "property": "find"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "teacher",
-      "permission": "ALLOW",
-      "property": "find"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW",
-      "property": "find"
-    },
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",

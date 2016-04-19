@@ -15,7 +15,7 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
             if (scope.data.type === scope.$parent.wfCrudTypes.create) {
                 scope.event = scope.data.event;
             } else {
-                Event.get({id: scope.data.event.id, filter: {include: ['user', {institution: 'type'}]}})
+                Event.get({id: scope.data.event.id, filter: {include: ['user', {institution: 'type'}, 'eventType']}})
                     .$promise
                     .then(function (event) {
                         scope.readOnly = true;
@@ -43,8 +43,6 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
                             .then(function (event) {
                                     scope.close(event);
                                 });
-                    } else {
-                        console.log("FAUX");
                     }
                 });
 

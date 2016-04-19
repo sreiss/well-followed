@@ -7,7 +7,19 @@
         <form name="institutionForm" class="form-horizontal">
             <div class="panel-body" ng-if="institution !== null">
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="type">Type</label>
+
+                            <div class="col-md-9">
+                                <select class="form-control" ng-model="institution.type"
+                                        name="type" id="type"
+                                        ng-options="it as it.tag for it in institutionTypes track by it.id"
+                                        required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group has-feedback"
                              ng-class="{'has-error': institutionForm.tag.$invalid}">
                             <label class="control-label col-md-3" for="tag">Nom</label>
@@ -19,14 +31,12 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="type">Type</label>
+                        <div class="form-group" ng-class="{'has-error': institutionForm.domain.$invalid}">
+                            <label class="control-label col-md-3" for="domain">Domaine</label>
 
                             <div class="col-md-9">
-                                <select class="form-control" ng-model="institution.type"
-                                        name="type" id="type"
-                                        ng-options="it as it.tag for it in institutionTypes track by it.id"
-                                        required></select>
+                                <input type="text" class="form-control" ng-model="institution.domain" name="domain" id="domain"
+                                       required/>
                             </div>
                         </div>
                     </div>

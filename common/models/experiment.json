@@ -34,6 +34,14 @@
         "Indicates whether the experiment is current or not.",
         "This property will be set to false automatically at the end of an experiment."
       ]
+    },
+    "isPublic": {
+      "type": "boolean",
+      "required": true,
+      "default": false,
+      "description": [
+        "Indicates if the experiment should be able to be seen by all institutions or only by yours."
+      ]
     }
   },
   "validations": [],
@@ -54,7 +62,10 @@
     "start": {
       "isStatic": true,
       "accepts": [
-        {"arg": "name", "type": "string"}
+        {
+          "arg": "name",
+          "type": "string"
+        }
       ],
       "returns": [],
       "description": [
@@ -62,7 +73,9 @@
         "This will check if an event has been booked and has already started and if the current user did book the event.",
         "If not, an exception will be thrown and an http error will be sent."
       ],
-      "http": {"verb": "post"}
+      "http": {
+        "verb": "post"
+      }
     }
   }
 }

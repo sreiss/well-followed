@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state) {
+angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state, $q, RoleMapping, Role) {
     return {
         restrict: 'E',
         templateUrl: 'admin/wf-admin-user.html',
@@ -10,6 +10,14 @@ angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state)
 
             scope.isNew = false;
             scope.user = null;
+            scope.userRoles = null;
+            scope.availableRoles = null;
+
+            Role.find()
+                .$promise
+                .then(function(roles) {
+                    scope.availableRoles = roles;
+                });
 
             if (!!scope.userId) {
                 WfUser.get({id: scope.userId})
@@ -17,6 +25,20 @@ angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state)
                     .then(function (user) {
                         scope.user = user;
                         scope.isNew = false;
+
+                        var roleMappingFilter = {
+                            where: {
+                                principalId: scope.userId
+                            },
+                            include: 'role'
+                        };
+
+                        return RoleMapping.find({filter: roleMappingFilter}).$promise;
+                    })
+                    .then(function (roleMappings) {
+                        scope.userRoles = roleMappings.map(function(roleMapping) {
+                           return roleMapping.role.id;
+                        });
                     });
             } else {
                 scope.user = {};
@@ -26,6 +48,19 @@ angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state)
             scope.createUser = function() {
                 WfUser.create(scope.user)
                     .$promise
+                    .then(function(persistedUser) {
+                        var rolePromises = [];
+                        scope.availableRoles.forEach(function (availableRole) {
+                            if (scope.userRoles.indexOf(availableRole.id) > -1) {
+                                rolePromises.push(availableRole.principals.create({
+                                    principalId: persistedUser.id,
+                                    principalType: 'user'
+                                }));
+                            }
+                        });
+
+                        return $q.all(rolePromises);
+                    })
                     .then(function() {
                         wfApp.addSuccess("Utilisateur \"" + scope.user.username + "\" créé.");
                         $state.go('admin.users');
@@ -34,6 +69,7 @@ angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state)
 
             scope.updateUser = function() {
                 scope.user.$save(function() {
+
                     wfApp.addSuccess("Utilisateur mis à jour.");
                     $state.go('admin.users');
                 });

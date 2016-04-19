@@ -7,7 +7,7 @@
             <thead>
             <tr>
                 <th style="width: 6%">#</th>
-                <th style="width: 28%">Nom d'utilisateur</th>
+                <th style="width: 28%">E-mail</th>
                 <th style="width: 28%">Nom</th>
                 <th style="width: 28%">Prénom</th>
                 <th style="width: 10%"></th>
@@ -16,7 +16,7 @@
             <tbody ng-if="users !== null" class="light-bg">
             <tr ng-repeat="u in users">
                 <td><a ui-sref="admin.user({userId: u.id})">{{$index + 1}}</a></td>
-                <td><a ui-sref="admin.user({userId: u.id})">{{u.username}}</a></td>
+                <td><a ui-sref="admin.user({userId: u.id})">{{u.email}}</a></td>
                 <td><a ui-sref="admin.user({userId: u.id})">{{u.lastName}}</a></td>
                 <td><a ui-sref="admin.user({userId: u.id})">{{u.firstName}}</a></td>
                 <td>

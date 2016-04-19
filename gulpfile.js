@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     del = require('del'),
     less = require('gulp-less'),
     filter = require('gulp-filter'),
-    minify = require('gulp-minify-css'),
+    cleanCss = require('gulp-clean-css'),
     uglify = require('gulp-uglify'),
     bowerFiles = require('main-bower-files'),
     ngAnnotate = require('gulp-ng-annotate'),
@@ -154,12 +154,12 @@ gulp.task('bower', ['cleanLib', 'index'], function () {
         .pipe(lessFilter)
         .pipe(print())
         .pipe(less())
-        .pipe(minify())
+        .pipe(cleanCss())
         .pipe(concat(bowerConfig.css.fileName))
         .pipe(lessFilter.restore)
         .pipe(cssFilter)
         .pipe(print())
-        .pipe(minify())
+        .pipe(cleanCss())
         .pipe(concat(bowerConfig.css.fileName))
         .pipe(gulp.dest(cssPath))
         .pipe(cssFilter.restore)
@@ -210,7 +210,7 @@ gulp.task('resources', ['clean'], function () {
                     .pipe(jsFilter.restore)
                     .pipe(lessFilter)
                     .pipe(less())
-                    .pipe(minify())
+                    .pipe(cleanCss())
                     .pipe(lessFilter.restore)
                     .pipe(concat(options.fileName))
                     .pipe(gulp.dest(destPath));

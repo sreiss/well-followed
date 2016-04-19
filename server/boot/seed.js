@@ -6,6 +6,7 @@ module.exports = function(app) {
         InstitutionType = app.models.InstitutionType,
         Sensor = app.models.Sensor,
         Institution = app.models.Institution,
+        EventType = app.models.EventType,
         roles = [
             {name: 'student'},
             {name: 'teacher'},
@@ -29,13 +30,18 @@ module.exports = function(app) {
             {name: 'sensor1', tag: 'Capteur supérieur', description: 'Capteur supérieur.'},
             {name: 'sensor2', tag: 'Capteur central', description: 'Capteur central'},
             {name: 'sensor3', tag: 'Capteur inférieur', description: 'Capteur inférieur'}
+        ],
+        eventTypes = [
+            {id: 'booking', tag: 'Réservation'},
+            {id: 'event', tag: 'Évènement'}
         ];
 
     var persistedEntities = {
         roles: [],
         user: {},
         institutionTypes: [],
-        institutions: []
+        institutions: [],
+        eventTypes: []
     };
 
     var rolePromises = [];
@@ -117,6 +123,13 @@ module.exports = function(app) {
                 return true;
             }
             return false;
+        })
+        .then(function() {
+            var eventTypePromises = [];
+            for (var i = 0; i < eventTypes.length; i++) {
+                eventTypePromises.push(EventType.findOrCreate({where: {id: eventTypes[i].id}}, eventTypes[i]));
+            }
+            return Promise.all(eventTypePromises);
         })
         .then(function() {
             console.log('Seed ran.');

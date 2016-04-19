@@ -2,7 +2,7 @@ angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
     var _menus = {
         main: [
             { name: 'Expérience', state: 'experiment', iconClass: "glyphicon glyphicon-tasks" },
-            { name: 'Calendrier', state: 'calendar', iconClass: "glyphicon glyphicon-calendar" },
+            { name: 'Calendrier', state: 'calendar', iconClass: "glyphicon glyphicon-calendar", roles: ['admin', 'teacher'] },
             { name: 'Administration', iconClass: "glyphicon glyphicon-cog", state: 'admin.institutions', roles: ['admin'], items:
                 [
                     { name: "Établissements", state: 'admin.institutions', roles: ['admin'] },
@@ -21,25 +21,6 @@ angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
         var menu = [];
         var isAuthenticated = WfUser.isAuthenticated();
         if (!!isAuthenticated) {
-            //var checkMenuRoles = function(menuToCheck, roles) {
-            //    for (var i = 0; i < menuToCheck.length; i++) {
-            //        if (!!menuToCheck[i].items && menuToCheck[i].items.length > 0) {
-            //            (function(menuToCkeckItems) {
-            //                checkMenuRoles(menuToCkeckItems, roles);
-            //            })(menuToCheck[i].items);
-            //        }
-            //        if (!!menuToCheck[i].roles) {
-            //            for (var j = 0; j < menuToCheck[i].roles.length; j++) {
-            //                if (roles.indexOf(menuToCheck[i].roles[j]) > -1) {
-            //                    menu.push(menuToCheck[i]);
-            //                    break;
-            //                }
-            //            }
-            //        } else {
-            //            menu.push(menuToCheck[i]);
-            //        }
-            //    }
-            //};
             var checkMenuRoles = function(menuToCheck, roles, menuToFill) {
                 for (var i = 0; i < menuToCheck.length; i++) {
                     var wasInserted = false;

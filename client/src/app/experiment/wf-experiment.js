@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfStream, LiveSet, Experiment, WfUser, Event) {
+angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfStream, LiveSet, Experiment, WfUser, Event, wfEventTypes) {
     return {
         restrict: 'E',
         templateUrl: 'experiment/wf-experiment.html',
@@ -8,18 +8,6 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
         require: '^wfApp',
         link: function (scope, element, attributes, wfApp) {
             wfApp.showErrors(false);
-
-            scope.startExperiment = function() {
-                scope.isStartingExperiment = true;
-                Experiment.start()
-                    .$promise
-                    .then(function() {
-
-                    })
-                    .finally(function() {
-                        scope.isStartingExperiment = false;
-                    });
-            };
 
             var experimentFilter = {
                 where: {
@@ -40,7 +28,7 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
 
             Experiment.findOne({filter: experimentFilter})
                 .$promise
-                .then(function(currentExperiment) {
+                .then(function (currentExperiment) {
                     experiment = currentExperiment;
                     // We get the user institution to check it against the experiment's one
                     var wfUserFilter = {
@@ -50,35 +38,58 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
 
                     return WfUser.findById({id: WfUser.getCurrentId(), filter: wfUserFilter}).$promise;
                 })
-                .then(function(user) {
-                    if (user.institution.id == experiment.event.institutionId) {
+                .then(function (user) {
+                    if (experiment.isPublic || user.institution.id == experiment.event.institutionId) {
                         scope.experiment = experiment;
                     } else {
                         scope.experiment = false;
                         scope.experimentError.unauthorized = true;
                     }
                 })
-                .catch(function(err) {
+                .catch(function (err) {
+                    scope.experiment = false
                     if (err.status == 404) {
                         scope.experimentError.notFound = true;
 
+                        var nextEventFilter = {
+                            where: {
+                                and: [
+                                    {
+                                        start: {
+                                            gt: moment().toDate()
+                                        }
+                                    },
+                                    {eventTypeId: wfEventTypes.booking},
+                                    {cancelled: false}
+                                ]
+                            },
+                            order: 'start'
+                        };
+
+                        return Event.findOne({filter: nextEventFilter}).$promise;
                     } else {
                         scope.experimentError.unknown = true;
                     }
-                    scope.experiment = false;
+
+                    return false;
+                })
+                .then(function (nextEvent) {
+                    if (!!nextEvent) {
+                        scope.nextEvent = nextEvent;
+                    }
                 });
 
 
             Sensor.find()
                 .$promise
-                .then(function(sensors) {
-                    sensors.map(function(sensor) {
+                .then(function (sensors) {
+                    sensors.map(function (sensor) {
                         sensor.isPlugged = true;
                     });
                     scope.sensors = sensors;
 
                     var sensorChanges = $wfStream.openStream('/api/Sensors/change-stream?_format=event-stream');
-                    sensorChanges.on('data', function(data) {
+                    sensorChanges.on('data', function (data) {
                         if (data.type == 'remove') {
                             scope.sensors.map(function (sensor) {
                                 if (data.target == sensor.id) {
@@ -86,7 +97,7 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
                                 }
                             });
                         } else if (data.type = 'create') {
-                            var existingSensor = scope.sensors.filter(function(sensor) {
+                            var existingSensor = scope.sensors.filter(function (sensor) {
                                 return sensor.id == data.data.id;
                             })[0];
                             if (!existingSensor) {
