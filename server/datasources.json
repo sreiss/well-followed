@@ -10,7 +10,7 @@
     "connector": "mongodb"
   },
   "experimentStorage": {
-    "name": "storage",
+    "name": "experimentStorage",
     "connector": "loopback-component-storage",
     "provider": "filesystem",
     "root": "./server/storage/experiment"

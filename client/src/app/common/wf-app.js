@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes, $state, WfUser, LoopBackAuth) {
+angular.module('wellFollowed').directive('wfApp', function($wfAuth, wfAlertTypes, $state, WfUser, LoopBackAuth, $wfAuth) {
    return {
        restrict: 'E',
        templateUrl: 'common/wf-app.html',

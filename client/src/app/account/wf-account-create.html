@@ -6,15 +6,19 @@
     <wf-alerts alerts="alerts"></wf-alerts>
     <form name="userForm" class="login-form">
         <div class="form-group has-feedback"
-             ng-class="{'has-error': userForm.email.$invalid && !userForm.email.$pristine}">
+             ng-class="{'has-error': userForm.email.$invalid && userForm.email.$dirty}">
             <label class="control-label sr-only">Mot de passe</label>
             <input type="email" class="form-control" ng-model="user.email" placeholder="E-mail"
                    name="email"
+                   wf-email-validator
+                   ng-model-options="{debounce: 1000}"
                    required/>
 
             <div class="red form-error-message" ng-messages="userForm.email.$error"
-                 ng-show="!userForm.email.$pristine">
+                 ng-show="userForm.email.$dirty">
                 <span ng-message="required">Ce champ est requis</span>
+                <span ng-message="email">Addresse e-mail invalide</span>
+                <span ng-message="wfDomain">Votre établissement n'est pas autorisé à accéder à l'application</span>
             </div>
         </div>
         <div class="form-group has-feedback"
@@ -63,16 +67,16 @@
                 <span ng-message="required">Ce champ est requis</span>
             </div>
         </div>
-        <div class="form-group has-feedback" ng-class="{'has-error': userForm.institution.$invalid && !userForm.institution.$pristine}">
-            <label class="control-label sr-only">Etablissement</label>
-            <select class="form-control" 
-                    ng-model="institution" placeholder="Etablissement" name="institution" 
-                    ng-options="i as i.type.tag + ' ' + i.tag for i in institutions track by i.id"
-                    required/>
-            <div class="red form-error-message" ng-messages="userForm.institution.$error" ng-show="!userForm.institution.$pristine">
-                <span ng-message="required">Ce champ est requis</span>
-            </div>
-        </div>
+        <!--<div class="form-group has-feedback" ng-class="{'has-error': userForm.institution.$invalid && !userForm.institution.$pristine}">-->
+            <!--<label class="control-label sr-only">Etablissement</label>-->
+            <!--<select class="form-control" -->
+                    <!--ng-model="institution" placeholder="Etablissement" name="institution" -->
+                    <!--ng-options="i as i.type.tag + ' ' + i.tag for i in institutions track by i.id"-->
+                    <!--required/>-->
+            <!--<div class="red form-error-message" ng-messages="userForm.institution.$error" ng-show="!userForm.institution.$pristine">-->
+                <!--<span ng-message="required">Ce champ est requis</span>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="form-group">
             <button class="btn btn-primary btn-block" ng-click="subscribe()" ng-disabled="userForm.$invalid">
                 S'inscrire

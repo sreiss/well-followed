@@ -36,7 +36,8 @@
                                         <select class="form-control" ng-model="user.institution"
                                                 name="type" id="institution"
                                                 ng-options="i as i.type.tag + ' ' + i.tag for i in institutions track by i.id"
-                                                required></select>
+                                                required
+                                                ng-disabled="currentRoles.indexOf('admin') < 0"></select>
                                     </div>
                                 </div>
                             </div>

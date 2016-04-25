@@ -45,7 +45,7 @@
       "accessType": "EXECUTE",
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "DENY",
+      "permission": "ALLOW",
       "property": "find"
     },
     {
@@ -103,6 +103,13 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "update"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "__get__InstitutionType"
     }
   ],
   "methods": {}

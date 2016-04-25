@@ -1,14 +1,20 @@
-angular.module('wellFollowed').directive('wfAccount', function(WfUser, Institution, $state) {
+angular.module('wellFollowed').directive('wfAccount', function(WfUser, Institution, $state, $wfAuth) {
    return {
        restrict: 'E',
        templateUrl: 'account/wf-account.html',
        require: '^wfApp',
        link: function(scope, element, attributes, wfApp) {
-			
-			wfApp.showErrors(false);
+
+           wfApp.showErrors(false);
 
            scope.user = null;
            scope.institutions = null;
+           scope.currentRoles = [];
+
+           $wfAuth.getCurrentRoles()
+               .then(function(roles) {
+                   scope.currentRoles = roles;
+               });
 
            WfUser.get({id: WfUser.getCurrentId(), filter: {include: {institution: 'type'}}})
                .$promise
@@ -36,19 +42,19 @@ angular.module('wellFollowed').directive('wfAccount', function(WfUser, Instituti
                        wfApp.addSuccess("Modifications enregistrées.");
                    });
 
-			};
-			
-			scope.updatePassword = function () {
-				var updatedAttributes = {
-					password: scope.user.password
-				};
+           };
 
-				WfUser.prototype$updateAttributes({ id: scope.user.id }, updatedAttributes)
-					.$promise
-					.then(function () {
-						wfApp.addSuccess("Mot de passe modifié.");
-					});
-			}
+           scope.updatePassword = function () {
+               var updatedAttributes = {
+                   password: scope.user.password
+               };
+
+               WfUser.prototype$updateAttributes({id: scope.user.id}, updatedAttributes)
+                   .$promise
+                   .then(function () {
+                       wfApp.addSuccess("Mot de passe modifié.");
+                   });
+           };
 
            scope.previousState = wfApp.getPreviousState().name || 'sensor';
 

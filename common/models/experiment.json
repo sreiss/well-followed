@@ -38,10 +38,10 @@
     "isPublic": {
       "type": "boolean",
       "required": true,
-      "default": false,
       "description": [
         "Indicates if the experiment should be able to be seen by all institutions or only by yours."
-      ]
+      ],
+      "default": false
     }
   },
   "validations": [],
