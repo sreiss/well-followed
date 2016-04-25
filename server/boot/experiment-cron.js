@@ -40,7 +40,7 @@ module.exports = function (app) {
                             return Event.findOne(eventFilter);
                         } else if (experiment.event().end.getTime() < new Date().getTime()) {
                             // If the experiment is over
-                            return experiment.updateAttribute('isCurrent', false)
+                            Experiment.end()
                                 .then(function () {
                                     return Event.findOne(eventFilter);
                                 });

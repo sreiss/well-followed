@@ -37,37 +37,6 @@ module.exports = function(SensorData) {
                                 });
                             break;
                         case 'stop':
-                            // If it's a stop signal, a file .csv file containing all the data since the start date will be created.
-                            Container.getContainer('sensors', function(err, container) {
-                                var handler = function(err, container) {
-                                    var filePath = path.join(container.client.root, container.name);
-                                    var fileName = value.sensorId + '-' + moment().format('YYYY-MM-DD-HH-mm-ss') + '.csv';
-                                    var writer = csvWriter();
-                                    writer.pipe(fs.createWriteStream(path.join(filePath, fileName)));
-                                    SensorData.find({where:{sensorId: value.sensorId}})
-                                        .then(function(sensorData) {
-                                            sensorData.forEach(function(data) {
-                                                if (!data.isSignal) {
-                                                    var formattedDate = moment(data.date).format('YYYY-MM-DD HH:mm:ss');
-                                                    writer.write({
-                                                        date: formattedDate,
-                                                        value: data.value
-                                                    });
-                                                }
-                                            });
-                                            writer.end();
-                                        })
-                                        .catch(function(err){
-                                            console.log('Error while emptying ' + value.sensorId + ' values.');
-                                        });
-                                };
-
-                                if (!container) {
-                                    Container.createContainer('sensors', handler);
-                                } else {
-                                    handler(null, container);
-                                }
-                            });
                             console.log('SensorData: Sensor ' + value.sensorId + ' unplugged.');
                             break;
                     }
@@ -91,34 +60,35 @@ module.exports = function(SensorData) {
         });
     });
 
-    //SensorData.watchValues = function(sensorId, next) {
-    //    var changes = new PassThrough({objectMode: true});
-    //
-    //    var Sensor = SensorData.app.models.Sensor;
-    //
-    //    SensorData.observe('after save', function(ctx, next) {
-    //        if (ctx.instance.sensorId === sensorId)
-    //            changes.write(ctx.instance);
-    //        next();
-    //    });
-    //
-    //    Sensor.observe('after delete', function(ctx, next) {
-    //        if (ctx.where.id == sensorId) {
-    //            changes.end();
-    //        }
-    //        next();
-    //    });
-    //
-    //    next(null, changes);
-    //};
-
-    SensorData.remoteMethod(
-        'watchValues',
-        {
-            accepts: {arg: 'sensorId', type:'string', http: {source: 'path'}},
-            returns: {arg: 'changes', type: 'ReadableStream', json: true},
-            http: {verb: 'get', path: '/watchValues/:sensorId'}
-        }
-    );
+    /**
+     * Saves the data of the sensor of which the id is given to the given path.
+     * @param sensorId
+     * @param filePath
+     * @returns Promise
+     */
+    SensorData.saveCsvToFile = function(sensorId, filePath) {
+        var fileName = sensorId + '.csv';
+        var fullPath = path.join(filePath, fileName);
+        var writer = csvWriter();
+        writer.pipe(fs.createWriteStream(fullPath));
+        return SensorData.find({where: {sensorId: sensorId}})
+            .then(function (sensorData) {
+                sensorData.forEach(function (data) {
+                    if (!data.isSignal) {
+                        var formattedDate = moment(data.date).format('YYYY-MM-DD HH:mm:ss');
+                        writer.write({
+                            date: formattedDate,
+                            value: data.value
+                        });
+                    }
+                });
+                writer.end();
+                return fullPath;
+            })
+            .catch(function (err) {
+                console.log('Error while emptying ' + value.sensorId + ' values.');
+                return false;
+            });
+    };
 
 };

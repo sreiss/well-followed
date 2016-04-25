@@ -1,0 +1,29 @@
+<div class="container">
+    <h4>Historique des expériences</h4>
+</div>
+<div class="grey-section grey-border-bottom">
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width: 5%">#</th>
+                <th style="width: 85%">Nom</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody ng-if="experiments !== null" class="light-bg">
+            <tr ng-repeat="e in experiments">
+                <td>{{$index + 1}}</td>
+                <td>{{e.name}}</td>
+                <td><button class="btn btn-primary" ng-click="download(e.id)">Télécharger les csvs</button></td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <wf-loader ng-if="experiments === null"></wf-loader>
+        </div>
+        <p class="text-center top-space" ng-if="experiments !== null && experiments.length == 0">
+            Aucune expérience n'a eu lieu pour le moment.
+        </p>
+    </div>
+</div>

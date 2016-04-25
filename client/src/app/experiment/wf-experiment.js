@@ -25,7 +25,7 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
                 unknown: false
             };
 
-            scope.isInitiator = true;
+            scope.isInitiator = false;
 
             scope.updateExperiment = function(form) {
                 scope.experiment.$save(function() {
@@ -73,7 +73,7 @@ angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfSt
                                     {cancelled: false}
                                 ]
                             },
-                            order: 'start'
+                            order: 'start DESC'
                         };
 
                         return Event.findOne({filter: nextEventFilter}).$promise;

@@ -69,8 +69,8 @@
     "dataSource": "db",
     "public": true
   },
-  "Container": {
-    "dataSource": "storage",
+  "ExperimentContainer": {
+    "dataSource": "experimentStorage",
     "public": true
   },
   "EventType": {

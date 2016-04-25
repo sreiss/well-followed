@@ -79,7 +79,12 @@
 </div>
 <div ng-if="experiment !== null && experiment !== false">
     <div class="container">
-        <h4>Experience : {{experiment.name}}</h4>
+        <div class="col-md-6">
+            <h4>Experience : {{experiment.name}}</h4>
+            </div>
+        <div class="col-md-6 text-right">
+            <a class="btn btn-primary" ui-sref="experimentHistory">Historique</a>
+        </div>
     </div>
     <div class="grey-section grey-border-bottom">
         <div class="container-fluid">

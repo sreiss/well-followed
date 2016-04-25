@@ -16,7 +16,9 @@ angular.module('wellFollowed', [
     'nvd3ChartDirectives',
     'ls.LiveSet',
     'ls.ChangeStream'
-]).config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider) {
+]).config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, LoopBackResourceProvider, wfHttpSettings) {
+
+    LoopBackResourceProvider.setUrlBase(wfHttpSettings.urlBase);
 
     //var formatDate = function(data) {
     //    if (!!data) {
@@ -77,6 +79,10 @@ angular.module('wellFollowed', [
         .state('experiment', {
             url: '/experience',
             template: '<wf-experiment></wf-experiment>'
+        })
+        .state('experimentHistory', {
+            url: '/experience/history',
+            template: '<wf-experiment-history></wf-experiment-history>'
         })
         .state('rtSimulation', {
             url: '/dummy/rtSimulation/:sensorName',

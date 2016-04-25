@@ -1,7 +1,7 @@
 {
-  "name": "Container",
+  "name": "ExperimentContainer",
   "description": [
-    "Represents the file system storage of the application"
+    "Represents the file system storage of the experiments"
   ],
   "base": "Model",
   "idInjection": true,

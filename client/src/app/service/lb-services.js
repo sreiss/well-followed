@@ -6959,40 +6959,6 @@ module.factory(
           url: urlBase + "/SensorData/change-stream",
           method: "POST"
         },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.SensorData#watchValues
-         * @methodOf lbServices.SensorData
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `sensorId` – `{string=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `changes` – `{ReadableStream=}` - 
-         */
-        "watchValues": {
-          url: urlBase + "/SensorData/watchValues/:sensorId",
-          method: "GET"
-        },
       }
     );
 
@@ -7256,17 +7222,17 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name lbServices.Container
- * @header lbServices.Container
+ * @name lbServices.ExperimentContainer
+ * @header lbServices.ExperimentContainer
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `Container` model.
+ * A $resource object for interacting with the `ExperimentContainer` model.
  *
  * **Details**
  *
- * Represents the file system storage of the application
+ * Represents the file system storage of the experiments
  *
  * ## Example
  *
@@ -7276,17 +7242,17 @@ module.factory(
  *
  */
 module.factory(
-  "Container",
+  "ExperimentContainer",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/Containers/:id",
+      urlBase + "/ExperimentContainers/:id",
       { 'id': '@id' },
       {
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#getContainers
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#getContainers
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7311,19 +7277,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `ExperimentContainer` object.)
          * </em>
          */
         "getContainers": {
           isArray: true,
-          url: urlBase + "/Containers",
+          url: urlBase + "/ExperimentContainers",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#createContainer
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#createContainer
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7352,18 +7318,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `ExperimentContainer` object.)
          * </em>
          */
         "createContainer": {
-          url: urlBase + "/Containers",
+          url: urlBase + "/ExperimentContainers",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#destroyContainer
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#destroyContainer
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7390,14 +7356,14 @@ module.factory(
          *  - `` – `{undefined=}` - 
          */
         "destroyContainer": {
-          url: urlBase + "/Containers/:container",
+          url: urlBase + "/ExperimentContainers/:container",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#getContainer
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#getContainer
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7421,18 +7387,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `ExperimentContainer` object.)
          * </em>
          */
         "getContainer": {
-          url: urlBase + "/Containers/:container",
+          url: urlBase + "/ExperimentContainers/:container",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#getFiles
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#getFiles
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7456,19 +7422,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `ExperimentContainer` object.)
          * </em>
          */
         "getFiles": {
           isArray: true,
-          url: urlBase + "/Containers/:container/files",
+          url: urlBase + "/ExperimentContainers/:container/files",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#getFile
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#getFile
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7494,18 +7460,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Container` object.)
+         * This usually means the response is a `ExperimentContainer` object.)
          * </em>
          */
         "getFile": {
-          url: urlBase + "/Containers/:container/files/:file",
+          url: urlBase + "/ExperimentContainers/:container/files/:file",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#removeFile
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#removeFile
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7534,14 +7500,14 @@ module.factory(
          *  - `` – `{undefined=}` - 
          */
         "removeFile": {
-          url: urlBase + "/Containers/:container/files/:file",
+          url: urlBase + "/ExperimentContainers/:container/files/:file",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#upload
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#upload
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7575,14 +7541,14 @@ module.factory(
          *  - `result` – `{object=}` - 
          */
         "upload": {
-          url: urlBase + "/Containers/:container/upload",
+          url: urlBase + "/ExperimentContainers/:container/upload",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Container#download
-         * @methodOf lbServices.Container
+         * @name lbServices.ExperimentContainer#download
+         * @methodOf lbServices.ExperimentContainer
          *
          * @description
          *
@@ -7613,7 +7579,7 @@ module.factory(
          * This method returns no data.
          */
         "download": {
-          url: urlBase + "/Containers/:container/download/:file",
+          url: urlBase + "/ExperimentContainers/:container/download/:file",
           method: "GET"
         },
       }
@@ -7624,13 +7590,13 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name lbServices.Container#modelName
-    * @propertyOf lbServices.Container
+    * @name lbServices.ExperimentContainer#modelName
+    * @propertyOf lbServices.ExperimentContainer
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `Container`.
+    * i.e. `ExperimentContainer`.
     */
-    R.modelName = "Container";
+    R.modelName = "ExperimentContainer";
 
 
     return R;
