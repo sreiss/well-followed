@@ -7,6 +7,10 @@ var csvWriter = require('csv-write-stream'),
 
 module.exports = function (Experiment) {
 
+    /**
+     * Ends the current experiment.
+     * @returns {deferred.promise|{then, catch, finally}}
+     */
     Experiment.end = function () {
         var ExperimentContainer = Experiment.app.models.ExperimentContainer,
             SensorData = Experiment.app.models.SensorData,
@@ -49,19 +53,19 @@ module.exports = function (Experiment) {
 
                                             return true;
                                         })
-                                        .then(function() {
+                                        .then(function () {
                                             return Sensor.destroyAll()
                                         })
-                                        .then(function() {
+                                        .then(function () {
                                             return SensorData.destroyAll()
                                         })
-                                        .then(function() {
+                                        .then(function () {
                                             return experiment.updateAttribute('isCurrent', false);
                                         })
-                                        .then(function() {
+                                        .then(function () {
                                             deferred.resolve();
                                         })
-                                        .catch(function(err) {
+                                        .catch(function (err) {
                                             deferred.reject(err);
                                         });
                                 });
@@ -77,6 +81,50 @@ module.exports = function (Experiment) {
             });
 
         return deferred.promise;
-    }
+    };
+
+    /**
+     * Find the experiments to which the current user is allowed to access.
+     * @param {Function(Error, array)} callback
+     */
+    Experiment.findAllowed = function (callback) {
+        var ctx = loopback.getCurrentContext();
+        var accessToken = ctx.get('accessToken');
+
+        var WfUser = Experiment.app.models.WfUser,
+            experiments,
+            userInstitutionId,
+            experimentFilter = {
+                include: 'event'
+            },
+            userFilter = {
+                include: 'institution',
+                fields: ['institution'],
+                where: {
+                    id: accessToken.userId
+                }
+            };
+
+        // Finds the user's institution
+        WfUser.findOne(userFilter)
+            .then(function (user) {
+                if (!!user) {
+                    userInstitutionId = user.institution().id;
+                    return Experiment.find(experimentFilter);
+                } else {
+                    throw new Error('No institution attached to this user.');
+                }
+            })
+            .then(function (persistedExperiments) {
+                experiments = persistedExperiments.filter(function (experiment) {
+                    return experiment.isPublic || experiment.event().institutionId == userInstitutionId;
+                });
+                callback(null, experiments);
+            })
+            .catch(function (err) {
+                callback(err);
+            });
+    };
+
 
 };

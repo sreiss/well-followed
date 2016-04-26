@@ -4178,6 +4178,42 @@ module.factory(
           url: urlBase + "/Experiments/start",
           method: "POST"
         },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Experiment#findAllowed
+         * @methodOf lbServices.Experiment
+         *
+         * @description
+         *
+         * Find the experiments to which the current user is allowed to access.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method does not accept any data. Supply an empty object.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * The experiments to which the current user is allowed to access.
+         */
+        "findAllowed": {
+          isArray: true,
+          url: urlBase + "/Experiments/findAllowed",
+          method: "POST"
+        },
       }
     );
 

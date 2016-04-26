@@ -6,15 +6,7 @@ angular.module('wellFollowed').directive('wfExperimentHistory', function (Experi
 
             scope.experiments = null;
 
-            var experimentFilter = {
-                'where': {
-                    'or': [
-                        {'isPublic': true}
-                    ]
-                }
-            };
-
-            Experiment.find({filter: experimentFilter})
+            Experiment.findAllowed()
                 .$promise
                 .then(function(experiments) {
                     scope.experiments = experiments;

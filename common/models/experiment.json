@@ -76,6 +76,25 @@
       "http": {
         "verb": "post"
       }
+    },
+    "findAllowed": {
+      "isStatic": true,
+      "accepts": [],
+      "returns": [
+        {
+          "arg": "experiments",
+          "type": "array",
+          "root": true,
+          "description": "The experiments to which the current user is allowed to access."
+        }
+      ],
+      "description": "Find the experiments to which the current user is allowed to access.",
+      "http": [
+        {
+          "httpPath": "/allowed",
+          "httpVerb": "get"
+        }
+      ]
     }
   }
 }

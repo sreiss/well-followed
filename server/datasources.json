@@ -14,5 +14,9 @@
     "connector": "loopback-component-storage",
     "provider": "filesystem",
     "root": "./server/storage/experiment"
+  },
+  "email": {
+    "name": "email",
+    "connector": "mail"
   }
 }

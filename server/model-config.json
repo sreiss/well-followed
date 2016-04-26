@@ -39,7 +39,10 @@
   },
   "WfUser": {
     "dataSource": "mongo",
-    "public": true
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true
+    }
   },
   "Event": {
     "dataSource": "mongo",

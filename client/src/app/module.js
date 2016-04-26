@@ -81,7 +81,7 @@ angular.module('wellFollowed', [
             template: '<wf-experiment></wf-experiment>'
         })
         .state('experimentHistory', {
-            url: '/experience/history',
+            url: '/experience/historique',
             template: '<wf-experiment-history></wf-experiment-history>'
         })
         .state('rtSimulation', {
