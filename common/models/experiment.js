@@ -109,7 +109,7 @@ module.exports = function (Experiment) {
         WfUser.findOne(userFilter)
             .then(function (user) {
                 if (!!user) {
-                    userInstitutionId = user.institution().id;
+                    userInstitutionId = user.institution().id.toString();
                     return Experiment.find(experimentFilter);
                 } else {
                     throw new Error('No institution attached to this user.');

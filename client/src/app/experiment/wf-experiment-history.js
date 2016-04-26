@@ -1,4 +1,4 @@
-angular.module('wellFollowed').directive('wfExperimentHistory', function (Experiment, $wfModal) {
+angular.module('wellFollowed').directive('wfExperimentHistory', function (Experiment, $wfModal, $filter) {
     return {
         restrict: 'E',
         templateUrl: 'experiment/wf-experiment-history.html',
@@ -9,7 +9,9 @@ angular.module('wellFollowed').directive('wfExperimentHistory', function (Experi
             Experiment.findAllowed()
                 .$promise
                 .then(function(experiments) {
-                    scope.experiments = experiments;
+                    scope.experiments = $filter('orderBy')(experiments, function(experiment) {
+                       return new Date(experiment.event.start);
+                    }, true);
                 });
 
             scope.download = function(experimentId) {

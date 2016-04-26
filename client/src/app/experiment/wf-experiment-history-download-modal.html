@@ -10,7 +10,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody ng-show="files !== null">
+    <tbody ng-show="files !== null && files.length > 0">
         <tr ng-repeat="f in files" ng-class="{'success': f.name.indexOf('.zip') >= 0}">
             <td>{{$index + 1}}</td>
             <td>
@@ -26,6 +26,9 @@
 <div ng-show="files === null">
     <wf-loader></wf-loader>
 </div>
+<p class="text-center top-space" ng-if="files !== null && files.length == 0">
+    Aucun fichier pour cette expérience.
+</p>
 <div class="modal-footer">
     <button class="btn btn-default" ng-click="cancel()">
         Fermer

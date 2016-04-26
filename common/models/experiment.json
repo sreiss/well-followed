@@ -57,7 +57,22 @@
       "foreignKey": "experimentId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "findAllowed"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "findAllowed"
+    }
+  ],
   "methods": {
     "start": {
       "isStatic": true,

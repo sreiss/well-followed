@@ -7,7 +7,8 @@
             <thead>
             <tr>
                 <th style="width: 5%">#</th>
-                <th style="width: 85%">Nom</th>
+                <th style="width: 50%">Nom</th>
+                <th>Date</th>
                 <th></th>
             </tr>
             </thead>
@@ -15,6 +16,7 @@
             <tr ng-repeat="e in experiments">
                 <td>{{$index + 1}}</td>
                 <td>{{e.name}}</td>
+                <td>{{e.event.start | date:'dd/MM/yyyy à H:ss'}}</td>
                 <td><button class="btn btn-primary" ng-click="download(e.id)">Télécharger les csvs</button></td>
             </tr>
             </tbody>
