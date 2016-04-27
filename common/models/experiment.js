@@ -95,6 +95,9 @@ module.exports = function (Experiment) {
             experiments,
             userInstitutionId,
             experimentFilter = {
+                where: {
+                    isCurrent: false
+                },
                 include: 'event'
             },
             userFilter = {
