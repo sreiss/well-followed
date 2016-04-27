@@ -1,4 +1,7 @@
-﻿angular.module('wellFollowed').directive('wfMatchesPassword', function () {
+﻿/**
+ * Adds a validator to check if the password typed in the input of this directive corresponds to the given one.
+ */
+angular.module('wellFollowed').directive('wfMatchesPassword', function () {
     return {
         restrict: 'A',
         require: '^ngModel',

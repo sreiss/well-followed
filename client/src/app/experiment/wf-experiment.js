@@ -1,3 +1,6 @@
+/**
+ * Directive for the experiment page.
+ */
 angular.module('wellFollowed').directive('wfExperiment', function (Sensor, $wfStream, LiveSet, Experiment, WfUser, Event, wfEventTypes) {
     return {
         restrict: 'E',

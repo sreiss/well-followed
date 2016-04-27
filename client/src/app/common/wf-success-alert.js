@@ -1,3 +1,6 @@
+/**
+ * Displays a success alert.
+ */
 angular.module('wellFollowed').directive('wfSuccessAlert', function() {
     return {
         restrict: 'E',

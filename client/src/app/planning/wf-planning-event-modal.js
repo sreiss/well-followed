@@ -1,3 +1,6 @@
+/**
+ * Modal opened when the calendar is clicked.
+ */
 angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event, WfUser) {
     return {
         restrict: 'E',

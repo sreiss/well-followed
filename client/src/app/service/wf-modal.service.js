@@ -1,3 +1,6 @@
+/**
+ * Helper to display a modal.
+ */
 angular.module('wellFollowed').factory('$wfModal', function($uibModal) {
 
     var _open = function(options) {

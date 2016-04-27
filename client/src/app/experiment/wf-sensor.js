@@ -1,3 +1,6 @@
+/**
+ * A sensor on the experiment page. A directive will be dynamically picked depending on the type of data.
+ */
 angular.module('wellFollowed').directive('wfSensor', function(SensorData, $wfStream, $compile, $injector) {
     return {
         restrict: 'E',

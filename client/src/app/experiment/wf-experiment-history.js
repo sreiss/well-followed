@@ -1,3 +1,6 @@
+/**
+ * History of the past experiments.
+ */
 angular.module('wellFollowed').directive('wfExperimentHistory', function (Experiment, $wfModal, $filter) {
     return {
         restrict: 'E',

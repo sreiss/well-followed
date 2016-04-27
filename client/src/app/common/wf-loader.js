@@ -1,3 +1,6 @@
+/**
+ * A spinner to show when a content should be loaded.
+ */
 angular.module('wellFollowed').directive('wfLoader', function() {
     return {
         restrict: 'AE',

@@ -1,3 +1,6 @@
+/**
+ * Login page.
+ */
 angular.module('wellFollowed').directive('wfLogin', function(WfUser, $state) {
     return {
         restrict: 'E',

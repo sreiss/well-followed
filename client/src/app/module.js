@@ -1,3 +1,6 @@
+/**
+ * Main module of the application.
+ */
 angular.module('wellFollowed', [
     'ui.router',
     'ngMessages',
@@ -37,8 +40,10 @@ angular.module('wellFollowed', [
 
     //$httpProvider.defaults.transformRequest.unshift(formatDate);
 
+    // To intercept http errors.
     $httpProvider.interceptors.push('$wfAuthInterceptor');
 
+    // Broadcasts an http error to the entire application.
     $httpProvider.interceptors.push(function($q, $rootScope) {
         var errorHandler = function(rejection) {
             $rootScope.$broadcast('wfError', rejection.data.error || rejection.data.message);
@@ -52,9 +57,8 @@ angular.module('wellFollowed', [
         };
     });
 
-    // Enregistrement des routes de l'application.
-    // Si un attribut "name" est renseigné, l'élément sera ajouté automatiquement au menu.
-    // L'attribut "template" contiendra toujours une directive englobant l'ensemble d'une page.
+    // Registration of all the routes of the application
+    // The "template" attribute should always contain a directive to represent a screen.
     $stateProvider
         .state('login', {
             url: '/connexion',

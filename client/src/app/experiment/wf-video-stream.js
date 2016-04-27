@@ -1,3 +1,6 @@
+/**
+ * Displays the video stream of a camera.
+ */
 angular.module('wellFollowed').directive('wfVideoStream', function($wfStream) {
     return {
         restrict: 'E',

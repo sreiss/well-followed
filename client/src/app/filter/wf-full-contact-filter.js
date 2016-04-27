@@ -1,3 +1,6 @@
+/**
+ * Filter to show the full name of a given user.
+ */
 angular.module('wellFollowed').filter('wfFullContactFilter', function() {
     return function(input) {
         var fullContact = '';

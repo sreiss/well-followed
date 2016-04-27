@@ -4193,10 +4193,6 @@ module.factory(
          *   This method does not accept any parameters.
          *   Supply an empty object or omit this argument altogether.
          *
-         * @param {Object} postData Request data.
-         *
-         * This method does not accept any data. Supply an empty object.
-         *
          * @param {function(Array.<Object>,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
          *
@@ -4211,8 +4207,8 @@ module.factory(
          */
         "findAllowed": {
           isArray: true,
-          url: urlBase + "/Experiments/findAllowed",
-          method: "POST"
+          url: urlBase + "/Experiments/allowed",
+          method: "GET"
         },
       }
     );

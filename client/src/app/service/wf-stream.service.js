@@ -1,3 +1,6 @@
+/**
+ * Helper to open a change stream to the server.
+ */
 angular.module('wellFollowed').factory('$wfStream', function(createChangeStream) {
 
   var _openedStreams = {};

@@ -1,3 +1,6 @@
+/**
+ * Displays an error alert.
+ */
 angular.module('wellFollowed').directive('wfErrorAlert', function() {
    return {
        restrict: 'E',

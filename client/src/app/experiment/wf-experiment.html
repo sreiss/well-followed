@@ -45,12 +45,14 @@
         <div ng-messages="experimentError">
             <p ng-message="unauthorized">
                 Votre établissement n'est pas autorisé à suivre l'expérience courrante.
+                <a ui-sref="experimentHistory" class="btn btn-primary">Historique</a>
             </p>
             <div ng-message="notFound">
                 <p>Aucune expérience n'est en cours pour le moment.</p>
                 <p ng-if="nextEvent">
                     Prochain évènement planifié le {{nextEvent.start | date:'dd/MM/yyyy à H:ss'}}.
                 </p>
+                <a ui-sref="experimentHistory" class="btn btn-primary">Historique</a>
             </div>
             <div ng-message="notStarted">
                 <div>
@@ -72,7 +74,6 @@
                 </div>
             </div>
         </div>
-        <a ui-sref="experimentHistory" class="btn btn-primary">Historique</a>
     </div>
 </div>
 <div class="text-center">

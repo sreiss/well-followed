@@ -1,3 +1,6 @@
+/**
+ * Admin page to list the institution types.
+ */
 angular.module('wellFollowed').directive('wfAdminInstitutionTypes', function (InstitutionType, $wfModal) {
     return {
         restrict: 'E',

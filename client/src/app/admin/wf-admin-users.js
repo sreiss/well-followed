@@ -1,3 +1,6 @@
+/**
+ * Admin page to list the users.
+ */
 angular.module('wellFollowed').directive('wfAdminUsers', function (WfUser, $wfModal) {
     return {
         restrict: 'E',

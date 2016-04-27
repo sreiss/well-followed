@@ -106,8 +106,8 @@
       "description": "Find the experiments to which the current user is allowed to access.",
       "http": [
         {
-          "httpPath": "/allowed",
-          "httpVerb": "get"
+          "path": "/allowed",
+          "verb": "get"
         }
       ]
     }

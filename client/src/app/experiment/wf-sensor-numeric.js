@@ -1,3 +1,6 @@
+/**
+ * Handles the display of numeric data passed through the sensor.
+ */
 angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, SensorData, $window) {
     return {
         restrict: 'E',

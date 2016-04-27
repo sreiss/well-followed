@@ -1,3 +1,6 @@
+/**
+ * Top menu of the application.
+ */
 angular.module('wellFollowed').directive('wfMenu', function($wfMenu, $wfAuth, WfUser, $state, LoopBackAuth) {
 
     var _menuItems = function(scope) {

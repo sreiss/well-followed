@@ -1,3 +1,6 @@
+/**
+ * Admin institution creation and edition page.
+ */
 angular.module('wellFollowed').directive('wfAdminInstitution', function(InstitutionType, Institution, $state) {
     return {
         restrict: 'E',

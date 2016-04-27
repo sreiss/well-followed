@@ -1,7 +1,5 @@
 /**
- * Code adapté de l'article "AngularJS Token Authentication using ASP.NET Web API 2, Owin, and Identity" de Taiseer Joudeh sur CodeProject.com.
- * @author Taiseer Joudeh
- * @url http://www.codeproject.com/Articles/784106/AngularJS-Token-Authentication-using-ASP-NET-Web-A
+ * Helper to get information on the currently a authenticated user.
  */
 angular.module('wellFollowed').factory('$wfAuth', function (localStorageService, $q, LoopBackAuth, WfUser, RoleMapping) {
 

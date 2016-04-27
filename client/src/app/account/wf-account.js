@@ -1,3 +1,6 @@
+/**
+ * This directive displays the current user's informations.
+ */
 angular.module('wellFollowed').directive('wfAccount', function(WfUser, Institution, $state, $wfAuth) {
    return {
        restrict: 'E',

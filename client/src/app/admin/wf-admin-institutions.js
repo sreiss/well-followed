@@ -1,3 +1,6 @@
+/**
+ * Admin page to list the institutions
+ */
 angular.module('wellFollowed').directive('wfAdminInstitutions', function(Institution, $wfModal) {
     return {
         restrict: 'E',

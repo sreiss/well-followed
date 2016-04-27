@@ -1,3 +1,6 @@
+/**
+ * Displays the calendar.
+ */
 angular.module('wellFollowed').directive('wfPlanningCalendar', function(Event, $wfModal, wfCrudTypes, wfResponseFormats, uiCalendarConfig) {
     return {
         restrict: 'E',

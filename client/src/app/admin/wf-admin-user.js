@@ -1,3 +1,6 @@
+/**
+ * Admin page to create and edit users.
+ */
 angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state, $q, RoleMapping, Role) {
     return {
         restrict: 'E',

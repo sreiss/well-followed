@@ -1,3 +1,6 @@
+/**
+ * Subscription page.
+ */
 angular.module('wellFollowed').directive('wfAccountCreate', function (WfUser, Institution, $state) {
     return {
         restrict: 'E',

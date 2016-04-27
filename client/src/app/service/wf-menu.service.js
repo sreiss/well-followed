@@ -1,3 +1,6 @@
+/**
+ * Handles the menus of the application.
+ */
 angular.module('wellFollowed').factory('$wfMenu', function(WfUser, $wfAuth) {
     var _menus = {
         main: [

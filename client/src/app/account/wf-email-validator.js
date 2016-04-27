@@ -1,3 +1,6 @@
+/**
+ * Checks if the given e-mail's domain belongs to an Institution saved in the database.
+ */
 angular.module('wellFollowed').directive('wfEmailValidator', function(Institution, $q) {
     return {
         restrict: 'A',

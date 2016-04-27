@@ -1,3 +1,6 @@
+/**
+ * Displays a list of error or success alerts.
+ */
 angular.module('wellFollowed').directive('wfAlerts', function(wfAlertTypes, $timeout) {
     return {
         restrict: 'E',

@@ -1,3 +1,6 @@
+/**
+ * A button with a loader displayed when isLoading is true.
+ */
 angular.module('wellFollowed').directive('wfLoaderButton', function() {
     return {
         restrict: 'E',

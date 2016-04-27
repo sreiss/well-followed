@@ -1,3 +1,6 @@
+/**
+ * Modal to download the csv files produced at the end of an experiment.
+ */
 angular.module('wellFollowed').directive('wfExperimentHistoryDownloadModal', function(ExperimentContainer, wfHttpSettings) {
     return {
         restrict: 'E',

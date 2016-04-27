@@ -1,3 +1,6 @@
+/**
+ * Form to create, edit or display an event when the calendar is clicked.
+ */
 angular.module('wellFollowed').directive('wfPlanningEventForm', function(EventType) {
     return {
         restrict: 'E',
