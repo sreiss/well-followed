@@ -13,7 +13,7 @@
     "name": "experimentStorage",
     "connector": "loopback-component-storage",
     "provider": "filesystem",
-    "root": "./server/storage/experiment"
+    "root": "/srv/wellfollowed/storage/experiment"
   },
   "email": {
     "name": "email",

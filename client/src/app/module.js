@@ -14,6 +14,7 @@ angular.module('wellFollowed', [
     'ui.bootstrap.popover',
     'ui.bootstrap.tooltip',
     'ui.bootstrap.position',
+    'ui.bootstrap.pagination',
     'angular-loading-bar',
     'lbServices',
     'nvd3ChartDirectives',

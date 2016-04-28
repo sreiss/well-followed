@@ -77,7 +77,7 @@ angular.module('wellFollowed').directive('wfSensorNumeric', function($wfStream, 
                     .attr("y", 6)
                     .attr("dy", ".71em")
                     .style("text-anchor", "end")
-                    .text("Température (C°)");
+                    .text("Valeur");
 
                 var path = svg.append("g")
                     .attr("clip-path", "url(#clip)")

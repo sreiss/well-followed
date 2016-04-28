@@ -5,13 +5,6 @@ var fs = require('fs');
 var app = module.exports = loopback();
 
 app.start = function() {
-  // creates the storage directory
-  try {
-    fs.mkdirSync('./server/storage');
-    fs.mkdirSync('./server/storage/experiment');
-  } catch (e) {
-
-  }
   // start the web server
   return app.listen(function() {
     app.emit('started');

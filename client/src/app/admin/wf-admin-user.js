@@ -48,21 +48,25 @@ angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state,
                 scope.isNew = true;
             }
 
+            var saveRoles = function(persistedUser) {
+                var rolePromises = [];
+                scope.availableRoles.forEach(function (availableRole) {
+                    if (scope.userRoles.indexOf(availableRole.id) > -1) {
+                        rolePromises.push(availableRole.principals.create({
+                            principalId: persistedUser.id,
+                            principalType: 'user'
+                        }));
+                    }
+                });
+
+                return $q.all(rolePromises);
+            };
+
             scope.createUser = function() {
                 WfUser.create(scope.user)
                     .$promise
                     .then(function(persistedUser) {
-                        var rolePromises = [];
-                        scope.availableRoles.forEach(function (availableRole) {
-                            if (scope.userRoles.indexOf(availableRole.id) > -1) {
-                                rolePromises.push(availableRole.principals.create({
-                                    principalId: persistedUser.id,
-                                    principalType: 'user'
-                                }));
-                            }
-                        });
-
-                        return $q.all(rolePromises);
+                        return saveRoles(persistedUser)
                     })
                     .then(function() {
                         wfApp.addSuccess("Utilisateur \"" + scope.user.username + "\" créé.");
@@ -71,11 +75,19 @@ angular.module('wellFollowed').directive('wfAdminUser', function(WfUser, $state,
             };
 
             scope.updateUser = function() {
-                scope.user.$save(function() {
 
-                    wfApp.addSuccess("Utilisateur mis à jour.");
-                    $state.go('admin.users');
-                });
+                WfUser.prototype$updateAttributes(
+                    {id: scope.user.id},
+                    {
+                        firstName: scope.user.firstName,
+                        lastName: scope.user.lastName
+                    }
+                ).$promise
+                    .then(function() {
+                        wfApp.addSuccess("Utilisateur mis à jour.");
+                        $state.go('admin.users');
+                    });
+
             };
 
             scope.previousState = wfApp.getPreviousState().name || 'admin.users';

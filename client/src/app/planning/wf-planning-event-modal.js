@@ -28,27 +28,16 @@ angular.module('wellFollowed').directive('wfPlanningEventModal', function(Event,
 
             scope.createEvent = function() {
                 scope.event.userId = WfUser.getCurrentId();
-                Event.find({
-                    filter: {
-                        where: {
-                            start: scope.event.start
-                        },
-                        limit: 1
-                    }
-                }, function (events) {
-                    if (events.length < 1) {
-                        WfUser.get({ id: scope.event.userId, filter: { include: { institution: 'type' } } })
-                            .$promise
-                            .then(function (user) {
-                                    scope.event.institutionId = user.institution.id;
-                                    return Event.create(scope.event).$promise;
-                                })
-                            .then(function (event) {
-                                    scope.close(event);
-                                });
-                    }
-                });
 
+                WfUser.get({id: scope.event.userId, filter: {include: {institution: 'type'}}})
+                    .$promise
+                    .then(function (user) {
+                        scope.event.institutionId = user.institution.id;
+                        return Event.create(scope.event).$promise;
+                    })
+                    .then(function (event) {
+                        scope.close(event);
+                    });
             };
 
             scope.deleteEvent = function() {

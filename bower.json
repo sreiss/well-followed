@@ -45,7 +45,8 @@
         "src/popover/popover.js",
         "src/tooltip/tooltip.js",
         "src/position/position.js",
-        "src/stackedMap/stackedMap.js"
+        "src/stackedMap/stackedMap.js",
+        "src/pagination/pagination.js"
       ]
     },
     "angular-ui-calendar": {

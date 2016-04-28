@@ -10,12 +10,12 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group has-feedback"
-                                 ng-class="{'has-error': user.username.$invalid}">
-                                <label class="control-label col-md-5" for="firstName">Nom d'utilisateur</label>
+                                 ng-class="{'has-error': user.email.$invalid}">
+                                <label class="control-label col-md-5" for="email">E-mail</label>
 
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control" ng-model="user.username" name="username"
-                                           id="username"
+                                    <input type="text" class="form-control" ng-model="user.email" name="email"
+                                           id="email"
                                            required ng-disabled="!isNew"/>
                                 </div>
                             </div>
