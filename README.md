@@ -4,7 +4,7 @@ Ce projet utilise [LoopBack](http://loopback.io).
 
 ### Langage
 
-Cette est écrite en [Node.js](https://nodejs.org/), il est donc essentiel de l'installer dans sa version 5.5.0, ainsi que [npm](https://www.npmjs.com/).
+Cette application est écrite en [Node.js](https://nodejs.org/), il est donc essentiel de l'installer dans sa version 5.5.0, ainsi que [npm](https://www.npmjs.com/).
 
 ### Installation
 
