@@ -1,5 +1,16 @@
 <div class="container">
-    <h4>Types d'établissement</h4>
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Types d'établissement</h4>
+        </div>
+        <div class="col-md-3">
+            <input type="text" ng-model="searchText"
+                   placeholder="Rechercher..."
+                   class="form-control"
+                   ng-model-options="{'debounce': 500}"
+                   ng-change="refresh(currentPage, searchText)" />
+        </div>
+    </div>
 </div>
 <div class="grey-section grey-border-bottom">
     <div class="container">
@@ -29,6 +40,15 @@
             <p class="text-center top-space" ng-if="institutionTypes !== null && institutionTypes.length == 0">
                 Aucun type d'établissement créé.
             </p>
+            <div class="text-center" ng-if="institutionTypesCount > institutionTypesPerPage">
+                <uib-pagination total-items="institutionTypesCount"
+                                items-per-page="institutionTypesPerPage"
+                                ng-model="currentPage"
+                                ng-change="refresh(currentPage, searchText)"
+                                next-text=">"
+                                previous-text="<">
+                </uib-pagination>
+            </div>
             <div class="row">
                 <div class="col-md-offset-5 col-md-2 text-center">
                     <a class="btn btn-primary" ui-sref="admin.institutionType">

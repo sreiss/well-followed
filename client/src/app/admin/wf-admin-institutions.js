@@ -8,14 +8,52 @@ angular.module('wellFollowed').directive('wfAdminInstitutions', function(Institu
         require: '^wfApp',
         link: function(scope, element, attributes, wfApp) {
 
-            scope.institutions = null;
+            scope.currentPage = 1;
+            scope.institutionsPerPage = 10;
+            scope.institutionCount = 0;
+            scope.instutions = null;
 
-            var refresh = function() {
-                Institution.find({ filter: { include: 'type' } })
+            var getPageFilter = function(currentPage) {
+                currentPage = currentPage || 1;
+                return {
+                    limit: scope.institutionsPerPage,
+                    offset: (currentPage - 1) * scope.institutionsPerPage
+                };
+            };
+
+            var getSearchFilter = function(searchText) {
+                var filter = {};
+                if (searchText) {
+                    filter = {
+                        where: {
+                            or: [
+                                {tag: {
+                                    like: searchText
+                                }},
+                                {'type.tag': {
+                                    like: searchText
+                                }}
+                            ]
+                        }
+                    };
+                }
+                return filter;
+            };
+
+            var refresh = scope.refresh = function(currentPage, searchText) {
+                var searchFilter = getSearchFilter(searchText);
+                var pageFilter = getPageFilter(currentPage);
+                var filter = angular.extend(pageFilter, searchFilter);
+                Institution.count(filter)
                     .$promise
+                    .then(function(result) {
+                        scope.institutionCount = result.count;
+                        filter.include = 'type';
+                        return Institution.find({filter: filter}).$promise;
+                    })
                     .then(function (institutions) {
                         scope.institutions = institutions;
-                });
+                    });
             };
             refresh();
 

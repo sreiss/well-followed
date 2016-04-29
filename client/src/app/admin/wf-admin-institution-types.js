@@ -8,11 +8,44 @@ angular.module('wellFollowed').directive('wfAdminInstitutionTypes', function (In
         require: '^wfApp',
         link: function (scope, element, attributes, wfApp) {
 
+            scope.currentPage = 1;
+            scope.institutionTypesPerPage = 10;
+            scope.institutionTypesCount = 0;
             scope.institutionTypes = null;
 
-            var refresh = function () {
-                InstitutionType.find()
+            var getPageFilter = function(currentPage) {
+                currentPage = currentPage || 1;
+                return {
+                    limit: scope.institutionTypesPerPage,
+                    offset: (currentPage - 1) * scope.institutionTypesPerPage
+                };
+            };
+
+            var getSearchFilter = function(searchText) {
+                var filter = {};
+                if (searchText) {
+                    filter = {
+                        where: {
+                            tag: {
+                                like: searchText
+                            }
+                        }
+                    };
+                }
+                return filter;
+            };
+
+            var refresh = scope.refresh = function(currentPage, searchText) {
+                var searchFilter = getSearchFilter(searchText);
+                var pageFilter = getPageFilter(currentPage);
+                var filter = angular.extend(pageFilter, searchFilter);
+                filter = filter || {};
+                InstitutionType.count(filter)
                     .$promise
+                    .then(function(result) {
+                        scope.institutionTypesCount = result.count;
+                        return InstitutionType.find({filter: filter}).$promise;
+                    })
                     .then(function (institutionTypes) {
                         scope.institutionTypes = institutionTypes;
                     });

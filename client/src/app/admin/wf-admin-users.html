@@ -1,5 +1,16 @@
 <div class="container">
-    <h4>Utilisateurs</h4>
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Utilisateurs</h4>
+        </div>
+        <div class="col-md-3">
+            <input type="text" ng-model="searchText"
+                   placeholder="Rechercher..."
+                   class="form-control"
+                    ng-model-options="{'debounce': 500}"
+                    ng-change="refresh(currentPage, searchText)" />
+        </div>
+    </div>
 </div>
 <div class="grey-section grey-border-bottom">
     <div class="container">
@@ -33,7 +44,15 @@
         <p class="text-center top-space" ng-if="users !== null && users.length == 0">
             Aucun utilisateur n'a été crééé.
         </p>
-
+        <div class="text-center" ng-if="userCount > usersPerPage">
+            <uib-pagination total-items="userCount"
+                            items-per-page="usersPerPage"
+                            ng-model="currentPage"
+                            ng-change="refresh(currentPage, searchText)"
+                            next-text=">"
+                            previous-text="<">
+            </uib-pagination>
+        </div>
         <div class="row">
             <div class="col-md-offset-5 col-md-2">
                 <!--<div class="btn-group btn-group-justified">-->
