@@ -94,7 +94,13 @@
     },
     "findAllowed": {
       "isStatic": true,
-      "accepts": [],
+      "accepts": [
+        {
+          "arg": "filter",
+          "type": "object",
+          "description": "The same type of filter that can be passed to the \"find\" method"
+        }
+      ],
       "returns": [
         {
           "arg": "experiments",
@@ -107,6 +113,35 @@
       "http": [
         {
           "path": "/allowed",
+          "verb": "get"
+        }
+      ]
+    },
+    "countAllowed": {
+      "isStatic": true,
+      "accepts": [
+        {
+          "arg": "where",
+          "type": "object",
+          "required": false,
+          "description": "A regular where filter",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "count",
+          "type": "number",
+          "root": false,
+          "description": ""
+        }
+      ],
+      "description": "Returns the count of experiments that the user can access.",
+      "http": [
+        {
+          "path": "/countAllowed",
           "verb": "get"
         }
       ]

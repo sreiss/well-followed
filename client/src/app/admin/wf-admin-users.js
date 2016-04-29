@@ -47,7 +47,7 @@ angular.module('wellFollowed').directive('wfAdminUsers', function (WfUser, $wfMo
                 var searchFilter = getSearchFilter(searchText);
                 var pageFilter = getPageFilter(currentPage);
                 var filter = angular.extend(pageFilter, searchFilter);
-                WfUser.count(filter)
+                WfUser.count(searchFilter)
                     .$promise
                     .then(function(result) {
                         scope.userCount = result.count;

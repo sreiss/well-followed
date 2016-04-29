@@ -40,7 +40,7 @@ angular.module('wellFollowed').directive('wfAdminInstitutionTypes', function (In
                 var pageFilter = getPageFilter(currentPage);
                 var filter = angular.extend(pageFilter, searchFilter);
                 filter = filter || {};
-                InstitutionType.count(filter)
+                InstitutionType.count(searchFilter)
                     .$promise
                     .then(function(result) {
                         scope.institutionTypesCount = result.count;

@@ -3,7 +3,8 @@ var csvWriter = require('csv-write-stream'),
     AdmZip = require('adm-zip'),
     moment = require('moment'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    _ = require('lodash');
 
 module.exports = function (Experiment) {
 
@@ -83,23 +84,25 @@ module.exports = function (Experiment) {
         return deferred.promise;
     };
 
+    var filterExperiments = function(experiments, userInstitutionId) {
+        // Workaround to filter nested properties since loopback doesn't handle it yet
+        experiments = experiments.filter(function (experiment) {
+            return experiment.isPublic || experiment.event().institutionId == userInstitutionId;
+        });
+        return experiments;
+    };
+
     /**
-     * Find the experiments to which the current user is allowed to access.
-     * @param {Function(Error, array)} callback
+     * Returns the count of experiments that the user can access.
+     * @param {object} where A regular where filter
+     * @param {Function(Error, number)} callback
      */
-    Experiment.findAllowed = function (callback) {
+    Experiment.countAllowed = function(where, callback) {
         var ctx = loopback.getCurrentContext();
         var accessToken = ctx.get('accessToken');
 
         var WfUser = Experiment.app.models.WfUser,
-            experiments,
             userInstitutionId,
-            experimentFilter = {
-                where: {
-                    isCurrent: false
-                },
-                include: 'event'
-            },
             userFilter = {
                 include: 'institution',
                 fields: ['institution'],
@@ -113,15 +116,74 @@ module.exports = function (Experiment) {
             .then(function (user) {
                 if (!!user) {
                     userInstitutionId = user.institution().id.toString();
+
+                    var experimentFilter = {
+                        where: {
+                            isCurrent: false
+                        },
+                        include: 'event'
+                    };
+
+                    where = where || {};
+                    experimentFilter = _.merge({where: where}, experimentFilter);
+
                     return Experiment.find(experimentFilter);
                 } else {
                     throw new Error('No institution attached to this user.');
                 }
             })
             .then(function (persistedExperiments) {
-                experiments = persistedExperiments.filter(function (experiment) {
-                    return experiment.isPublic || experiment.event().institutionId == userInstitutionId;
-                });
+                var experiments = filterExperiments(persistedExperiments, userInstitutionId);
+                callback(null, experiments.length);
+            })
+            .catch(function (err) {
+                callback(err);
+            });
+    };
+
+    /**
+     * Find the experiments to which the current user is allowed to access.
+     * @param {Object} filter The same filter object that can be passed to a find method.
+     * @param {Function(Error, array)} callback
+     */
+    Experiment.findAllowed = function (filter, callback) {
+        var ctx = loopback.getCurrentContext();
+        var accessToken = ctx.get('accessToken');
+
+        var WfUser = Experiment.app.models.WfUser,
+            experiments,
+            userInstitutionId,
+            userFilter = {
+                include: 'institution',
+                fields: ['institution'],
+                where: {
+                    id: accessToken.userId
+                }
+            };
+
+        // Finds the user's institution
+        WfUser.findOne(userFilter)
+            .then(function (user) {
+                if (!!user) {
+                    userInstitutionId = user.institution().id.toString();
+
+                    var experimentFilter = {
+                        where: {
+                            isCurrent: false
+                        },
+                        include: 'event'
+                    };
+
+                    filter = filter || {};
+                    experimentFilter = _.merge(filter, experimentFilter);
+
+                    return Experiment.find(experimentFilter);
+                } else {
+                    throw new Error('No institution attached to this user.');
+                }
+            })
+            .then(function (persistedExperiments) {
+                experiments = filterExperiments(persistedExperiments, userInstitutionId);
                 callback(null, experiments);
             })
             .catch(function (err) {

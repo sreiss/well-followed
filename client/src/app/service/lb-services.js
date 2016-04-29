@@ -4190,8 +4190,7 @@ module.factory(
          *
          * @param {Object=} parameters Request parameters.
          *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
+         *  - `filter` – `{object=}` - The same type of filter that can be passed to the "find" method
          *
          * @param {function(Array.<Object>,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -4208,6 +4207,38 @@ module.factory(
         "findAllowed": {
           isArray: true,
           url: urlBase + "/Experiments/allowed",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Experiment#countAllowed
+         * @methodOf lbServices.Experiment
+         *
+         * @description
+         *
+         * Returns the count of experiments that the user can access.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - A regular where filter
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "countAllowed": {
+          url: urlBase + "/Experiments/countAllowed",
           method: "GET"
         },
       }
