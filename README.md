@@ -22,6 +22,7 @@ node .
 Pour compiler l'application cliente Angular, dans une fenêtre de commande, exécuter :
 ```
 gulp bower
+gulp resources
 gulp
 ```
 
