@@ -10,7 +10,7 @@ npm install
 bower install
 ```
 
-**Très important** Il est également nécessaire de créer le dossier ```/srv/wellfollowed/experiments``` avec les droits nécessaire pour que l'utilisateur exécutant Node.js puisse lire et écrire dans ce dernier.
+**Très important** Il est également nécessaire de créer le dossier ```/srv/storage/wellfollowed/experiments``` avec les droits nécessaire pour que l'utilisateur exécutant Node.js puisse lire et écrire dans ce dernier.
 
 ### Lancement
 
