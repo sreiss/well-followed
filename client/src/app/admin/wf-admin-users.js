@@ -40,6 +40,8 @@ angular.module('wellFollowed').directive('wfAdminUsers', function (WfUser, $wfMo
                         }
                     };
                 }
+                filter.where = filter.where || {};
+                filter.where.id = {neq: WfUser.getCurrentId()};
                 return filter;
             };
 
