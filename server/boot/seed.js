@@ -23,8 +23,8 @@ module.exports = function(app) {
             {tag: 'Université'}
         ],
         institutions = [
-            {tag: 'Robert Schuman', typeTag: 'I.U.T.'},
-            {tag: 'de Strasbourg', typeTag: 'Université'}
+            {tag: 'Robert Schuman', typeTag: 'I.U.T.', domain: 'iutrs.unistra.fr'},
+            {tag: 'de Strasbourg', typeTag: 'Université', domain: 'unistra.fr'}
         ],
         sensors = [
             {name: 'sensor1', tag: 'Capteur supérieur', description: 'Capteur supérieur.'},
@@ -74,7 +74,8 @@ module.exports = function(app) {
                 var institution = {
                     tag: institutions[i].tag,
                     typeId: type[0].id,
-                    type: type[0]
+                    type: type[0],
+                    domain: institutions[i].domain
                 };
                 institutionPromises.push(Institution.findOrCreate({where: {tag: institution.tag}},institution));
             }
