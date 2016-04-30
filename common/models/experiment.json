@@ -71,6 +71,20 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "findAllowed"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "countAllowed"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "countAllowed"
     }
   ],
   "methods": {
