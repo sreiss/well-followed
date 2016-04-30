@@ -53,8 +53,10 @@
                                 <div class="col-md-9">
                                     <select ng-options="ar.id as ar.name for ar in availableRoles"
                                             name="userRoles"
+                                            id="userRoles"
                                             ng-model="userRoles"
                                             class="form-control"
+                                            ng-change="updateUserRoles(userRoles)"
                                             multiple></select>
                                 </div>
                             </div>
@@ -68,11 +70,11 @@
                             <a class="btn btn-default" ui-sref="{{previousState}}" ng-if="previousState != ''">
                                 Retour
                             </a>
-                            <a class="btn btn-primary" ng-click="createUser()" ng-if="!!isNew"
+                            <a class="btn btn-primary" ng-click="createUser(userRoles)" ng-if="!!isNew"
                                ng-disabled="institutionForm.$invalid">
                                 Créer
                             </a>
-                            <a class="btn btn-primary" ng-click="updateUser()" ng-if="!isNew"
+                            <a class="btn btn-primary" ng-click="updateUser(userRoles)" ng-if="!isNew"
                                ng-disabled="institutionForm.$invalid">
                                 Sauvegarder
                             </a>
