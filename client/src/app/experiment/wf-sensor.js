@@ -9,15 +9,28 @@ angular.module('wellFollowed').directive('wfSensor', function(SensorData, $wfStr
             sensor: '='
         },
         controller: function($scope) {
+            /**
+             * Retrieves the values that where emitted from the server prior to the opening of the page.
+             * Useful to draw a graph that begins when the data started to be sent for example
+             * (instead of when the user reached the page).
+             * @returns {Promise}
+             */
             this.getPreviousValues = function() {
                 return SensorData.find({filter: {where: {sensorId: $scope.sensor.id}}})
                     .$promise;
             };
 
+            /**
+             * Deprecated. Use onChangeReceived instead.
+             */
             this.openStream = function() {
                 return $wfStream.openStream('/api/SensorData/change-stream?_format=event-stream');
             };
 
+            /**
+             * Opens a change stream to the server and calls the given callback each time data is received.
+             * @param callback The callback called each time data is received. the data is passed to this callback.
+             */
             this.onChangeReceived = function(callback) {
                 var changes = this.openStream();
                 changes.on('data', function(message) {
